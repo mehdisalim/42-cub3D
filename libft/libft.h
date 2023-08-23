@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 15:40:47 by esalim            #+#    #+#             */
-/*   Updated: 2022/10/10 20:22:02 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/23 15:20:22 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
+char	*get_next_line(int fd);
+char	*gnl_strchr(const char *s, int c);
+char	*gnl_strjoin(char *lstr, char *buff);
+char	*gnl_substr(char *s, unsigned int start, size_t len);
+char	*gnl_strdup(char *s1);
 
 typedef struct s_list
 {

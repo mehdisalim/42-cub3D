@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 12:32:33 by esalim            #+#    #+#             */
-/*   Updated: 2022/11/03 16:46:10 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/23 15:22:18 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-static size_t	ft_strlen(char *str)
-{
-	int	length;
-
-	length = 0;
-	while (str[length])
-		length++;
-	return (length);
-}
-
-char	*ft_strchr(const char *s, int c)
+char	*gnl_strchr(const char *s, int c)
 {
 	int	i;
 
@@ -36,14 +26,14 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char *lstr, char *buff)
+char	*gnl_strjoin(char *lstr, char *buff)
 {
 	size_t	i;
 	size_t	j;
 	char	*str;
 
 	if (!lstr)
-		return (ft_strdup(buff));
+		return (gnl_strdup(buff));
 	if (!lstr || !buff)
 		return (NULL);
 	str = malloc(ft_strlen(lstr) + ft_strlen(buff) + 1);
@@ -60,7 +50,7 @@ char	*ft_strjoin(char *lstr, char *buff)
 	return (str);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*gnl_substr(char *s, unsigned int start, size_t len)
 {
 	char	*d;
 	size_t	slen;
@@ -84,7 +74,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (d);
 }
 
-char	*ft_strdup(char *s1)
+char	*gnl_strdup(char *s1)
 {
 	char	*dest;
 	size_t	len;

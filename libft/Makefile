@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 18:43:45 by esalim            #+#    #+#              #
-#    Updated: 2022/10/10 18:02:56 by esalim           ###   ########.fr        #
+#    Updated: 2023/08/23 15:20:30 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,9 @@ CFILES	= ft_isalnum.c \
 		ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
-		ft_putnbr_fd.c
+		ft_putnbr_fd.c	\
+		get_next_line_utils.c \
+		get_next_line.c
 
 BONUSFILES = ft_lstnew.c \
 			 ft_lstadd_front.c \
