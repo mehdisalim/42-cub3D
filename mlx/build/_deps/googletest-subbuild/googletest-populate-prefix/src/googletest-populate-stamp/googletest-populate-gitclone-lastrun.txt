@@ -1,0 +1,15 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=git
+command=/Users/esalim/.brew/Cellar/cmake/3.25.1/bin/cmake;-P;/Users/esalim/Desktop/42cursus/42-cub3D/mlx/build/_deps/googletest-subbuild/googletest-populate-prefix/tmp/googletest-populate-gitclone.cmake
+source_dir=/Users/esalim/Desktop/42cursus/42-cub3D/mlx/build/_deps/googletest-src
+work_dir=/Users/esalim/Desktop/42cursus/42-cub3D/mlx/build/_deps
+repository=https://github.com/google/googletest
+remote=origin
+init_submodules=TRUE
+recurse_submodules=--recursive
+submodules=
+CMP0097=NEW
+
