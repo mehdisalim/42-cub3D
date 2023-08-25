@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 18:43:45 by esalim            #+#    #+#              #
-#    Updated: 2023/08/23 15:20:30 by esalim           ###   ########.fr        #
+#    Updated: 2023/08/24 12:57:29 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,19 +68,19 @@ NAME	= libft.a
 all: 	$(NAME)
 
 $(NAME): $(OBJS)
-	ar -rcs $@ $^
+	@ar -rcs $@ $^
 
 bonus:	$(BONUSOBJS)
-	ar -rcs $(NAME) $^
+	@ar -rcs $(NAME) $^
 
 %.o:%.c
-	$(CC) -c $(CFLAGS) $^
+	@$(CC) -c $(CFLAGS) $^
 
 clean:
-	rm -f $(OBJS) $(BONUSOBJS)
+	@rm -f $(OBJS) $(BONUSOBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re:fclean $(NAME)
 
