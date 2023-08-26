@@ -9,7 +9,7 @@ t_elements	*parsing_elements(char **elements)
 
 	if (!elements)
 		return (NULL);
-	dest = ft_calloc(map_size(elements) + 1, sizeof(*elements));
+	dest = ft_calloc(map_size(elements) + 1, sizeof(t_elements));
 	if (!dest)
 	{
 		ft_putendl_fd("calloc failed in parsing_elements() function", 2);
