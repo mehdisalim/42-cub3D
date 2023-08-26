@@ -15,14 +15,13 @@ size_t	get_map_size(char *map_name)
 	length = 0;
 	while (line)
 	{
-		free(line);
+		ft_free(line);
 		length++;
 		line = get_next_line(fd);
 	}
 	close(fd);
 	return (length);
 }
-
 
 void	free_double_pointer(char **str)
 {
@@ -32,11 +31,9 @@ void	free_double_pointer(char **str)
 		return ;
 	i = -1;
 	while (str[++i])
-		free(str[i]);
-	free(str);
+		ft_free(str[i]);
+	ft_free(str);
 }
-
-
 
 char	**get_map_content(char *map_name)
 {
@@ -59,7 +56,7 @@ char	**get_map_content(char *map_name)
 	while (str)
 	{
 		content[i++] = ft_strdup(str);
-		free(str);
+		ft_free(str);
 		str = get_next_line(fd);
 	}
 	close(fd);
@@ -125,28 +122,31 @@ void	print_map(char **map_content)
 
 	while (map_content[i])
 		printf("%s\n", map_content[i++]);
-}
+} 
 
 void	separate_map(char **map_content, char ***elements_part, char ***map_part)
 {
 	int	i;
 	int	i_elem;
 	int	i_map;
+	char	*tmp;
 
 	i = -1;
 	i_elem = 0;
 	i_map = 0;
 	while (map_content[++i])
 	{
-		if (!ft_strnstr(map_content[i], "NO ", 3) \
-			|| !ft_strnstr(map_content[i], "SO ", 3) \
-			|| !ft_strnstr(map_content[i], "WE ", 3) \
-			|| !ft_strnstr(map_content[i], "EA ", 3) \
-			|| !ft_strnstr(map_content[i], "F ", 2) \
-			|| !ft_strnstr(map_content[i], "C ", 2))
+		tmp = ft_strtrim(map_content[i], "  ");
+		if (!ft_strncmp(tmp, "NO ", 3) \
+			|| !ft_strncmp(tmp, "SO ", 3) \
+			|| !ft_strncmp(tmp, "WE ", 3) \
+			|| !ft_strncmp(tmp, "EA ", 3) \
+			|| !ft_strncmp(tmp, "F ", 2) \
+			|| !ft_strncmp(tmp, "C ", 2))
 			i_elem++;
 		else
 			i_map++;
+		ft_free(tmp);
 	}
 	*elements_part = ft_calloc(i_elem + 1, sizeof(**elements_part));
 	*map_part = ft_calloc(i_map + 1, sizeof(**map_part));
@@ -160,19 +160,19 @@ void	separate_map(char **map_content, char ***elements_part, char ***map_part)
 	i_map = 0;
 	while (map_content[++i])
 	{
-		int len = ft_strlen(map_content[i]);
-		if (!ft_strnstr(map_content[i], "NO ", len) \
-			|| !ft_strnstr(map_content[i], "SO ", len) \
-			|| !ft_strnstr(map_content[i], "WE ", len) \
-			|| !ft_strnstr(map_content[i], "EA ", len) \
-			|| !ft_strnstr(map_content[i], "F ", 2) \
-			|| !ft_strnstr(map_content[i], "C ", 2))
+		tmp = ft_strtrim(map_content[i], "  ");
+		if (!ft_strncmp(tmp, "NO ", 3) \
+			|| !ft_strncmp(tmp, "SO ", 3) \
+			|| !ft_strncmp(tmp, "WE ", 3) \
+			|| !ft_strncmp(tmp, "EA ", 3) \
+			|| !ft_strncmp(tmp, "F ", 2) \
+			|| !ft_strncmp(tmp, "C ", 2))
 			elements_part[0][i_elem++] = ft_strdup(map_content[i]);
 		else
 			map_part[0][i_map++] = ft_strdup(map_content[i]);
-		free(map_content[i]);
+		ft_free(tmp);
 	}
-	free(map_content);
+	free_double_pointer(map_content);
 }
 
 int		map_size(char **map)
@@ -209,26 +209,20 @@ char	**get_new_map(char **old_map)
 char	check_wall(char **map)
 {
 	int	x;
-	int	y;
-	int	xlen;
-	int	ylen;
+	int	q;
 
-	x = 0;
-	y = 0;
-	xlen = ft_strlen(map[y]) - 1;
-	ylen = map_size(map);
-	while (x < xlen)
-	{
-		if (!ft_strchr("1 ", map[y][x]) || !ft_strchr("1 ", map[ylen - 1][x]))
-			return (printf("Error: wall is incorrect !\n"), 0);
-		x++;
-	}
-	y = -1;
-	while (++y < ylen)
-		if (!ft_strchr("1 ", map[y][0])
-			|| (!ft_strchr("1 ", map[y][xlen]) && (y == ylen))
-			|| (!ft_strchr("1 ", map[y][xlen - 1]) && (y + 1 == ylen)))
-			return (printf("Error: wall is incorrect !\n"), 0);
+	x = -1;
+	while (map[0][++x])
+		if (!ft_strchr("1 ", map[0][x]))
+			return (ft_putendl_fd("Error: Wall invalid", 2), 0);
+	q = map_size(map) - 1;
+	while (map[q][++x])
+		if (!ft_strchr("1 ", map[q][x]))
+			return (ft_putendl_fd("Error: Wall invalid", 2), 0);
+	x = -1;
+	while (map[++x])
+		if (!ft_strchr("1 ", map[x][0]) || !ft_strchr("1 ", map[x][ft_strlen(map[x]) - 1]))
+			return (ft_putendl_fd("Error: Wall invalid", 2), 0);
 	return (1);
 }
 
@@ -238,6 +232,25 @@ void	checking(char i)
 		printf("map is valid \n");
 	else
 		printf("map is invalid \n");
+}
+
+char	check_invalid_char(char	**map)
+{
+	int i = 0;
+	int j = 0;
+
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (!ft_strchr("10 NSWE", map[i][j]))
+				return (ft_putendl_fd("Error: invalid character in map", 2), 0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
 char	check_player(char **map)
@@ -257,7 +270,10 @@ char	check_player(char **map)
 		}
 		i++;
 	}
-	return (p == 1);
+	if (p == 1)
+		return (1);
+	ft_putendl_fd("Error: Player Error", 2);
+	return (1);
 }
 
 char	check_space(char	**map)
@@ -271,9 +287,11 @@ char	check_space(char	**map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (ft_strchr("0NSEW", map[i][j]) && (map[i][j + 1] == ' ' \
-				|| map[i][j - 1] == ' ' || map[i + 1][j] == ' ' \
-				|| map[i - 1][j] == ' '))
+			if (ft_strchr("0NSEW", map[i][j]) \
+				&& (ft_strchr(" \0", map[i][j + 1]) \
+				|| ft_strchr(" \0", map[i][j - 1]) \
+				|| ft_strchr(" \0", map[i + 1][j]) \
+				|| ft_strchr(" \0", map[i - 1][j])))
 					return (ft_putendl_fd("Error: Space in map", 2), 0);
 			j++;
 		}
@@ -291,8 +309,8 @@ char	**trim_elements(char **elements)
 	while (elements[++i])
 	{
 		tmp = elements[i];
-		elements[i] = ft_strtrim(elements[i], "  ");
-		free(tmp);
+		elements[i] = ft_strtrim(elements[i], " ");
+		ft_free(tmp);
 	}
 	return (elements);
 }
@@ -306,30 +324,28 @@ char	check_map(char *map_name, char ***elements, char ***map)
 	map_content = get_map_content(map_name);
 	if (!map_content)
 		return (0);
-	
+
 	// separate map to two parts (Elements part and map part)
 	separate_map(map_content, elements, map);
 
 	// remove all newlines in the end of strings
 	remove_newlines(*elements);
 
-	// ==============
+	// Trim space from all elements
 	*elements = trim_elements(*elements);
-	print_map(*elements);
+	// print_map(*elements);
 
 	// create new map without newlines in the beginning
 	*map = get_new_map(*map);
 	remove_newlines(*map);
 
-	if (!check_elements(*elements) || !check_wall(*map) \
-			|| !check_space(*map) || !check_player(*map))
-		return (0);
-	return (1);
+	return (!(!check_elements(*elements) || !check_wall(*map) || !check_invalid_char(*map) \
+			 || !check_space(*map) || !check_player(*map)));
 }
 
 int main(int ac, char **av)
 {
-	char	**elements;
+	char	**map_elements;
 	char	**map;
 
 	if (ac < 2)
@@ -337,6 +353,14 @@ int main(int ac, char **av)
 		ft_putstr_fd("bad args\n", 2);
 		return (1);
 	}
-	checking(check_map(av[1], &elements, &map));
+	if (!check_map(av[1], &map_elements, &map))
+		return (1);
+	t_elements *elements = parsing_elements(map_elements);
+	if (!elements)
+		return (1);
+	int	i = -1;
+	while (elements[++i].value)
+		printf("name ==> |%s| - value ==> |%s|\n", elements[i].name, elements[i].value);
+	// // while (1);
 	return (0);    
 }
