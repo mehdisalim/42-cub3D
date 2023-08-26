@@ -8,7 +8,7 @@ F 220,100,0
 WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 
-C 225,30,0
+C 200,30,0
 
 
         1111111111111111111111111

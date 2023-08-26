@@ -10,10 +10,25 @@
 #include <fcntl.h>
 #include "../libft/libft.h"
 
+
+typedef struct s_color
+{
+	int red;
+	int green;
+	int blue;
+}	t_color;
+
+typedef	union u_value
+{
+	char	*path;
+	t_color	*color;
+}	t_value;
+
+
 typedef struct s_elements
 {
-    char    *name;
-    char    *value;
+	char    *name;
+	t_value	value;
 }   t_elements;
 
 size_t	get_map_size(char *map_name);
@@ -35,5 +50,6 @@ char	**trim_elements(char **elements);
 char	check_map(char *map_name, char ***elements, char ***map);
 
 t_elements	*parsing_elements(char **elements);
+t_color		*parsing_colors(char	*str_color);
 
 #endif

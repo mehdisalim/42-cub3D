@@ -358,9 +358,10 @@ int main(int ac, char **av)
 	t_elements *elements = parsing_elements(map_elements);
 	if (!elements)
 		return (1);
-	int	i = -1;
-	while (elements[++i].value)
-		printf("name ==> |%s| - value ==> |%s|\n", elements[i].name, elements[i].value);
-	// // while (1);
+		int	i = -1;
+	while (elements[++i].name)
+		if (elements[i].name[0] != 'C' && elements[i].name[0] != 'F')
+			dprintf(2, "name ==> |%s| - value ==> |%s|\n", elements[i].name, elements[i].value.path);
+	// while (1);
 	return (0);    
 }
