@@ -211,6 +211,8 @@ char	check_wall(char **map)
 	int	x;
 	int	q;
 
+	if (!map || !*map)
+		return (ft_putendl_fd("Error: Empty map", 2), 0);
 	x = -1;
 	while (map[0][++x])
 		if (!ft_strchr("1 ", map[0][x]))
