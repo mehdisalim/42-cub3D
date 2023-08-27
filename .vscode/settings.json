@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+<<<<<<< HEAD
+        "stdio.h": "c",
+        "cub.h": "c"
+    }
+=======
+		"stdio.h": "c",
+		"cub3.h": "c",
+		"unistd.h": "c"
+	}
+>>>>>>> c085637591b8f4450791199a6102a55475982708
+}
