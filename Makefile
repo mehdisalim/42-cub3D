@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/08/27 13:33:28 by esalim           ###   ########.fr        #
+#    Updated: 2023/08/27 13:38:14 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ CC		=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
-SRC		=	src/main.c \
-			src/parsing_map/main_parsing.c \
+SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/parsing_utils.c \
 			src/parsing_map/checking_map.c \
 			src/parsing_map/read_map.c \
 			src/parsing_map/parsing_map.c \
-			src/images/image.c
+			src/images/image.c \
+			# src/main.c 
 
 OBJS	=	$(SRC:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/27 13:22:15 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/08/27 13:44:30 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ void	drow_image(void *img)
 	t_image *image;
 
 	image = (t_image *)img;
-	while (i < 10)
+	while (image->map[i])
 	{
 		j = 0;
 		xx = 0;
-		while (j < 10)
+		while (image->map[i][j])
 		{
 			if (image->map[i][j] == '1')
 				drow_pixel(0xFF0000FF, image, xx, yy);
@@ -115,13 +115,13 @@ void	drow_image(void *img)
 	j = 0;
 	xx = 0;
 	yy = 0;
-	while (i < 10)
+	while (image->map[i])
 	{
 		j = 0;
 		xx = 0;
-		while (j < 10)
+		while (image->map[i][j])
 		{
-			if (image->map[i][j] != '1' && image->map[i][j] != '0')
+			if (image->map[i][j] != '1' && image->map[i][j] != ' ' && image->map[i][j] != '0')
 			{
 				image->xposition_p = xx + image->move_x;
 				image->yposition_p = yy + image->move_y;
@@ -220,21 +220,29 @@ void	create_window(char **map)
 
 }
 
-int main()
+int	main(int ac, char **av)
 {
-	char **map;
+	char	**map_elements;
+	char	**map;
 
-	map = malloc(sizeof(char) * 10);
-	map[0] = "1111111111\0";
-	map[1] = "1001100101\0";
-	map[2] = "1000000001\0";
-	map[3] = "1010000011\0";
-	map[4] = "1000111001\0";
-	map[5] = "1N01100111\0";
-	map[6] = "1000000001\0";
-	map[7] = "1010101001\0";
-	map[8] = "1001000001\0";
-	map[9] = "1111111111\0";
+	if (ac < 2)
+	{
+		ft_putstr_fd("bad args\n", 2);
+		return (1);
+	}
+	if (!check_map(av[1], &map_elements, &map))
+	{
+		free_double_pointer(map_elements);
+		free_double_pointer(map);
+		return (1);
+	}
+	t_elements *elements = parsing_elements(map_elements);
+	free_double_pointer(map_elements);
+	if (!elements)
+	{
+		free_double_pointer(map);
+		return (1);
+	}
 	// printf("|||%c\n", map[0][0]);
 	create_window(map);
 

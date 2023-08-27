@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   cub3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/26 18:04:13 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/08/27 13:40:56 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3_H
 #define CUB3_H
 
-#define WIDTH 1400
-#define HEIGHT 800
+#define WIDTH 2000
+#define HEIGHT 1000
 
 
 
 
 #include "../mlx/include/MLX42/MLX42.h"
+#include "cub.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
