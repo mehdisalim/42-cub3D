@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/27 13:44:30 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/27 17:00:28 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,10 @@ void	drow_pixel(unsigned int color, t_image *image, int xx, int yy)
 		while (y < 60)
 		{
 			mlx_put_pixel(image->img,(x + xx) , (y + yy), color);
-			// if (y == 0)
-			// 	mlx_put_pixel(image->img,(x + xx) , (y + yy), 0xffffff);
 			y++;
 		}
 		x++;
 	}
-
-	
-	// y = 0;
-	// ly = 0;
-	// while (ly < 600)
-	// {
-	// 	x = 0;
-	// 	while (x <= 600)
-	// 	{
-	// 		y = 0;
-	// 		while (y < 60)
-	// 		{
-	// 			mlx_put_pixel(image->img,(x) , ly + y, 0xffffff);
-	// 			y++;
-	// 		}
-	// 		x += 60;
-	// 	}
-	// 	ly += 60;
-	// }
 }
 void	drow_pixel_player(unsigned int color, t_image *image)
 {
@@ -68,71 +47,45 @@ void	drow_pixel_player(unsigned int color, t_image *image)
 		}
 		x++;
 	}
-	image->xposition_p += 30;
-	image->yposition_p += 30;
+	// image->xposition_p += 30;
+	// image->yposition_p += 30;
 	// DDA(image->xposition_p, image->yposition_p, image->xposition_p, (image->yposition_p - 50) , image);
-	y = 50;
-	while (y > 0)
-	{
-		mlx_put_pixel(image->img, image->xposition_p  , image->yposition_p - y, 0x000000);
-		y--;
-	}
+	// y = 50;
+	// while (y > 0)
+	// {
+	// 	mlx_put_pixel(image->img, image->xposition_p  , image->yposition_p - y, 0x000000);
+	// 	y--;
+	// }
 	
 }
 
 void	drow_image(void *img)
 {
-	int i;
 	int j;
-	int yy;
-	int xx;
-
-	i = 0;
-	j = 0;
-	xx = 0;
-	yy = 0;
+	int i;
 	t_image *image;
-
+	
 	image = (t_image *)img;
-	while (image->map[i])
-	{
-		j = 0;
-		xx = 0;
-		while (image->map[i][j])
-		{
-			if (image->map[i][j] == '1')
-				drow_pixel(0xFF0000FF, image, xx, yy);
-			else if (image->map[i][j] == '0' || image->map[i][j] == 'N')
-				drow_pixel(0x696ca5, image, xx, yy);
-			j++;
-			xx += 60;
-		}
-		yy += 60;
-		i++;
-	}
-
-	i = 0;
 	j = 0;
-	xx = 0;
-	yy = 0;
-	while (image->map[i])
+	while (image->map[j])
 	{
-		j = 0;
-		xx = 0;
-		while (image->map[i][j])
-		{
-			if (image->map[i][j] != '1' && image->map[i][j] != ' ' && image->map[i][j] != '0')
+		i = 0;
+		while (image->map[j][i])
+		{	
+			if (image->map[j][i] == '1')
+				drow_pixel(0x4477CE, image, i * 60, j * 60);
+			else if (!ft_strchr("1 ", image->map[j][i]))
+				drow_pixel(0x8CABFF, image, i * 60, j * 60);
+			if (ft_strchr("NSWE", image->map[j][i]))
 			{
-				image->xposition_p = xx + image->move_x;
-				image->yposition_p = yy + image->move_y;
-				drow_pixel_player(0xe6e6f0, image);
+				image->xposition_p = (i * 60) + image->move_x;
+				image->yposition_p = (j * 60) + image->move_y;
 			}
-			j++;
-			xx += 60;
+			i++;
 		}
-		yy += 60;
-		i++;
+		j++;
 	}
+	drow_pixel_player(0x35155D, image);
 }
 
 int		check_draw_pixel_player(t_image *image, int n)
@@ -198,6 +151,10 @@ void	key_hook(mlx_key_data_t keydata, void *para)
 	{
 		image->x += 0.1;
 	}
+
+	mlx_delete_image(image->mlx, image->img);
+	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(image->mlx, image->img, 0, 0);
 }
 
 void	create_window(char **map)
@@ -210,7 +167,7 @@ void	create_window(char **map)
 	image.xposition_p = 0;
 	image.yposition_p = 0;
 	image.x = 1;
-	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", image.mlx);
+	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 0);
 	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(image.mlx, image.img, 0, 0);
 	mlx_loop_hook(image.mlx, drow_image, &image);
@@ -239,11 +196,8 @@ int	main(int ac, char **av)
 	t_elements *elements = parsing_elements(map_elements);
 	free_double_pointer(map_elements);
 	if (!elements)
-	{
-		free_double_pointer(map);
-		return (1);
-	}
-	// printf("|||%c\n", map[0][0]);
+		return (free_double_pointer(map), 1);
+	
 	create_window(map);
 
 }

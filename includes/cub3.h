@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/27 13:40:56 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/27 14:51:43 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_image
 	int				yposition_p;
 	int				x;
 	int				y;
-}t_image;
+}	t_image;
 
 void	create_image(t_image *image);
 
