@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/08/27 12:53:03 by esalim           ###   ########.fr        #
+#    Updated: 2023/08/27 13:33:28 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,17 +21,24 @@ SRC		=	src/main.c \
 			src/parsing_map/parsing_utils.c \
 			src/parsing_map/checking_map.c \
 			src/parsing_map/read_map.c \
-			src/parsing_map/parsing_map.c
+			src/parsing_map/parsing_map.c \
+			src/images/image.c
 
 OBJS	=	$(SRC:.c=.o)
 
-LIBFT	=	libft
+MLX42 = mlx/build/libmlx42.a
+
+GLFW = $(shell brew --prefix glfw)
+
+framework = -framework Cocoa -framework OpenGL -framework IOKit -lglfw -L"$(GLFW)/lib" $(MLX42)
+# framework = -framework Cocoa -framework OpenGL -framework IOKit
+
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
 	make -C libft
-	$(CC) $(CFLAGS)  libft/libft.a $^ -o $@
+	$(CC) $(CFLAGS)  libft/libft.a $^ -o $@ $(framework)
 	
 %.o		:	%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
