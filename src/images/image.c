@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/26 18:20:59 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/08/27 13:22:15 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	drow_pixel(unsigned int color, t_image *image, int xx, int yy)
 {
 	int x;
 	int y;
-	int ly;
+	// int ly;
 	
 	x = 0;
 	while (x < 60)
@@ -26,31 +26,31 @@ void	drow_pixel(unsigned int color, t_image *image, int xx, int yy)
 		while (y < 60)
 		{
 			mlx_put_pixel(image->img,(x + xx) , (y + yy), color);
-			if (y == 0)
-				mlx_put_pixel(image->img,(x + xx) , (y + yy), 0xffffff);
+			// if (y == 0)
+			// 	mlx_put_pixel(image->img,(x + xx) , (y + yy), 0xffffff);
 			y++;
 		}
 		x++;
 	}
 
 	
-	y = 0;
-	ly = 0;
-	while (ly < 600)
-	{
-		x = 0;
-		while (x <= 600)
-		{
-			y = 0;
-			while (y < 60)
-			{
-				mlx_put_pixel(image->img,(x) , ly + y, 0xffffff);
-				y++;
-			}
-			x += 60;
-		}
-		ly += 60;
-	}
+	// y = 0;
+	// ly = 0;
+	// while (ly < 600)
+	// {
+	// 	x = 0;
+	// 	while (x <= 600)
+	// 	{
+	// 		y = 0;
+	// 		while (y < 60)
+	// 		{
+	// 			mlx_put_pixel(image->img,(x) , ly + y, 0xffffff);
+	// 			y++;
+	// 		}
+	// 		x += 60;
+	// 	}
+	// 	ly += 60;
+	// }
 }
 void	drow_pixel_player(unsigned int color, t_image *image)
 {
@@ -70,19 +70,12 @@ void	drow_pixel_player(unsigned int color, t_image *image)
 	}
 	image->xposition_p += 30;
 	image->yposition_p += 30;
-	y = 0;
-	int i = 0;
-	x = 0;
-	while (y < 0)
+	// DDA(image->xposition_p, image->yposition_p, image->xposition_p, (image->yposition_p - 50) , image);
+	y = 50;
+	while (y > 0)
 	{
-		i = 0;
-		while (i < 2)
-		{
-			mlx_put_pixel(image->img, image->xposition_p - x , image->yposition_p + y, 0x000000);
-			i++;
-			y++;
-		}
-		x += 1;
+		mlx_put_pixel(image->img, image->xposition_p  , image->yposition_p - y, 0x000000);
+		y--;
 	}
 	
 }
@@ -199,9 +192,11 @@ void	key_hook(mlx_key_data_t keydata, void *para)
 	}
 	else if (keydata.key == 65)
 	{
+		image->x -= 0.1;
 	}
 	else if (keydata.key == 68)
 	{
+		image->x += 0.1;
 	}
 }
 
@@ -214,6 +209,7 @@ void	create_window(char **map)
 	image.move_y = 0;
 	image.xposition_p = 0;
 	image.yposition_p = 0;
+	image.x = 1;
 	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", image.mlx);
 	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(image.mlx, image.img, 0, 0);
@@ -229,16 +225,16 @@ int main()
 	char **map;
 
 	map = malloc(sizeof(char) * 10);
-	map[0] = "1111111111";
-	map[1] = "1001100101";
-	map[2] = "1000000001";
-	map[3] = "1010000011";
-	map[4] = "1000111001";
-	map[5] = "1N01100111";
-	map[6] = "1000000001";
-	map[7] = "1010101001";
-	map[8] = "1001000001";
-	map[9] = "1111111111";
+	map[0] = "1111111111\0";
+	map[1] = "1001100101\0";
+	map[2] = "1000000001\0";
+	map[3] = "1010000011\0";
+	map[4] = "1000111001\0";
+	map[5] = "1N01100111\0";
+	map[6] = "1000000001\0";
+	map[7] = "1010101001\0";
+	map[8] = "1001000001\0";
+	map[9] = "1111111111\0";
 	// printf("|||%c\n", map[0][0]);
 	create_window(map);
 
