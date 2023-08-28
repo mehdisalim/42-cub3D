@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/28 10:50:33 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/08/28 10:54:16 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	drow_pixel_player(unsigned int color, t_image *image)
 
 void	drow_image(void *img)
 {
-	int i;
+	int	i;
 	int j;
 
 	i = 0;
@@ -180,6 +180,10 @@ void	key_hook(mlx_key_data_t keydata, void *para)
 	{
 		image->x += 5;
 	}
+
+	mlx_delete_image(image->mlx, image->img);
+	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(image->mlx, image->img, 0, 0);
 }
 
 void	create_window(char **map)
@@ -191,8 +195,8 @@ void	create_window(char **map)
 	image.move_y = 0;
 	image.xposition_p = 0;
 	image.yposition_p = 0;
-	image.x = 0;
-	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", image.mlx);
+	image.x = 1;
+	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 0);
 	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(image.mlx, image.img, 0, 0);
 	mlx_loop_hook(image.mlx, drow_image, &image);
@@ -221,11 +225,8 @@ int	main(int ac, char **av)
 	t_elements *elements = parsing_elements(map_elements);
 	free_double_pointer(map_elements);
 	if (!elements)
-	{
-		free_double_pointer(map);
-		return (1);
-	}
-	// printf("|||%c\n", map[0][0]);
+		return (free_double_pointer(map), 1);
+	
 	create_window(map);
 
 }
