@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:49:21 by esalim            #+#    #+#             */
-/*   Updated: 2023/08/27 12:50:41 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/28 10:28:47 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,24 @@ char	**get_new_map(char **old_map)
 		new_map[len++] = ft_strdup(old_map[i++]);
 	free_double_pointer(old_map);
 	return (new_map);
+}
+
+
+int	get_largest_line(char	**map)
+{
+	int	i;
+	int	len;
+	int	res;
+
+	i = 0;
+	len = 0;
+	res = 0;
+	while (map[i])
+	{
+		len = ft_strlen(map[i]);
+		if (res < len)
+			res = len;
+		i++;
+	}
+	return (res);
 }

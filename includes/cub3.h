@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/27 14:51:43 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/28 10:24:18 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_image
 {
 	mlx_t			*mlx;
 	mlx_image_t*	img;
+	int				window_with;
+	int				window_height;
 	char			**map;
 	int				move_x;
 	int				move_y;

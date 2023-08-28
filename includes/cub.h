@@ -52,6 +52,7 @@ t_color		*parsing_colors(char	*str_color);
 void	free_elements(t_elements *elements);
 
 char	is_number(char *str);
+int	get_largest_line(char	**map);
 
 
 #endif

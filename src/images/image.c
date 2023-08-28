@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/27 17:00:28 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/28 10:30:39 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,23 @@ void	drow_pixel(unsigned int color, t_image *image, int xx, int yy)
 		x++;
 	}
 }
+
+void	drow_ray(t_image *image)
+{
+	int y;
+
+	image->xposition_p += 30;
+	image->yposition_p += 30;
+	// DDA(image->xposition_p, image->yposition_p, image->xposition_p, (image->yposition_p - 50) , image);
+	y = 50;
+	while (y > 0)
+	{
+		mlx_put_pixel(image->img, image->xposition_p  , image->yposition_p - y, 0x000000);
+		y--;
+	}
+	
+}
+
 void	drow_pixel_player(unsigned int color, t_image *image)
 {
 	int x;
@@ -47,15 +64,7 @@ void	drow_pixel_player(unsigned int color, t_image *image)
 		}
 		x++;
 	}
-	// image->xposition_p += 30;
-	// image->yposition_p += 30;
-	// DDA(image->xposition_p, image->yposition_p, image->xposition_p, (image->yposition_p - 50) , image);
-	// y = 50;
-	// while (y > 0)
-	// {
-	// 	mlx_put_pixel(image->img, image->xposition_p  , image->yposition_p - y, 0x000000);
-	// 	y--;
-	// }
+	drow_ray(image);
 	
 }
 
@@ -153,7 +162,7 @@ void	key_hook(mlx_key_data_t keydata, void *para)
 	}
 
 	mlx_delete_image(image->mlx, image->img);
-	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
+	image->img = mlx_new_image(image->mlx, image->window_with, image->window_height);
 	mlx_image_to_window(image->mlx, image->img, 0, 0);
 }
 
@@ -162,13 +171,15 @@ void	create_window(char **map)
 	t_image image;
 
 	image.map = map;
+	image.window_height = map_size(map) * 60;
+	image.window_with = get_largest_line(map) * 60;
 	image.move_x = 0;
 	image.move_y = 0;
 	image.xposition_p = 0;
 	image.yposition_p = 0;
 	image.x = 1;
-	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 0);
-	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
+	image.mlx =  mlx_init(image.window_with, image.window_height , "cub3D", 0);
+	image.img = mlx_new_image(image.mlx, image.window_with, image.window_height);
 	mlx_image_to_window(image.mlx, image.img, 0, 0);
 	mlx_loop_hook(image.mlx, drow_image, &image);
 	mlx_key_hook(image.mlx, &key_hook, &image);
