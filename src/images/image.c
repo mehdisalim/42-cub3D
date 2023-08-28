@@ -6,18 +6,38 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/28 10:30:39 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/28 10:57:07 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include"../../includes/cub3.h"
+#include<math.h>
+
+int abs(int n) { return ((n > 0) ? n : (n * (-1))); }
+ 
+void DDA(int X0, int Y0, int X1, int Y1, t_image  *image)
+{
+    int dx = X1 - X0;
+    int dy = Y1 - Y0;
+    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+    float Xinc = dx / (float)steps;
+    float Yinc = dy / (float)steps;
+    float X = X0;
+    float Y = Y0;
+    for (int i = 0; i <= steps; i++) {
+    {
+		mlx_put_pixel(image->img, X, Y, 0x000000);
+	}
+        X += Xinc;
+        Y += Yinc; 
+    }
+}
 
 void	drow_pixel(unsigned int color, t_image *image, int xx, int yy)
 {
 	int x;
 	int y;
-	// int ly;
 	
 	x = 0;
 	while (x < 60)
@@ -32,21 +52,10 @@ void	drow_pixel(unsigned int color, t_image *image, int xx, int yy)
 	}
 }
 
-void	drow_ray(t_image *image)
-{
-	int y;
+// void	drow_arrow(t_image *image)
+// {
 
-	image->xposition_p += 30;
-	image->yposition_p += 30;
-	// DDA(image->xposition_p, image->yposition_p, image->xposition_p, (image->yposition_p - 50) , image);
-	y = 50;
-	while (y > 0)
-	{
-		mlx_put_pixel(image->img, image->xposition_p  , image->yposition_p - y, 0x000000);
-		y--;
-	}
-	
-}
+// }
 
 void	drow_pixel_player(unsigned int color, t_image *image)
 {
@@ -59,42 +68,53 @@ void	drow_pixel_player(unsigned int color, t_image *image)
 		y = 25;
 		while (y < 35)
 		{
-			mlx_put_pixel(image->img, image->xposition_p + x, image->yposition_p + y, color);
+			mlx_put_pixel(image->img, image->xposition_p + x, image->yposition_p + y , color);
 			y++;
 		}
 		x++;
 	}
-	drow_ray(image);
+	image->xposition_p += 30;
+	image->yposition_p += 30;
+	int px;
+	int py;
+	
+	
+	px = image->xposition_p + 50 * cos(image->x * (M_PI/180));
+	py = image->yposition_p + 50 * sin(image->x * (M_PI/180));
+
+	DDA(image->xposition_p, image->yposition_p, px , py, image);
 	
 }
 
+
 void	drow_image(void *img)
 {
+	int	i;
 	int j;
-	int i;
-	t_image *image;
-	
-	image = (t_image *)img;
+
+	i = 0;
 	j = 0;
-	while (image->map[j])
+	t_image *image;
+	image = (t_image *)img;
+	while (image->map[i])
 	{
-		i = 0;
-		while (image->map[j][i])
-		{	
-			if (image->map[j][i] == '1')
-				drow_pixel(0x4477CE, image, i * 60, j * 60);
-			else if (!ft_strchr("1 ", image->map[j][i]))
-				drow_pixel(0x8CABFF, image, i * 60, j * 60);
-			if (ft_strchr("NSWE", image->map[j][i]))
+		j = 0;
+		while (image->map[i][j])
+		{
+			if (image->map[i][j] == '1')
+				drow_pixel(0xFF0000FF, image, (j * 60), (i * 60));
+			else if (!ft_strchr("1 ", image->map[i][j]))
+				drow_pixel(0x696ca5, image, j * 60, i * 60);
+			if (ft_strchr("ESNW", image->map[i][j]))
 			{
-				image->xposition_p = (i * 60) + image->move_x;
-				image->yposition_p = (j * 60) + image->move_y;
+				image->xposition_p = (j * 60) + image->move_x;
+	 			image->yposition_p = (i * 60) + image->move_y;
 			}
-			i++;
+			j++;
 		}
-		j++;
+		i++;
 	}
-	drow_pixel_player(0x35155D, image);
+	drow_pixel_player(0xe6e6f0, image);
 }
 
 int		check_draw_pixel_player(t_image *image, int n)
@@ -132,33 +152,33 @@ void	key_hook(mlx_key_data_t keydata, void *para)
 		mlx_delete_image(image->mlx, image->img);
 		exit(0);
 	}
-	else if (keydata.key == 263)
+	else if (keydata.key == 65)
 	{
 		if (check_draw_pixel_player(image, 1) != 0)
 			image->move_x -= 5;
 	}
-	else if (keydata.key == 262)
+	else if (keydata.key == 68)
 	{
 		if (check_draw_pixel_player(image, 2) != 0)
 			image->move_x += 5;
 	}
-	else if (keydata.key == 265)
+	else if (keydata.key == 87)
 	{
 		if (check_draw_pixel_player(image, 3) != 0)
 			image->move_y -= 5;
 	}
-	else if (keydata.key == 264)
+	else if (keydata.key == 83)
 	{
 		if (check_draw_pixel_player(image, 4) != 0)
 			image->move_y += 5;
 	}
-	else if (keydata.key == 65)
+	else if (keydata.key == 263)
 	{
-		image->x -= 0.1;
+		image->x -= 5;
 	}
-	else if (keydata.key == 68)
+	else if (keydata.key == 262)
 	{
-		image->x += 0.1;
+		image->x += 5;
 	}
 
 	mlx_delete_image(image->mlx, image->img);
