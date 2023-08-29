@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/28 10:24:18 by esalim           ###   ########.fr       */
+/*   Updated: 2023/08/29 17:21:44 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ typedef struct s_image
 	int				window_with;
 	int				window_height;
 	char			**map;
-	int				move_x;
-	int				move_y;
-	int				xposition_p;
-	int				yposition_p;
-	int				x;
-	int				y;
+	float			move_x;
+	float			move_y;
+	float			xposition_p;
+	float			yposition_p;
+	float			x;
+	float			y;
+	// t_list	
 }	t_image;
 
 void	create_image(t_image *image);
