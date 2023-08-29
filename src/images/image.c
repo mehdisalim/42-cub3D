@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/28 10:54:16 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:44:40 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void DDA(int X0, int Y0, int X1, int Y1, t_image  *image)
     float X = X0;
     float Y = Y0;
     for (int i = 0; i <= steps; i++) {
-    {
 		mlx_put_pixel(image->img, X, Y, 0x000000);
-	}
         X += Xinc;
         Y += Yinc; 
     }
@@ -119,24 +117,18 @@ void	drow_image(void *img)
 
 int		check_draw_pixel_player(t_image *image, int n)
 {
-	int x = -5;
-	int y = -5;
-	while (x < 5)
-	{	
-		if ((image->map[((image->yposition_p - 10) / 60)][((image->xposition_p  + x) / 60)] == '1') && n == 3)
-			return (0);
-		if (image->map[((image->yposition_p + 10) / 60)][((image->xposition_p  + x) / 60)] == '1' && n == 4)
-			return (0);
-		x++;
-	}
-	while (y < 5)
-	{	
-		if (image->map[((image->yposition_p + y) / 60)][((image->xposition_p - 10) / 60)] == '1' && n == 1)
-			return (0);
-		if (image->map[((image->yposition_p + y) / 60)][((image->xposition_p + 10) / 60)] == '1' && n == 2)
-			return (0);
-		y++;
-	}
+	// int x = -10;
+	int xx;
+	int yy;
+
+	yy = (image->yposition_p + 15 * sin(image->x * (M_PI/180))) / 60;
+	xx = ((image->xposition_p  + 15 * cos(image->x * (M_PI/180))) / 60);
+	if ((image->map[yy][xx] == '1') && n == 3)
+		return (0);
+	yy = (image->yposition_p - 15 * sin(image->x * (M_PI/180))) / 60;
+	xx = ((image->xposition_p  - 15 * cos(image->x * (M_PI/180))) / 60);
+	if (image->map[yy][xx] == '1' && n == 4)
+		return (0);
 	return (1);
 }
 
@@ -152,26 +144,32 @@ void	key_hook(mlx_key_data_t keydata, void *para)
 		mlx_delete_image(image->mlx, image->img);
 		exit(0);
 	}
-	else if (keydata.key == 65)
-	{
-		if (check_draw_pixel_player(image, 1) != 0)
-			image->move_x -= 5;
-	}
-	else if (keydata.key == 68)
-	{
-		if (check_draw_pixel_player(image, 2) != 0)
-			image->move_x += 5;
-	}
 	else if (keydata.key == 87)
 	{
 		if (check_draw_pixel_player(image, 3) != 0)
-			image->move_y -= 5;
+		{
+			image->move_y += 5 * sin(image->x * (M_PI/180));
+			image->move_x += 5 * cos(image->x * (M_PI/180));
+		}
 	}
 	else if (keydata.key == 83)
 	{
 		if (check_draw_pixel_player(image, 4) != 0)
-			image->move_y += 5;
+		{
+			image->move_y -= 5 * sin(image->x * (M_PI/180));
+			image->move_x -= 5 * cos(image->x * (M_PI/180));
+		}
 	}
+	// else if (keydata.key == 68)
+	// {
+	// 	image->move_y += 5 * sin(abs(image->x) * (M_PI/90));
+	// 	image->move_x -= 5 * cos(abs(image->x) * (M_PI/90));
+	// }
+	// else if (keydata.key == 65)
+	// {
+	// 	image->move_y -= 5 * sin(abs(image->x) * (M_PI/90));
+	// 	image->move_x += 5 * cos(abs(image->x) * (M_PI/90));
+	// }
 	else if (keydata.key == 263)
 	{
 		image->x -= 5;
@@ -180,7 +178,6 @@ void	key_hook(mlx_key_data_t keydata, void *para)
 	{
 		image->x += 5;
 	}
-
 	mlx_delete_image(image->mlx, image->img);
 	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(image->mlx, image->img, 0, 0);
@@ -195,7 +192,7 @@ void	create_window(char **map)
 	image.move_y = 0;
 	image.xposition_p = 0;
 	image.yposition_p = 0;
-	image.x = 1;
+	image.x = 90;
 	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 0);
 	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(image.mlx, image.img, 0, 0);
