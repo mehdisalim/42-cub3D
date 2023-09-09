@@ -6,37 +6,60 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/09 13:14:29 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/09 13:17:48 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include"../../includes/cub3.h"
 
+
+void	draw_3D(t_image *image)
+{
+	int i;
+	float	start;
+	int pj;
+	int y;
+	
+	i = 0;
+	printf("here\n");
+	while (i < 600)
+	{
+		pj = 1000 / image->rays[i];
+		start = (1000 / 2) - (pj / 2);
+		y = start;
+		while (y < start + pj)
+		{
+			printf("Value: i=%d  y=%d  pj=%d  start=%f   %f\n", i,y, pj, start, image->rays[i]);
+			mlx_put_pixel(image->img, i, y, 0xe6e6f0);
+			// pause();
+			y++;
+		}
+		i++;
+	}
+}
+
 int		check_draw_pixel_player(t_image *image, int n)
 {
 	int xx;
 	int yy;
 
-	for (size_t i = 0; i <= 10; i++)
-	{
-		yy = (image->yposition_p + i * sin(image->angle * (M_PI / 180))) / 60;
-		xx = (image->xposition_p  + i * cos(image->angle * (M_PI / 180))) / 60;
-		if ((image->map[yy][xx] == '1') && n == 3)
-			return (0);
-		yy = (image->yposition_p - i * sin(image->angle * (M_PI / 180))) / 60;
-		xx = (image->xposition_p - i * cos(image->angle * (M_PI / 180))) / 60;
-		if (image->map[yy][xx] == '1' && n == 4)
-			return (0);
-		yy = (image->yposition_p + i * sin(image->angle_right * (M_PI / 180))) / 60;
-		xx = (image->xposition_p  + i * cos(image->angle_right * (M_PI / 180))) / 60;
-		if ((image->map[yy][xx] == '1') && n == 1)
-			return (0);
-		yy = (image->yposition_p + i * sin(image->angle_left * (M_PI / 180))) / 60;
-		xx = (image->xposition_p + i * cos(image->angle_left * (M_PI / 180))) / 60;
-		if (image->map[yy][xx] == '1' && n == 2)
-			return (0);
-	}
+	yy = (image->yposition_p + 7 * sin(image->angle * (M_PI / 180))) / 20;
+	xx = (image->xposition_p  + 7 * cos(image->angle * (M_PI / 180))) / 20;
+	if ((image->map[yy][xx] == '1') && n == 3)
+		return (0);
+	yy = (image->yposition_p - 7 * sin(image->angle * (M_PI / 180))) / 20;
+	xx = (image->xposition_p - 7 * cos(image->angle * (M_PI / 180))) / 20;
+	if (image->map[yy][xx] == '1' && n == 4)
+		return (0);
+	yy = (image->yposition_p + 10 * sin(image->angle_right * (M_PI / 180))) / 20;
+	xx = (image->xposition_p  + 10 * cos(image->angle_right * (M_PI / 180))) / 20;
+	if ((image->map[yy][xx] == '1') && n == 1)
+		return (0);
+	yy = (image->yposition_p + 10 * sin(image->angle_left * (M_PI / 180))) / 20;
+	xx = (image->xposition_p + 10 * cos(image->angle_left * (M_PI / 180))) / 20;
+	if (image->map[yy][xx] == '1' && n == 2)
+		return (0);
 	return (1);
 }
 
@@ -55,6 +78,7 @@ void	create_window(char **map)
 	image.angle_right = 0;
 	image.angle_left = 0;
 	image.hasEntered = 0;
+	image.rays = malloc(sizeof(float) * 600);
 	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 0);
 	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(image.mlx, image.img, 0, 0);
@@ -87,7 +111,5 @@ int		main(int ac, char **av)
 	free_double_pointer(map_elements);
 	if (!elements)
 		return (free_double_pointer(map), 1);
-	
 	create_window(map);
-
 }
