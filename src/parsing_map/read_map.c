@@ -6,13 +6,13 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:49:21 by esalim            #+#    #+#             */
-/*   Updated: 2023/08/29 17:33:01 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/09 08:51:33 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-char	**get_map_content(char *map_name)
+char	**get_map_content(char *map_name, char *checker)
 {
 	char	**content;
 	char	*str;
@@ -27,7 +27,10 @@ char	**get_map_content(char *map_name)
 	}
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
+	{
+		*checker = 1;
 		return (free(content), NULL);
+	}
 	i = 0;
 	str = get_next_line(fd);
 	while (str)

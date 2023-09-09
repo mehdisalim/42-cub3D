@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/07 15:15:11 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/07 15:17:41 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		check_draw_pixel_player(t_image *image, int n);
 void	key_hook(mlx_key_data_t keydata, void *para);
 void	find_distance_verticale(t_image * image);
 void	find_distance_horizontal(t_image * image);
-void DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
+void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
 void	draw_pixel_player(unsigned int color, t_image *image);
 void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 void	drow_image(void *img);

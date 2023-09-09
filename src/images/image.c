@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/07 15:15:31 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/09 13:14:29 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,25 @@ int		check_draw_pixel_player(t_image *image, int n)
 	int xx;
 	int yy;
 
-	yy = (image->yposition_p + 15 * sin(image->angle * (M_PI / 180))) / 60;
-	xx = (image->xposition_p  + 15 * cos(image->angle * (M_PI / 180))) / 60;
-	if ((image->map[yy][xx] == '1') && n == 3)
-		return (0);
-	yy = (image->yposition_p - 15 * sin(image->angle * (M_PI / 180))) / 60;
-	xx = (image->xposition_p - 15 * cos(image->angle * (M_PI / 180))) / 60;
-	if (image->map[yy][xx] == '1' && n == 4)
-		return (0);
-	yy = (image->yposition_p + 15 * sin(image->angle_right * (M_PI / 180))) / 60;
-	xx = (image->xposition_p  + 15 * cos(image->angle_right * (M_PI / 180))) / 60;
-	if ((image->map[yy][xx] == '1') && n == 1)
-		return (0);
-	yy = (image->yposition_p + 15 * sin(image->angle_left * (M_PI / 180))) / 60;
-	xx = (image->xposition_p + 15 * cos(image->angle_left * (M_PI / 180))) / 60;
-	if (image->map[yy][xx] == '1' && n == 2)
-		return (0);
-	
+	for (size_t i = 0; i <= 10; i++)
+	{
+		yy = (image->yposition_p + i * sin(image->angle * (M_PI / 180))) / 60;
+		xx = (image->xposition_p  + i * cos(image->angle * (M_PI / 180))) / 60;
+		if ((image->map[yy][xx] == '1') && n == 3)
+			return (0);
+		yy = (image->yposition_p - i * sin(image->angle * (M_PI / 180))) / 60;
+		xx = (image->xposition_p - i * cos(image->angle * (M_PI / 180))) / 60;
+		if (image->map[yy][xx] == '1' && n == 4)
+			return (0);
+		yy = (image->yposition_p + i * sin(image->angle_right * (M_PI / 180))) / 60;
+		xx = (image->xposition_p  + i * cos(image->angle_right * (M_PI / 180))) / 60;
+		if ((image->map[yy][xx] == '1') && n == 1)
+			return (0);
+		yy = (image->yposition_p + i * sin(image->angle_left * (M_PI / 180))) / 60;
+		xx = (image->xposition_p + i * cos(image->angle_left * (M_PI / 180))) / 60;
+		if (image->map[yy][xx] == '1' && n == 2)
+			return (0);
+	}
 	return (1);
 }
 
@@ -66,14 +68,17 @@ int		main(int ac, char **av)
 {
 	char	**map_elements;
 	char	**map;
+	char	checker = 0;
 
 	if (ac < 2)
+		return (ft_putstr_fd("bad args\n", 2), 1);
+	if (ft_strncmp(av[1] + (ft_strlen(av[1]) - 4), ".cub", 4))
+		return (ft_putstr_fd("File Name Error\n", 2), 0);
+	
+	if (!check_map(av[1], &map_elements, &map, &checker))
 	{
-		ft_putstr_fd("bad args\n", 2);
-		return (1);
-	}
-	if (!check_map(av[1], &map_elements, &map))
-	{
+		if (checker)
+			return (ft_putstr_fd("File not found !!\n", 2), 1);
 		free_double_pointer(map_elements);
 		free_double_pointer(map);
 		return (1);
@@ -82,8 +87,7 @@ int		main(int ac, char **av)
 	free_double_pointer(map_elements);
 	if (!elements)
 		return (free_double_pointer(map), 1);
-	// saves = malloc(1000 * sizeof(float));
-	// counter = 0;
+	
 	create_window(map);
 
 }
