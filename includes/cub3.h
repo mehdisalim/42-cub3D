@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/07 13:24:40 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:40:41 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define WIDTH 2000
 #define HEIGHT 1000
-// #define MOVE_D 
+// #define MOVE_D
 
 
 
@@ -40,12 +40,14 @@ typedef struct s_image
 	float				py;
 	int 				hasEntered;
 	float				angle;
+	float				ray_angle;
 	float				xverticale;
 	float				yverticale;
 	float				xhorizontal;
 	float				yhorizontal;
 	int					vx;
 	int					vy;
+	float				*rays;
 	float				angle_right;
 	float				angle_left;
 }	t_image;
@@ -58,6 +60,6 @@ void DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
 void	draw_pixel_player(unsigned int color, t_image *image);
 void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 void	drow_image(void *img);
-
+void	draw_3D(t_image *image);
 
 #endif
