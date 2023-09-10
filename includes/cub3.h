@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/09 12:40:41 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:11:47 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define WIDTH 2000
 #define HEIGHT 1000
-// #define MOVE_D
+#define SIZE	60
 
 
 

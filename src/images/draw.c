@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/08 13:12:34 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:16:26 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ void	draw(t_image *image, int i)
 		image->ray_angle += 360;
 	if (image->ray_angle > 360)
 		image->ray_angle -= 360;
-	if (image->angle < 0)
-		image->angle += 360;
-	if (image->angle > 360)
-		image->angle -= 360;
 	vue_x_y(image);
 	find_distance_verticale(image);
 	find_distance_horizontal(image);
@@ -81,10 +77,10 @@ void	draw_pixel(unsigned int color, t_image *image, int xx, int yy)
 	int	y;
 
 	x = 0;
-	while (x <= 20)
+	while (x <= SIZE)
 	{
 		y = 0;
-		while (y <= 20)
+		while (y <= SIZE)
 		{
 			mlx_put_pixel(image->img, (x + xx), (y + yy), color);
 			y++;
@@ -95,27 +91,33 @@ void	draw_pixel(unsigned int color, t_image *image, int xx, int yy)
 
 void	draw_pixel_player(unsigned int color, t_image *image)
 {
-	int	x;
-	int	y;
+	// int	x;
+	// int	y;
+	(void)color;
 
-	x = 6;
-	while (x < 14)
-	{
-		y = 6;
-		while (y < 14)
-		{
-			mlx_put_pixel(image->img, (image->xposition_p - 10) + x,
-				(image->yposition_p - 10) + y, color);
-			y++;
-		}
-		x++;
-	}
+	// x = 20;
+	// while (x < 40)
+	// {
+	// 	y = 20;
+	// 	while (y < 40)
+	// 	{
+	// 		mlx_put_pixel(image->img, (image->xposition_p - 30) + x,
+	// 			(image->yposition_p - 30) + y, color);
+	// 		y++;
+	// 	}
+	// 	x++;
+	// }
 	int d = 0;
+
+	if (image->angle < 0)
+		image->angle += 360;
+	if (image->angle > 360)
+		image->angle -= 360;
 	image->ray_angle = image->angle - 30;
 	while (d < 600)
 	{	
 		draw(image, d);
-		image->ray_angle += (float)30 / 600;
+		image->ray_angle += (float)0.1;
 		d++;
 	}
 }
@@ -134,18 +136,18 @@ void	drow_image(void *img)
 		while (image->map[i][j])
 		{
 			if (image->map[i][j] == '1')
-				draw_pixel(0xFF0000FF, image, (j * 20), (i * 20));
+				draw_pixel(0xFF0000FF, image, (j * SIZE), (i * SIZE));
 			else if (!ft_strchr("1 ", image->map[i][j]))
-				draw_pixel(0x696ca5, image, j * 20, i * 20);
+				draw_pixel(0x696ca5, image, j * SIZE, i * SIZE);
 			if (ft_strchr("ESNW", image->map[i][j]) && image->hasEntered == 0)
 			{
-				image->xposition_p = (j * 20) + 10;
-				image->yposition_p = (i * 20) + 10;
+				image->xposition_p = (j * SIZE) + (SIZE / 2);
+				image->yposition_p = (i * SIZE) + (SIZE / 2);
 				image->hasEntered = 1;
 			}
 			j++;
 		}
 	}
 	draw_pixel_player(0xe6e6f0, image);
-	draw_3D(image);
+	// draw_3D(image);
 }

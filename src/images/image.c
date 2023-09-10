@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/08 18:25:01 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:35:43 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	draw_3D(t_image *image)
 	int y;
 	
 	i = 0;
-	printf("here\n");
+	// printf("here\n");
 	while (i < 600)
 	{
-		pj = 1000 / image->rays[i];
+		pj = 20000 / image->rays[i];
 		start = (1000 / 2) - (pj / 2);
 		y = start;
 		while (y < start + pj)
 		{
-			printf("Value: i=%d  y=%d  pj=%d  start=%f   %f\n", i,y, pj, start, image->rays[i]);
+			// printf("Value: i=%d  y=%d  pj=%d  start=%f   %f\n", i,y, pj, start, image->rays[i]);
 			mlx_put_pixel(image->img, i, y, 0xe6e6f0);
 			// pause();
 			y++;
@@ -39,26 +39,32 @@ void	draw_3D(t_image *image)
 	}
 }
 
-int		check_draw_pixel_player(t_image *image, int n)
+int	check(t_image *image, int move, float angle)
 {
 	int xx;
 	int yy;
 
-	yy = (image->yposition_p + 7 * sin(image->angle * (M_PI / 180))) / 20;
-	xx = (image->xposition_p  + 7 * cos(image->angle * (M_PI / 180))) / 20;
-	if ((image->map[yy][xx] == '1') && n == 3)
+	yy = (image->yposition_p + move * sin(angle * (M_PI / 180)));
+	xx = (image->xposition_p  + move * cos(angle * (M_PI / 180)));
+	if ((image->map[(yy + 2)/SIZE][xx/SIZE] == '1'
+	|| image->map[(yy - 2)/SIZE][xx/SIZE] == '1'
+	|| image->map[yy/SIZE][(xx + 2)/SIZE] == '1'
+	|| image->map[yy/SIZE][(xx - 2)/SIZE] == '1'))
 		return (0);
-	yy = (image->yposition_p - 7 * sin(image->angle * (M_PI / 180))) / 20;
-	xx = (image->xposition_p - 7 * cos(image->angle * (M_PI / 180))) / 20;
-	if (image->map[yy][xx] == '1' && n == 4)
+	return (1);
+}
+
+
+int		check_draw_pixel_player(t_image *image, int n)
+{
+
+	if (n == 3 && check(image, 5, image->angle) == 0)
 		return (0);
-	yy = (image->yposition_p + 10 * sin(image->angle_right * (M_PI / 180))) / 20;
-	xx = (image->xposition_p  + 10 * cos(image->angle_right * (M_PI / 180))) / 20;
-	if ((image->map[yy][xx] == '1') && n == 1)
+	if (n == 4 && check(image, -5, image->angle) == 0)
 		return (0);
-	yy = (image->yposition_p + 10 * sin(image->angle_left * (M_PI / 180))) / 20;
-	xx = (image->xposition_p + 10 * cos(image->angle_left * (M_PI / 180))) / 20;
-	if (image->map[yy][xx] == '1' && n == 2)
+	if (n == 1 && check(image, 5, image->angle_right) == 0)
+		return (0);
+	if (n == 2 && check(image, 5, image->angle_left) == 0)
 		return (0);
 	return (1);
 }
