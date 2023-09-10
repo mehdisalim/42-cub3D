@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
+#    By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/08/27 13:38:14 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/07 13:00:50 by esekouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,10 @@ SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/read_map.c \
 			src/parsing_map/parsing_map.c \
 			src/images/image.c \
+			src/images/key_hook.c \
+			src/images/find_distance.c \
+			src/images/draw.c \
+			src/images/dda.c \
 			# src/main.c 
 
 OBJS	=	$(SRC:.c=.o)

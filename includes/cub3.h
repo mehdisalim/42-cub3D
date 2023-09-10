@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/08/27 13:40:56 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/10 19:35:22 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define WIDTH 2000
 #define HEIGHT 1000
-
+#define SIZE	60
 
 
 
@@ -25,21 +25,43 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include<math.h>
+
+// typedef
 
 typedef struct s_image
 {
 	mlx_t			*mlx;
 	mlx_image_t*	img;
+	int				window_with;
+	int				window_height;
 	char			**map;
-	int				move_x;
-	int				move_y;
-	int				xposition_p;
-	int				yposition_p;
-	int				x;
-	int				y;
-}t_image;
+	float				xposition_p;
+	float				yposition_p;
+	float				px;
+	float				py;
+	int 				hasEntered;
+	float				angle;
+	float				ray_angle;
+	float				xverticale;
+	float				yverticale;
+	float				xhorizontal;
+	float				yhorizontal;
+	int					vx;
+	int					vy;
+	float				*rays;
+	float				angle_right;
+	float				angle_left;
+}	t_image;
 
-void	create_image(t_image *image);
-
+int		check_draw_pixel_player(t_image *image, int n);
+void	key_hook(mlx_key_data_t keydata, void *para);
+void	find_distance_verticale(t_image * image);
+void	find_distance_horizontal(t_image * image);
+void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
+void	draw_pixel_player(unsigned int color, t_image *image);
+void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
+void	drow_image(void *img);
+void	draw_3D(t_image *image);
 
 #endif

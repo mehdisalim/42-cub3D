@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:21:59 by esalim            #+#    #+#             */
-/*   Updated: 2023/08/27 12:53:43 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/09 08:54:21 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,14 @@ char	**trim_elements(char **elements)
 	return (elements);
 }
 
-char	check_map(char *map_name, char ***elements, char ***map)
+char	check_map(char *map_name, char ***elements, char ***map, char *checker)
 {
 	char	**map_content;
 
 	if (!map_name)
 		return (0);
-	map_content = get_map_content(map_name);
-	if (!map_content)
+	map_content = get_map_content(map_name, checker);
+	if (!map_content || *checker)
 		return (0);
 	separate_map(map_content, elements, map);
 	remove_newlines(*elements);

@@ -6,13 +6,13 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:49:21 by esalim            #+#    #+#             */
-/*   Updated: 2023/08/27 12:50:41 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/09 08:51:33 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-char	**get_map_content(char *map_name)
+char	**get_map_content(char *map_name, char *checker)
 {
 	char	**content;
 	char	*str;
@@ -27,7 +27,10 @@ char	**get_map_content(char *map_name)
 	}
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		return (NULL);
+	{
+		*checker = 1;
+		return (free(content), NULL);
+	}
 	i = 0;
 	str = get_next_line(fd);
 	while (str)
@@ -61,4 +64,24 @@ char	**get_new_map(char **old_map)
 		new_map[len++] = ft_strdup(old_map[i++]);
 	free_double_pointer(old_map);
 	return (new_map);
+}
+
+
+int	get_largest_line(char	**map)
+{
+	int	i;
+	int	len;
+	int	res;
+
+	i = 0;
+	len = 0;
+	res = 0;
+	while (map[i])
+	{
+		len = ft_strlen(map[i]);
+		if (res < len)
+			res = len;
+		i++;
+	}
+	return (res);
 }
