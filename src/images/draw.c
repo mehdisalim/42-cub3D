@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/10 17:16:26 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:19:07 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw(t_image *image, int i)
 	{
 		DDA(image->xposition_p, image->yposition_p, image->xhorizontal,
 			image->yhorizontal, image);
-		image->rays[i++] = distance_v;
+		image->rays[i++] = distance_h;
 	}
 	// i = 0;
 	// while (image->rays[i])
@@ -149,5 +149,5 @@ void	drow_image(void *img)
 		}
 	}
 	draw_pixel_player(0xe6e6f0, image);
-	// draw_3D(image);
+	draw_3D(image);
 }
