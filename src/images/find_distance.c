@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:56:54 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/08 11:52:37 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:14:32 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 void	find_distance_verticale(t_image *image)
 {
 	if ((image->ray_angle >= 0 && image->ray_angle <= 90) || image->ray_angle >= 270)
-		image->xverticale = (((int)image->xposition_p / 20)) * 20 + 20;
+		image->xverticale = (((int)image->xposition_p / SIZE)) * SIZE + SIZE;
 	else
-		image->xverticale = ((int)image->xposition_p / 20) * 20;
+		image->xverticale = ((int)image->xposition_p / SIZE) * SIZE;
 	image->yverticale = image->yposition_p
 		+ (image->xverticale - image->xposition_p)
 		* tan(image->ray_angle * (M_PI / 180));
 	while (1)
 	{
-		if ((image->yverticale / 20) < 0 || (image->yverticale / 20) > 4)
+		if ((image->yverticale / SIZE) < 0 || (image->yverticale / SIZE) > 4)
 			break ;
 		if ((image->ray_angle >= 90 && image->ray_angle <= 270)
-			&& image->map[(int)image->yverticale / 20]
-			[(int)(image->xverticale - 20) / 20] == '1')
+			&& image->map[(int)image->yverticale / SIZE]
+			[(int)(image->xverticale - SIZE) / SIZE] == '1')
 			break ;
-		else if (image->map[(int)image->yverticale / 20]
-			[(int)(image->xverticale) / 20] == '1')
+		else if (image->map[(int)image->yverticale / SIZE]
+			[(int)(image->xverticale) / SIZE] == '1')
 			break ;
-		image->xverticale += 20 * image->vx;
+		image->xverticale += SIZE * image->vx;
 		image->yverticale = image->yposition_p
 			+ (image->xverticale - image->xposition_p)
 			* tan(image->ray_angle * (M_PI / 180));
@@ -66,24 +66,24 @@ void	find_distance_verticale(t_image *image)
 void	find_distance_horizontal(t_image *image)
 {
 	if (image->ray_angle >= 0 && image->ray_angle < 180)
-		image->yhorizontal = ((int)image->yposition_p / 20) * 20 + 20;
+		image->yhorizontal = ((int)image->yposition_p / SIZE) * SIZE + SIZE;
 	else
-		image->yhorizontal = ((int)image->yposition_p / 20) * 20;
+		image->yhorizontal = ((int)image->yposition_p / SIZE) * SIZE;
 	image->xhorizontal = image->xposition_p
 		+ (image->yhorizontal - image->yposition_p)
 		/ tan(image->ray_angle * (M_PI / 180));
 	while (1)
 	{
-		if ((image->xhorizontal / 20 < 0) || (image->xhorizontal / 20 > 10))
+		if ((image->xhorizontal / SIZE < 0) || (image->xhorizontal / SIZE > 10))
 			break ;
 		if (image->ray_angle > 180 
-			&& image->map[((int)image->yhorizontal + (20 * image->vy)) / 20]
-			[(int)image->xhorizontal / 20] == '1')
+			&& image->map[((int)image->yhorizontal + (SIZE * image->vy)) / SIZE]
+			[(int)image->xhorizontal / SIZE] == '1')
 			break ;
-		else if (image->map[(int)image->yhorizontal / 20]
-			[(int)image->xhorizontal / 20] == '1')
+		else if (image->map[(int)image->yhorizontal / SIZE]
+			[(int)image->xhorizontal / SIZE] == '1')
 			break ;
-		image->yhorizontal += 20 * image->vy;
+		image->yhorizontal += SIZE * image->vy;
 		image->xhorizontal = image->xposition_p 
 			+(image->yhorizontal - image->yposition_p)
 			/ tan(image->ray_angle * (M_PI / 180));

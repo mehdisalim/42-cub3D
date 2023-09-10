@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/09 13:18:13 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/10 19:35:22 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define WIDTH 2000
 #define HEIGHT 1000
-// #define MOVE_D
+#define SIZE	60
 
 
 
