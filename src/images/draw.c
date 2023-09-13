@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/13 09:42:39 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/13 11:31:11 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,39 +32,6 @@ void	vue_x_y(t_image *image)
 	// 	image->vx *= 1;
 	// else
 	// 	image->vx *= -1;
-}
-
-void	draw_3D(t_image *image, float ray, unsigned int color, int i)
-{
-	// int i;
-	float	start;
-	float pj;
-	int y;
-	
-
-
-	/**
-	 * @brief Equation is :		PJ	=	(Screen * SQUARE) / rays	==> TO FIND PROJECTION USING RAYS DISTANCE
-	 * 							Start =	(Screen / 2) - (PJ / 2)		==> TO FIND START POINT
-	 */
-	// i = 0;
-	// printf("here\n");
-	// int end = image->horizontalMapSize * SIZE * 2 / 3;
-	// while (i < 2400)
-	// {
-		pj = (HEIGHT * SIZE) / (ray * cos((image->ray_angle - image->angle) * (M_PI / 180)));
-		if (pj > HEIGHT)
-			pj = HEIGHT;
-		start = 500 - (pj / 2);
-		// printf("Value: i=%d  y=%d  pj=%.2f  start=%f   %f\n", i,y, pj, start, image->rays[i]);
-		if (start < 0)
-			start = 0;
-		y = start;
-		pj += start;
-		while (y < pj)
-			mlx_put_pixel(image->img, i, y++, color);
-	// 	i++;
-	// }
 }
 
 void	draw(t_image *image, int i)
@@ -146,8 +113,34 @@ void	draw_pixel_player(unsigned int color, t_image *image)
 void	drawMiniMap(t_image *img)
 {
 	int i;
+	// int iBegin;
+	// int iEnd;
+	// int jBegin;
+	// int jEnd;
 	int j;
 
+	// iBegin = (img->yposition_p - (SIZE / 2)) / SIZE;
+	// jBegin = (img->xposition_p - (SIZE / 2)) / SIZE;
+	// i = iBegin - 2;
+	// if (i < 0)
+	// 	i = 0;
+	// iEnd = iBegin + 2;
+	// jEnd = jBegin + 2;
+	// while (i < iEnd && img->map[i])
+	// {
+	// 	j = jBegin - 2;
+	// 	if (j < 0)
+	// 		j = 0;
+	// 	while (j < jEnd && img->map[i][j])
+	// 	{
+	// 		if (img->map[i][j] == '1')
+	// 			draw_pixel(0xFF0000FF, img, (j * SIZE), (i * SIZE));
+	// 		else if (!ft_strchr("1 ", img->map[i][j]))
+	// 			draw_pixel(0x696ca5, img, j * SIZE, i * SIZE);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 	i = 0;
 	while (img->map[i])
 	{
@@ -162,6 +155,7 @@ void	drawMiniMap(t_image *img)
 		}
 		i++;
 	}
+
 	int x = -4;
     int y;
     int err;

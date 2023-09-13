@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:35:28 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/12 15:58:50 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/13 09:53:02 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	key_hook2(mlx_key_data_t keydata, t_image *image)
 	mlx_delete_image(image->mlx, image->img);
 	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(image->mlx, image->img, 0, 0);
+	mlx_delete_image(image->mlx, image->screen_img);
+	image->screen_img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(image->mlx, image->screen_img, 0, 0);
 }
 
 void	key_hook(mlx_key_data_t keydata, void *para)

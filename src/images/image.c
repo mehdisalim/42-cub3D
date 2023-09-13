@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/13 09:44:20 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/13 12:38:55 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,15 @@ void	create_window(char **map)
 	// image.verticalMapSize = map_size(map);
 	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 0);
 	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
+    getImage(&image);
 	// image.imgMiniMap = mlx_new_image(image.mlx, 500, 500);
 	// image.screen_img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
 	// mlx_image_to_window(image.mlx, image.screen_img, 0, 0);
-	mlx_image_to_window(image.mlx, image.img, 0, 0);	
-	mlx_loop_hook(image.mlx, drow_image, &image);
-	mlx_key_hook(image.mlx, &key_hook, &image);
-	mlx_loop(image.mlx);
-	mlx_terminate(image.mlx);
+	// mlx_image_to_window(image.mlx, image.img, 0, 0);	
+	// mlx_loop_hook(image.mlx, drow_image, &image);
+	// mlx_key_hook(image.mlx, &key_hook, &image);
+	// mlx_loop(image.mlx);
+	// mlx_terminate(image.mlx);
 }
 
 int		main(int ac, char **av)

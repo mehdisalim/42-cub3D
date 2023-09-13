@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/12 16:03:00 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/13 11:41:54 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_image
 {
 	mlx_t			*mlx;
 	mlx_image_t*	img;
+	mlx_image_t*	screen_img;
 	// mlx_image_t*	imgMiniMap;
 	int				window_with;
 	int				window_height;
@@ -65,6 +66,11 @@ void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
 void	draw_pixel_player(unsigned int color, t_image *image);
 void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 void	drow_image(void *img);
+
+//	====================================================================
+//	display_3D.c
+//	====================================================================
 void	draw_3D(t_image *image, float ray, unsigned int color, int i);
+void    getImage(t_image *image);
 
 #endif

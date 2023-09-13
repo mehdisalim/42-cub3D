@@ -13,9 +13,10 @@
 
 typedef struct s_color
 {
-	int red;
-	int green;
-	int blue;
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
+	unsigned char alpha;
 }	t_color;
 
 typedef	union u_value
