@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/10 21:19:07 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/13 09:42:39 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,39 @@ void	vue_x_y(t_image *image)
 	// 	image->vx *= -1;
 }
 
+void	draw_3D(t_image *image, float ray, unsigned int color, int i)
+{
+	// int i;
+	float	start;
+	float pj;
+	int y;
+	
+
+
+	/**
+	 * @brief Equation is :		PJ	=	(Screen * SQUARE) / rays	==> TO FIND PROJECTION USING RAYS DISTANCE
+	 * 							Start =	(Screen / 2) - (PJ / 2)		==> TO FIND START POINT
+	 */
+	// i = 0;
+	// printf("here\n");
+	// int end = image->horizontalMapSize * SIZE * 2 / 3;
+	// while (i < 2400)
+	// {
+		pj = (HEIGHT * SIZE) / (ray * cos((image->ray_angle - image->angle) * (M_PI / 180)));
+		if (pj > HEIGHT)
+			pj = HEIGHT;
+		start = 500 - (pj / 2);
+		// printf("Value: i=%d  y=%d  pj=%.2f  start=%f   %f\n", i,y, pj, start, image->rays[i]);
+		if (start < 0)
+			start = 0;
+		y = start;
+		pj += start;
+		while (y < pj)
+			mlx_put_pixel(image->img, i, y++, color);
+	// 	i++;
+	// }
+}
+
 void	draw(t_image *image, int i)
 {
 	float	distance_h;
@@ -52,23 +85,21 @@ void	draw(t_image *image, int i)
 			+ pow((image->yverticale - image->yposition_p), 2));
 	if (distance_h > distance_v)
 	{
+		draw_3D(image, distance_v, 0xe6e6f0, i);
 		DDA(image->xposition_p, image->yposition_p, image->xverticale,
 			image->yverticale, image);
-		image->rays[i++] = distance_v;
+		//=====================================//=====================================
+		(void)i;
+		//=====================================//=====================================
 	}
 	else
 	{
+		draw_3D(image, distance_h, 0xA4A4A4, i);
 		DDA(image->xposition_p, image->yposition_p, image->xhorizontal,
 			image->yhorizontal, image);
-		image->rays[i++] = distance_h;
+		//=====================================//=====================================
+		//=====================================//=====================================
 	}
-	// i = 0;
-	// while (image->rays[i])
-	// {
-	// 	printf("%d\n", image->rays[i]);
-	// 	i++;
-	// }
-	
 }
 
 void	draw_pixel(unsigned int color, t_image *image, int xx, int yy)
@@ -91,35 +122,64 @@ void	draw_pixel(unsigned int color, t_image *image, int xx, int yy)
 
 void	draw_pixel_player(unsigned int color, t_image *image)
 {
-	// int	x;
-	// int	y;
 	(void)color;
-
-	// x = 20;
-	// while (x < 40)
-	// {
-	// 	y = 20;
-	// 	while (y < 40)
-	// 	{
-	// 		mlx_put_pixel(image->img, (image->xposition_p - 30) + x,
-	// 			(image->yposition_p - 30) + y, color);
-	// 		y++;
-	// 	}
-	// 	x++;
-	// }
 	int d = 0;
+	float angle;
+
 
 	if (image->angle < 0)
 		image->angle += 360;
 	if (image->angle > 360)
 		image->angle -= 360;
+	angle = (float)60 / WIDTH;
 	image->ray_angle = image->angle - 30;
-	while (d < 600)
+	// ESALIM HERE
+	while (d < WIDTH/**/)
 	{	
 		draw(image, d);
-		image->ray_angle += (float)0.1;
+		// DDA(image->xposition_p, image->yposition_p, image->xhorizontal, image->yhorizontal, image);
+		image->ray_angle += angle;
 		d++;
 	}
+}
+
+void	drawMiniMap(t_image *img)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (img->map[i])
+	{
+		j = 0;
+		while (img->map[i][j])
+		{
+			if (img->map[i][j] == '1')
+				draw_pixel(0xFF0000FF, img, (j * SIZE), (i * SIZE));
+			else if (!ft_strchr("1 ", img->map[i][j]))
+				draw_pixel(0x696ca5, img, j * SIZE, i * SIZE);
+			j++;
+		}
+		i++;
+	}
+	int x = -4;
+    int y;
+    int err;
+
+	while (x <= 4)
+    {
+        y = -4;
+        while (y <= 4)
+        {
+            err = x * x + y * y - 4 * 4;
+            if (err <= 0)
+                mlx_put_pixel(img->img,  img->xposition_p + x, img->yposition_p + y , 0x000000);
+            y++;
+        }
+        x++;
+    }
+	// DDA(img->xposition_p, img->yposition_p, img->xposition_p, img->yposition_p * sin(img->angle * (M_PI / 180)), img);
+	
 }
 
 void	drow_image(void *img)
@@ -128,17 +188,13 @@ void	drow_image(void *img)
 	int		i;
 	int		j;
 
-	i = -1;
+	i = 0;
 	image = (t_image *)img;
-	while (image->map[++i])
+	while (image->map[i])
 	{
 		j = 0;
 		while (image->map[i][j])
 		{
-			if (image->map[i][j] == '1')
-				draw_pixel(0xFF0000FF, image, (j * SIZE), (i * SIZE));
-			else if (!ft_strchr("1 ", image->map[i][j]))
-				draw_pixel(0x696ca5, image, j * SIZE, i * SIZE);
 			if (ft_strchr("ESNW", image->map[i][j]) && image->hasEntered == 0)
 			{
 				image->xposition_p = (j * SIZE) + (SIZE / 2);
@@ -147,7 +203,10 @@ void	drow_image(void *img)
 			}
 			j++;
 		}
+		i++;
 	}
+
 	draw_pixel_player(0xe6e6f0, image);
-	draw_3D(image);
+	drawMiniMap(image);
+
 }

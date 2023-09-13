@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+         #
+#    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/07 13:00:50 by esekouni         ###   ########.fr        #
+#    Updated: 2023/09/12 15:56:00 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,5 +58,5 @@ fclean	:	clean
 re		:	fclean	all	
 
 
-run		:
+run		: all
 	./$(NAME) maps/map1.cub

@@ -45,6 +45,7 @@ char	check_invalid_char(char	**map);
 char	check_player(char **map);
 char	check_space(char	**map);
 char	**trim_elements(char **elements);
+void    print_map(char **map_content);
 char	check_map(char *map_name, char ***elements, char ***map, char *checker);
 
 t_elements	*parsing_elements(char **elements);

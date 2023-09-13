@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:49:21 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/09 08:51:33 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/11 19:21:36 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	**get_new_map(char **old_map)
 	return (new_map);
 }
 
-
 int	get_largest_line(char	**map)
 {
 	int	i;
@@ -85,3 +84,11 @@ int	get_largest_line(char	**map)
 	}
 	return (res);
 }
+
+void    print_map(char **map_content)
+{
+        int     i = 0;
+
+        while (map_content[i])
+                printf("%s\n", map_content[i++]);
+} 

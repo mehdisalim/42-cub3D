@@ -6,14 +6,14 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/10 21:15:55 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/12 16:03:00 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3_H
 #define CUB3_H
 
-#define WIDTH 2000
+#define WIDTH 2400
 #define HEIGHT 1000
 #define SIZE	20
 
@@ -33,6 +33,7 @@ typedef struct s_image
 {
 	mlx_t			*mlx;
 	mlx_image_t*	img;
+	// mlx_image_t*	imgMiniMap;
 	int				window_with;
 	int				window_height;
 	char			**map;
@@ -49,9 +50,11 @@ typedef struct s_image
 	float				yhorizontal;
 	int					vx;
 	int					vy;
-	float				*rays;
 	float				angle_right;
 	float				angle_left;
+	int 				verticalLength;
+	int					playerSpeed;
+	int					angleSpeed;
 }	t_image;
 
 int		check_draw_pixel_player(t_image *image, int n);
@@ -62,6 +65,6 @@ void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
 void	draw_pixel_player(unsigned int color, t_image *image);
 void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 void	drow_image(void *img);
-void	draw_3D(t_image *image);
+void	draw_3D(t_image *image, float ray, unsigned int color, int i);
 
 #endif
