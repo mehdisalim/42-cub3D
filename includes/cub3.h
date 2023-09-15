@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/13 11:41:54 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/15 10:25:15 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define CUB3_H
 
 #define WIDTH 2400
-#define HEIGHT 1000
+#define HEIGHT 1200
 #define SIZE	20
 
 
@@ -34,6 +34,7 @@ typedef struct s_image
 	mlx_t			*mlx;
 	mlx_image_t*	img;
 	mlx_image_t*	screen_img;
+	t_elements*		elements;
 	// mlx_image_t*	imgMiniMap;
 	int				window_with;
 	int				window_height;
@@ -56,6 +57,8 @@ typedef struct s_image
 	int 				verticalLength;
 	int					playerSpeed;
 	int					angleSpeed;
+	t_color				**pixels;
+	char				**newMap;
 }	t_image;
 
 int		check_draw_pixel_player(t_image *image, int n);
@@ -70,7 +73,18 @@ void	drow_image(void *img);
 //	====================================================================
 //	display_3D.c
 //	====================================================================
-void	draw_3D(t_image *image, float ray, unsigned int color, int i);
-void    getImage(t_image *image);
+void	draw_3D(t_image *image, float ray, unsigned long color, int i, char check);
+void *getDataFromElements(t_elements *elements, char *data);
+t_color**	getImage();
+
+//	====================================================================
+//	load_image.c
+//	====================================================================
+
+unsigned char	**convertTextureTo2DArray(unsigned char *srcArray, int height, int width);
+unsigned char	***convert2DArrayTo3DArray(mlx_texture_t *texture, unsigned char **_2DArray);
+t_color	**convert3DArrayToPixelsColor(mlx_texture_t *texture, unsigned char ***_3DArray);
+void	printPixelsColor(t_color **pixelsColor);
+unsigned long	getColor(t_color color);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/13 13:25:15 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/14 11:00:40 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC		=	src/parsing_map/main_parsing.c \
 			src/images/draw.c \
 			src/images/dda.c \
 			src/images/display_3D.c \
+			src/images/load_image.c \
 			# src/main.c 
 
 OBJS	=	$(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:04:29 by esalim            #+#    #+#             */
-/*   Updated: 2023/08/27 13:17:40 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/14 13:49:27 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_color	*parsing_colors(char *str_color)
 	if (!is_number(split_value[2]) || (col[0].blue > 255 || col[0].blue < 0))
 		return (ft_putendl_fd("Error: color invalid", 2), \
 			free_double_pointer(split_value), free(col), NULL);
+	col[0].alpha	= 255;
 	ft_bzero(&col[1], sizeof(t_color));
 	return (free_double_pointer(split_value), col);
 }

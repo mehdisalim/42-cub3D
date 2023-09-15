@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/13 11:31:11 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/15 11:56:36 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ void	draw(t_image *image, int i)
 			+ pow((image->yverticale - image->yposition_p), 2));
 	if (distance_h > distance_v)
 	{
-		draw_3D(image, distance_v, 0xe6e6f0, i);
-		DDA(image->xposition_p, image->yposition_p, image->xverticale,
-			image->yverticale, image);
+		draw_3D(image, distance_v, 0xEEEEEE, i, 2);
+		// DDA(image->xposition_p, image->yposition_p, image->xverticale,
+		// 	image->yverticale, image);
 		//=====================================//=====================================
 		(void)i;
 		//=====================================//=====================================
 	}
 	else
 	{
-		draw_3D(image, distance_h, 0xA4A4A4, i);
-		DDA(image->xposition_p, image->yposition_p, image->xhorizontal,
-			image->yhorizontal, image);
+		draw_3D(image, distance_h, 0xAAAAAA, i, 1);
+		// DDA(image->xposition_p, image->yposition_p, image->xhorizontal,
+		// 	image->yhorizontal, image);
 		//=====================================//=====================================
 		//=====================================//=====================================
 	}
@@ -101,7 +101,7 @@ void	draw_pixel_player(unsigned int color, t_image *image)
 	angle = (float)60 / WIDTH;
 	image->ray_angle = image->angle - 30;
 	// ESALIM HERE
-	while (d < WIDTH/**/)
+	while (d < WIDTH)
 	{	
 		draw(image, d);
 		// DDA(image->xposition_p, image->yposition_p, image->xhorizontal, image->yhorizontal, image);
@@ -115,8 +115,8 @@ void	drawMiniMap(t_image *img)
 	int i;
 	// int iBegin;
 	// int iEnd;
-	// int jBegin;
-	// int jEnd;
+	// int xposition_p;
+	// int yposition_p;
 	int j;
 
 	// iBegin = (img->yposition_p - (SIZE / 2)) / SIZE;
@@ -156,6 +156,8 @@ void	drawMiniMap(t_image *img)
 		i++;
 	}
 
+
+	// draw_pixel(0, img, xposition_p, yposition_p);
 	int x = -4;
     int y;
     int err;
@@ -176,11 +178,48 @@ void	drawMiniMap(t_image *img)
 	
 }
 
+// void	getNewMap(t_image *image)
+// {
+// 	int		i = (image->yposition_p - (SIZE / 2)) / SIZE;
+// 	int		j = (image->xposition_p - (SIZE / 2)) / SIZE;
+
+// 	int		counter = -1;
+	
+// 	while (++counter < 9)
+// 		ft_memset(image->newMap[counter], ' ', 9);
+// 	int		x = 0;
+// 	int		y = 0;
+// 	int		iEnd = i + 4;
+// 	int		jEnd = j + 4;
+// 	y = i - 5;
+// 	if (y < -1)
+// 		y = -1;
+// 	j -= 4;
+// 	if (j < 0)
+// 		j = 0;
+// 	if (iEnd > image->verticalLength)
+// 		iEnd = image->verticalLength - 1;
+// 	while (++y < iEnd)
+// 	{
+// 		int a = 0;
+// 		int jLen = ft_strlen(image->map[y]) - 1;
+// 		if (jEnd > jLen)
+// 			jEnd = jLen;
+// 		jLen = j;
+// 		while (j < jEnd)
+// 			image->newMap[x][a++] = image->map[y][j++];
+// 		j = jLen;
+// 		x++;
+// 	}
+// }
+
 void	drow_image(void *img)
 {
 	t_image	*image;
 	int		i;
 	int		j;
+	int		iPos;
+	int		jPos;
 
 	i = 0;
 	image = (t_image *)img;
@@ -191,6 +230,8 @@ void	drow_image(void *img)
 		{
 			if (ft_strchr("ESNW", image->map[i][j]) && image->hasEntered == 0)
 			{
+				iPos = i;
+				jPos = j;
 				image->xposition_p = (j * SIZE) + (SIZE / 2);
 				image->yposition_p = (i * SIZE) + (SIZE / 2);
 				image->hasEntered = 1;
@@ -199,7 +240,10 @@ void	drow_image(void *img)
 		}
 		i++;
 	}
-
+	// getNewMap(image);
+	// // (void)newMap;
+	// // print_map(image->newMap);
+	// // exit(0);
 	draw_pixel_player(0xe6e6f0, image);
 	drawMiniMap(image);
 

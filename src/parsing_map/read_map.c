@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:49:21 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/11 19:21:36 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/15 11:00:15 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,5 @@ void    print_map(char **map_content)
         int     i = 0;
 
         while (map_content[i])
-                printf("%s\n", map_content[i++]);
+            printf("|%s|\n", map_content[i++]);
 } 
