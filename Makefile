@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/14 11:00:40 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/15 15:18:30 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,12 @@ SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/parsing_map.c \
 			src/images/image.c \
 			src/images/key_hook.c \
-			src/images/find_distance.c \
+			src/raycasting/find_distance.c \
+			src/raycasting/dda.c \
 			src/images/draw.c \
-			src/images/dda.c \
-			src/images/display_3D.c \
-			src/images/load_image.c \
+			src/images/drawMiniMap.c \
+			src/displaying/display_3D.c \
+			src/handling/load_image.c \
 			# src/main.c 
 
 OBJS	=	$(SRC:.c=.o)

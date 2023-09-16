@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/15 10:25:15 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/15 22:16:23 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,26 @@ typedef struct s_image
 	int				window_with;
 	int				window_height;
 	char			**map;
-	float				xposition_p;
-	float				yposition_p;
-	float				px;
-	float				py;
-	int 				hasEntered;
-	float				angle;
-	float				ray_angle;
-	float				xverticale;
-	float				yverticale;
-	float				xhorizontal;
-	float				yhorizontal;
-	int					vx;
-	int					vy;
-	float				angle_right;
-	float				angle_left;
-	int 				verticalLength;
-	int					playerSpeed;
-	int					angleSpeed;
-	t_color				**pixels;
-	char				**newMap;
+	float			xposition_p;
+	float			yposition_p;
+	float			px;
+	float			py;
+	int 			hasEntered;
+	float			angle;
+	float			ray_angle;
+	float			xverticale;
+	float			yverticale;
+	float			xhorizontal;
+	float			yhorizontal;
+	int				vx;
+	int				vy;
+	float			angle_right;
+	float			angle_left;
+	int 			verticalLength;
+	int				playerSpeed;
+	int				angleSpeed;
+	t_color			**pixels;
+	char			**newMap;
 }	t_image;
 
 int		check_draw_pixel_player(t_image *image, int n);
@@ -73,7 +73,7 @@ void	drow_image(void *img);
 //	====================================================================
 //	display_3D.c
 //	====================================================================
-void	draw_3D(t_image *image, float ray, unsigned long color, int i, char check);
+void	draw_3D(t_image *image, float ray, unsigned long color, int i, int pixelXPos);
 void *getDataFromElements(t_elements *elements, char *data);
 t_color**	getImage();
 
@@ -86,5 +86,10 @@ unsigned char	***convert2DArrayTo3DArray(mlx_texture_t *texture, unsigned char *
 t_color	**convert3DArrayToPixelsColor(mlx_texture_t *texture, unsigned char ***_3DArray);
 void	printPixelsColor(t_color **pixelsColor);
 unsigned long	getColor(t_color color);
+
+//	====================================================================
+//	drawMiniMap.c
+//	====================================================================
+void	drawMiniMap(t_image *img);
 
 #endif

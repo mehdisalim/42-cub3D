@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:57:12 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/12 16:18:04 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/15 12:57:59 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image)
 	{
 		if (X < 0 || X >= WIDTH || Y < 0 || Y >= HEIGHT)
 			break;
-		mlx_put_pixel(image->img, X, Y, 0x6a6a6a);
+		mlx_put_pixel(image->img, X, Y, 0);
         X += Xinc;
         Y += Yinc;
 		i++; 

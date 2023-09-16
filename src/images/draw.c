@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/15 11:56:36 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/16 19:23:49 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,38 +52,22 @@ void	draw(t_image *image, int i)
 			+ pow((image->yverticale - image->yposition_p), 2));
 	if (distance_h > distance_v)
 	{
-		draw_3D(image, distance_v, 0xEEEEEE, i, 2);
 		// DDA(image->xposition_p, image->yposition_p, image->xverticale,
 		// 	image->yverticale, image);
-		//=====================================//=====================================
 		(void)i;
+		// printf("image->yverticale %% SIZE ==> {%d}\n", (int)image->yverticale % 60);
+		//=====================================//=====================================
+		draw_3D(image, distance_v, 0xEEEEEE, i, (int)image->yverticale % 20);
 		//=====================================//=====================================
 	}
 	else
 	{
-		draw_3D(image, distance_h, 0xAAAAAA, i, 1);
+		// printf("image->xhorizontal %% SIZE ==> {%d}\n", (int)image->xhorizontal % 60);
 		// DDA(image->xposition_p, image->yposition_p, image->xhorizontal,
 		// 	image->yhorizontal, image);
 		//=====================================//=====================================
+		draw_3D(image, distance_h, 0xAAAAAA, i, (int)image->xhorizontal % 20);
 		//=====================================//=====================================
-	}
-}
-
-void	draw_pixel(unsigned int color, t_image *image, int xx, int yy)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x <= SIZE)
-	{
-		y = 0;
-		while (y <= SIZE)
-		{
-			mlx_put_pixel(image->img, (x + xx), (y + yy), color);
-			y++;
-		}
-		x++;
 	}
 }
 
@@ -104,114 +88,11 @@ void	draw_pixel_player(unsigned int color, t_image *image)
 	while (d < WIDTH)
 	{	
 		draw(image, d);
-		// DDA(image->xposition_p, image->yposition_p, image->xhorizontal, image->yhorizontal, image);
 		image->ray_angle += angle;
 		d++;
 	}
 }
 
-void	drawMiniMap(t_image *img)
-{
-	int i;
-	// int iBegin;
-	// int iEnd;
-	// int xposition_p;
-	// int yposition_p;
-	int j;
-
-	// iBegin = (img->yposition_p - (SIZE / 2)) / SIZE;
-	// jBegin = (img->xposition_p - (SIZE / 2)) / SIZE;
-	// i = iBegin - 2;
-	// if (i < 0)
-	// 	i = 0;
-	// iEnd = iBegin + 2;
-	// jEnd = jBegin + 2;
-	// while (i < iEnd && img->map[i])
-	// {
-	// 	j = jBegin - 2;
-	// 	if (j < 0)
-	// 		j = 0;
-	// 	while (j < jEnd && img->map[i][j])
-	// 	{
-	// 		if (img->map[i][j] == '1')
-	// 			draw_pixel(0xFF0000FF, img, (j * SIZE), (i * SIZE));
-	// 		else if (!ft_strchr("1 ", img->map[i][j]))
-	// 			draw_pixel(0x696ca5, img, j * SIZE, i * SIZE);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	i = 0;
-	while (img->map[i])
-	{
-		j = 0;
-		while (img->map[i][j])
-		{
-			if (img->map[i][j] == '1')
-				draw_pixel(0xFF0000FF, img, (j * SIZE), (i * SIZE));
-			else if (!ft_strchr("1 ", img->map[i][j]))
-				draw_pixel(0x696ca5, img, j * SIZE, i * SIZE);
-			j++;
-		}
-		i++;
-	}
-
-
-	// draw_pixel(0, img, xposition_p, yposition_p);
-	int x = -4;
-    int y;
-    int err;
-
-	while (x <= 4)
-    {
-        y = -4;
-        while (y <= 4)
-        {
-            err = x * x + y * y - 4 * 4;
-            if (err <= 0)
-                mlx_put_pixel(img->img,  img->xposition_p + x, img->yposition_p + y , 0x000000);
-            y++;
-        }
-        x++;
-    }
-	// DDA(img->xposition_p, img->yposition_p, img->xposition_p, img->yposition_p * sin(img->angle * (M_PI / 180)), img);
-	
-}
-
-// void	getNewMap(t_image *image)
-// {
-// 	int		i = (image->yposition_p - (SIZE / 2)) / SIZE;
-// 	int		j = (image->xposition_p - (SIZE / 2)) / SIZE;
-
-// 	int		counter = -1;
-	
-// 	while (++counter < 9)
-// 		ft_memset(image->newMap[counter], ' ', 9);
-// 	int		x = 0;
-// 	int		y = 0;
-// 	int		iEnd = i + 4;
-// 	int		jEnd = j + 4;
-// 	y = i - 5;
-// 	if (y < -1)
-// 		y = -1;
-// 	j -= 4;
-// 	if (j < 0)
-// 		j = 0;
-// 	if (iEnd > image->verticalLength)
-// 		iEnd = image->verticalLength - 1;
-// 	while (++y < iEnd)
-// 	{
-// 		int a = 0;
-// 		int jLen = ft_strlen(image->map[y]) - 1;
-// 		if (jEnd > jLen)
-// 			jEnd = jLen;
-// 		jLen = j;
-// 		while (j < jEnd)
-// 			image->newMap[x][a++] = image->map[y][j++];
-// 		j = jLen;
-// 		x++;
-// 	}
-// }
 
 void	drow_image(void *img)
 {
@@ -241,10 +122,46 @@ void	drow_image(void *img)
 		i++;
 	}
 	// getNewMap(image);
-	// // (void)newMap;
-	// // print_map(image->newMap);
-	// // exit(0);
 	draw_pixel_player(0xe6e6f0, image);
 	drawMiniMap(image);
 
 }
+
+
+
+/**
+ *  void	getNewMap(t_image *image)
+ * {
+ * 	int		i = (image->yposition_p - (SIZE / 2)) / SIZE;
+ * 	int		j = (image->xposition_p - (SIZE / 2)) / SIZE;
+ *
+ * 	int		counter = -1;
+ *	
+ * 	while (++counter < 9)
+ * 		ft_memset(image->newMap[counter], ' ', 9);
+ * 	int		x = 0;
+ * 	int		y = 0;
+ * 	int		iEnd = i + 4;
+ * 	int		jEnd = j + 4;
+ * 	y = i - 5;
+ * 	if (y < -1)
+ * 		y = -1;
+ * 	j -= 4;
+ * 	if (j < 0)
+ * 		j = 0;
+ * 	if (iEnd > image->verticalLength)
+ * 		iEnd = image->verticalLength - 1;
+ * 	while (++y < iEnd)
+ * 	{
+ * 		int a = 0;
+ * 		int jLen = ft_strlen(image->map[y]) - 1;
+ * 		if (jEnd > jLen)
+ * 			jEnd = jLen;
+ * 		jLen = j;
+ * 		while (j < jEnd)
+ * 			image->newMap[x][a++] = image->map[y][j++];
+ * 		j = jLen;
+ * 		x++;
+ * 	}
+ * }
+ **/
