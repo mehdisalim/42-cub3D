@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/18 11:24:48 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/18 13:18:23 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	check(t_image *image, int move, float angle)
 	int xx;
 	int yy;
 
-	yy = (image->yposition_p + move * sin(angle * (M_PI / 180)));
-	xx = (image->xposition_p  + move * cos(angle * (M_PI / 180)));
-	if ((image->map[(yy + 2)/SIZE][xx/SIZE] == '1'
-	|| image->map[(yy - 2)/SIZE][xx/SIZE] == '1'
-	|| image->map[yy/SIZE][(xx + 2)/SIZE] == '1'
-	|| image->map[yy/SIZE][(xx - 2)/SIZE] == '1'))
+	yy = (image->yMap + move * sin(angle * (M_PI / 180)));
+	xx = (image->xMap  + move * cos(angle * (M_PI / 180)));
+	if ((image->map[(yy + 2) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1'
+	|| image->map[(yy - 2) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1'
+	|| image->map[yy / MINIMAPSIZE][(xx + 2) / MINIMAPSIZE] == '1'
+	|| image->map[yy / MINIMAPSIZE][(xx - 2) / MINIMAPSIZE] == '1'))
 		return (0);
 	return (1);
 }
@@ -42,7 +42,6 @@ int		check_draw_pixel_player(t_image *image, int n)
 		return (0);
 	return (1);
 }
-
 
 void	create_window(t_elements *elements, char **map)
 {
@@ -63,6 +62,7 @@ void	create_window(t_elements *elements, char **map)
 	image.hasEntered = 0;
 	image.playerSpeed = 5;
 	image.angleSpeed = 5;
+	image.displayMiniMap = ENABLE;
 	image.verticalLength = map_size(map);
 	// Cardinal Directions
     image.mapInfo.north = getTexture("assets/frame1.png");
@@ -78,13 +78,12 @@ void	create_window(t_elements *elements, char **map)
 	// ===========================
 	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 0);
 	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
-	image.screen_img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(image.mlx, image.screen_img, 0, 0);
 	mlx_image_to_window(image.mlx, image.img, 0, 0);	
-	mlx_loop_hook(image.mlx, drow_image, &image);
 	mlx_key_hook(image.mlx, &key_hook, &image);
+	mlx_loop_hook(image.mlx, drow_image, &image);
 	mlx_loop(image.mlx);
 	mlx_terminate(image.mlx);
+	destroyProgram(&image);
 }
 
 int		main(int ac, char **av)
@@ -111,5 +110,5 @@ int		main(int ac, char **av)
 	if (!elements)
 		return (free_double_pointer(map), 1);
 	create_window(elements, map);
-	system("leaks -q cub3D");
+	// system("leaks -q cub3D");
 }

@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/18 11:22:41 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/18 13:53:07 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 #define WIDTH 2400
 #define HEIGHT 1200
-#define SIZE	20
+#define TILESIZE	60
 #define MINIMAPSIZE	20
+#define ENABLE	1
+#define DISABLE	0
+
 
 
 
@@ -68,8 +71,12 @@ typedef struct s_image
 	int 			verticalLength;
 	int				playerSpeed;
 	int				angleSpeed;
+	char			displayMiniMap;
 	t_mapInfo		mapInfo;
-
+	float			xMap;
+	float			yMap;
+	float			xDDA;
+	float			yDDA;
 }	t_image;
 
 int		check_draw_pixel_player(t_image *image, int n);
@@ -102,5 +109,11 @@ unsigned long	getColor(t_color color);
 //	drawMiniMap.c
 //	====================================================================
 void	drawMiniMap(t_image *img);
+
+//	====================================================================
+//	src/utils/destroy.c
+//	====================================================================
+
+void	destroyProgram(t_image *image);
 
 #endif

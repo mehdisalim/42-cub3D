@@ -50,11 +50,13 @@ void	drawMiniMap(t_image *img)
         {
             err = x * x + y * y - 4 * 4;
             if (err <= 0)
-                mlx_put_pixel(img->img,  img->xposition_p + x, img->yposition_p + y , 0x000000);
+                mlx_put_pixel(img->img,  img->xMap + x, img->yMap + y , 0x000000);
             y++;
         }
         x++;
     }
-	// DDA(img->xposition_p, img->yposition_p, img->xposition_p, img->yposition_p * sin(img->angle * (M_PI / 180)), img);
+	// int ax = img->xMap * sin(img->angle * (M_PI / 180));
+	// int ay = img->yMap * sin(img->angle * (M_PI / 180));
+	// DDA(img->xMap, img->yMap, ax, ay, img);
 	
 }

@@ -6,13 +6,13 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/18 11:27:19 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/18 13:55:05 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3.h"
 
-void	vue_x_y(t_image *image)
+void vue_x_y(t_image *image)
 {
 	image->vx = 1;
 	image->vy = 1;
@@ -34,10 +34,10 @@ void	vue_x_y(t_image *image)
 	// 	image->vx *= -1;
 }
 
-void	draw(t_image *image, int i)
+void draw(t_image *image, int i)
 {
-	float	distance_h;
-	float	distance_v;
+	float distance_h;
+	float distance_v;
 
 	if (image->ray_angle < 0)
 		image->ray_angle += 360;
@@ -48,27 +48,30 @@ void	draw(t_image *image, int i)
 	find_distance_horizontal(image);
 	distance_h = sqrt(pow((image->xhorizontal - image->xposition_p), 2) + pow((image->yhorizontal - image->yposition_p), 2));
 	distance_v = sqrt(pow((image->xverticale - image->xposition_p), 2) + pow((image->yverticale - image->yposition_p), 2));
-	if (distance_h > distance_v)
-	{
-		// DDA(image->xposition_p, image->yposition_p, image->xverticale, image->yverticale, image);
-		//=====================================//=====================================
+    if (distance_h > distance_v)
+    {
+		if (image->ray_angle == image->angle)
+		{
+			image->xDDA = image->xverticale;
+			image->yDDA = image->yverticale;
+		}
 		draw_3D(image, distance_v, i, (int)image->yverticale % image->mapInfo.north->width, image->mapInfo.north);
-		//=====================================//=====================================
-	}
-	else
-	{
-		// DDA(image->xposition_p, image->yposition_p, image->xhorizontal, image->yhorizontal, image);
-		//=====================================//=====================================
+    }
+    else
+    {
+		if (image->ray_angle == image->angle)
+		{
+			image->xDDA = image->xhorizontal;
+			image->yDDA = image->yhorizontal;
+		}
 		draw_3D(image, distance_h, i, (int)image->xhorizontal % image->mapInfo.south->width, image->mapInfo.south);
-		//=====================================//=====================================
-	}
+    }
 }
 
-void	draw_pixel_player(t_image *image)
+void draw_pixel_player(t_image *image)
 {
 	int d = 0;
 	float angle;
-
 
 	if (image->angle < 0)
 		image->angle += 360;
@@ -78,22 +81,77 @@ void	draw_pixel_player(t_image *image)
 	image->ray_angle = image->angle - 30;
 	// ESALIM HERE
 	while (d < WIDTH)
-	{	
+	{
 		draw(image, d);
 		image->ray_angle += angle;
 		d++;
 	}
 }
 
-
-void	drow_image(void *img)
+void angle(t_image *image)
 {
-	t_image	*image;
-	int		i;
-	int		j;
+	image->angle_left = image->angle + 90;
+	if (image->angle_left > 360)
+		image->angle_left -= 360;
+	if (image->angle_left < 0)
+		image->angle_left += 360;
+	image->angle_right = image->angle - 90;
+	if (image->angle_right > 360)
+		image->angle_right -= 360;
+	if (image->angle_right < 0)
+		image->angle_right += 360;
+}
+
+void drow_image(void *img)
+{
+	t_image *image;
+	int i;
+	int j;
 
 	i = 0;
 	image = (t_image *)img;
+
+
+//	================== KEY HOOKS ============================================
+	angle(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_W) && check_draw_pixel_player(image, 3) != 0)
+	{
+		image->xposition_p += (image->playerSpeed * (TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
+		image->yposition_p += (image->playerSpeed * (TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle * (M_PI / 180));
+	}
+	if (mlx_is_key_down(image->mlx, MLX_KEY_S) && check_draw_pixel_player(image, 4) != 0)
+	{
+		image->xposition_p -= (image->playerSpeed * (TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
+		image->yposition_p -= (image->playerSpeed * (TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
+		image->xMap -= image->playerSpeed * cos(image->angle * (M_PI / 180));
+		image->yMap -= image->playerSpeed * sin(image->angle * (M_PI / 180));
+	}
+
+	if (mlx_is_key_down(image->mlx, MLX_KEY_D) && check_draw_pixel_player(image, 2) != 0)
+	{
+		image->xposition_p += (image->playerSpeed * (TILESIZE / MINIMAPSIZE)) * cos(image->angle_left * (M_PI / 180));
+		image->yposition_p += (image->playerSpeed * (TILESIZE / MINIMAPSIZE)) * sin(image->angle_left * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle_left * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle_left * (M_PI / 180));
+	}
+	if (mlx_is_key_down(image->mlx, MLX_KEY_A) && check_draw_pixel_player(image, 1) != 0)
+	{
+		image->xposition_p += (image->playerSpeed * (TILESIZE / MINIMAPSIZE)) * cos(image->angle_right * (M_PI / 180));
+		image->yposition_p += (image->playerSpeed * (TILESIZE / MINIMAPSIZE)) * sin(image->angle_right * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle_right * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle_right * (M_PI / 180));
+	}
+
+	if (mlx_is_key_down(image->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(image->mlx);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_LEFT))
+		image->angle -= image->angleSpeed;
+	if (mlx_is_key_down(image->mlx, MLX_KEY_RIGHT))
+		image->angle += image->angleSpeed;
+
+//	========================================================================================================================
 	while (image->map[i])
 	{
 		j = 0;
@@ -101,21 +159,21 @@ void	drow_image(void *img)
 		{
 			if (ft_strchr("ESNW", image->map[i][j]) && image->hasEntered == 0)
 			{
-				image->xposition_p = (j * MINIMAPSIZE) + (MINIMAPSIZE / 2);
-				image->yposition_p = (i * MINIMAPSIZE) + (MINIMAPSIZE / 2);
+				image->xposition_p = (j * TILESIZE) + (TILESIZE / 2);
+				image->yposition_p = (i * TILESIZE) + (TILESIZE / 2);
+				image->xMap = (j * MINIMAPSIZE) + (MINIMAPSIZE / 2);
+				image->yMap = (i * MINIMAPSIZE) + (MINIMAPSIZE / 2);
 				image->hasEntered = 1;
 			}
 			j++;
 		}
 		i++;
 	}
-	draw_pixel_player(image);
 	// getNewMap(image);
-	drawMiniMap(image);
-
+	draw_pixel_player(image);
+	if (image->displayMiniMap == ENABLE)
+		drawMiniMap(image);
 }
-
-
 
 /**
  *  void	getNewMap(t_image *image)
@@ -124,7 +182,7 @@ void	drow_image(void *img)
  * 	int		j = (image->xposition_p - (SIZE / 2)) / SIZE;
  *
  * 	int		counter = -1;
- *	
+ *
  * 	while (++counter < 9)
  * 		ft_memset(image->newMap[counter], ' ', 9);
  * 	int		x = 0;

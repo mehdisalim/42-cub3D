@@ -18,7 +18,7 @@ void draw_3D(t_image *image, float ray, int i, int pixelXPos, const t_texture* c
     float yPos;
     int y;
 
-    pj = (HEIGHT * SIZE) / (ray * cos((image->ray_angle - image->angle) * (M_PI / 180)));
+    pj = (HEIGHT * TILESIZE) / (ray * cos((image->ray_angle - image->angle) * (M_PI / 180)));
     start = (HEIGHT / 2) - (pj / 2);
     if (start < 0)
         start = 0;
