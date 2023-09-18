@@ -107,3 +107,35 @@ unsigned long	getColor(t_color color)
 {
 	return ((color.red & 0xff) << 24) + ((color.green & 0xff) << 16) + ((color.blue & 0xff) << 8) + (color.alpha & 0xff);
 }
+
+
+
+t_texture	*getTexture(const char *str)
+{
+    mlx_texture_t	*textureImage;
+    unsigned char	***_3DArray;
+    unsigned char	**_2DArray;
+    t_texture       *texture;
+    int				i;
+
+    textureImage = mlx_load_png(str);
+    if (!textureImage)
+    {
+        ft_putendl_fd("mlx_load_png Faild", 2);
+        exit(1);
+    }
+    texture = ft_calloc(sizeof(t_texture), 1);
+    _2DArray = convertTextureTo2DArray(textureImage->pixels, textureImage->height, textureImage->width * 4);
+    _3DArray = convert2DArrayTo3DArray(textureImage, _2DArray);
+    free_double_pointer((void *)_2DArray);
+    texture->pixels = convert3DArrayToPixelsColor(textureImage, _3DArray);
+    texture->height = textureImage->height;
+    texture->width = textureImage->width;
+    i = -1;
+    while (_3DArray[++i])
+        free_double_pointer((void *)_3DArray[i]);
+    free(_3DArray);
+    free(textureImage->pixels);
+    free(textureImage);
+    return (texture);
+}

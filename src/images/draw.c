@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/16 19:23:49 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/18 11:27:19 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,26 @@ void	draw(t_image *image, int i)
 	vue_x_y(image);
 	find_distance_verticale(image);
 	find_distance_horizontal(image);
-	distance_h = sqrt(pow((image->xhorizontal - image->xposition_p), 2)
-			+ pow((image->yhorizontal - image->yposition_p), 2));
-	distance_v = sqrt(pow((image->xverticale - image->xposition_p), 2)
-			+ pow((image->yverticale - image->yposition_p), 2));
+	distance_h = sqrt(pow((image->xhorizontal - image->xposition_p), 2) + pow((image->yhorizontal - image->yposition_p), 2));
+	distance_v = sqrt(pow((image->xverticale - image->xposition_p), 2) + pow((image->yverticale - image->yposition_p), 2));
 	if (distance_h > distance_v)
 	{
-		// DDA(image->xposition_p, image->yposition_p, image->xverticale,
-		// 	image->yverticale, image);
-		(void)i;
-		// printf("image->yverticale %% SIZE ==> {%d}\n", (int)image->yverticale % 60);
+		// DDA(image->xposition_p, image->yposition_p, image->xverticale, image->yverticale, image);
 		//=====================================//=====================================
-		draw_3D(image, distance_v, 0xEEEEEE, i, (int)image->yverticale % 20);
+		draw_3D(image, distance_v, i, (int)image->yverticale % image->mapInfo.north->width, image->mapInfo.north);
 		//=====================================//=====================================
 	}
 	else
 	{
-		// printf("image->xhorizontal %% SIZE ==> {%d}\n", (int)image->xhorizontal % 60);
-		// DDA(image->xposition_p, image->yposition_p, image->xhorizontal,
-		// 	image->yhorizontal, image);
+		// DDA(image->xposition_p, image->yposition_p, image->xhorizontal, image->yhorizontal, image);
 		//=====================================//=====================================
-		draw_3D(image, distance_h, 0xAAAAAA, i, (int)image->xhorizontal % 20);
+		draw_3D(image, distance_h, i, (int)image->xhorizontal % image->mapInfo.south->width, image->mapInfo.south);
 		//=====================================//=====================================
 	}
 }
 
-void	draw_pixel_player(unsigned int color, t_image *image)
+void	draw_pixel_player(t_image *image)
 {
-	(void)color;
 	int d = 0;
 	float angle;
 
@@ -99,8 +91,6 @@ void	drow_image(void *img)
 	t_image	*image;
 	int		i;
 	int		j;
-	int		iPos;
-	int		jPos;
 
 	i = 0;
 	image = (t_image *)img;
@@ -111,18 +101,16 @@ void	drow_image(void *img)
 		{
 			if (ft_strchr("ESNW", image->map[i][j]) && image->hasEntered == 0)
 			{
-				iPos = i;
-				jPos = j;
-				image->xposition_p = (j * SIZE) + (SIZE / 2);
-				image->yposition_p = (i * SIZE) + (SIZE / 2);
+				image->xposition_p = (j * MINIMAPSIZE) + (MINIMAPSIZE / 2);
+				image->yposition_p = (i * MINIMAPSIZE) + (MINIMAPSIZE / 2);
 				image->hasEntered = 1;
 			}
 			j++;
 		}
 		i++;
 	}
+	draw_pixel_player(image);
 	// getNewMap(image);
-	draw_pixel_player(0xe6e6f0, image);
 	drawMiniMap(image);
 
 }

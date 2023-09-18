@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/15 15:18:30 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/17 14:42:49 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ $(NAME)	:	$(OBJS)
 	$(CC) $(CFLAGS)  libft/libft.a $^ -o $@ $(framework)
 	
 %.o		:	%.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(CFLAGS) -c $^ -o $@
 
 clean	:
 	make -C libft clean 
@@ -61,5 +61,5 @@ fclean	:	clean
 re		:	fclean	all	
 
 
-run		: all
+run		: re
 	./$(NAME) maps/map1.cub

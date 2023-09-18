@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/15 11:58:05 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/18 11:24:48 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ int		check_draw_pixel_player(t_image *image, int n)
 	return (1);
 }
 
+
 void	create_window(t_elements *elements, char **map)
 {
 	t_image image;
+    t_color *floorOrCeilingColor;
 
 	image.elements = elements;
 	image.map = map;
@@ -61,22 +63,21 @@ void	create_window(t_elements *elements, char **map)
 	image.hasEntered = 0;
 	image.playerSpeed = 5;
 	image.angleSpeed = 5;
-	// image.newMap = ft_calloc(10, sizeof(char *));
-	// int		counter = 0;
-	// while (counter < 9)
-	// {
-	// 	image.newMap[counter] = ft_calloc(10, sizeof(char));
-	// 	ft_memset(image.newMap[counter], ' ', 9);	
-	// 	counter++;
-	// }
 	image.verticalLength = map_size(map);
-    image.pixels = getImage(getDataFromElements(elements, "NO"));
-	// // MAP RESOLUTION
-	// image.horizontalMapSize = ft_strlen(*map);
-	// image.verticalMapSize = map_size(map);
-	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 1);
+	// Cardinal Directions
+    image.mapInfo.north = getTexture("assets/frame1.png");
+    image.mapInfo.south = getTexture("assets/60pixels.png");
+    image.mapInfo.east = getTexture("assets/frame1.png");
+    image.mapInfo.west = getTexture("assets/frame1.png");
+	floorOrCeilingColor = getDataFromElements(elements, "C");
+    image.mapInfo.ceilingColor = getColor(*floorOrCeilingColor);
+	free(floorOrCeilingColor);
+	floorOrCeilingColor = getDataFromElements(elements, "F");
+    image.mapInfo.floorColor = getColor(*floorOrCeilingColor);
+	free(floorOrCeilingColor);
+	// ===========================
+	image.mlx =  mlx_init(WIDTH, HEIGHT , "cub3D", 0);
 	image.img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
-	// image.imgMiniMap = mlx_new_image(image.mlx, 500, 500);
 	image.screen_img = mlx_new_image(image.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(image.mlx, image.screen_img, 0, 0);
 	mlx_image_to_window(image.mlx, image.img, 0, 0);	

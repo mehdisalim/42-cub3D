@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/15 22:16:23 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/18 11:22:41 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #define WIDTH 2400
 #define HEIGHT 1200
 #define SIZE	20
+#define MINIMAPSIZE	20
 
 
 
@@ -28,6 +29,16 @@
 #include<math.h>
 
 // typedef
+
+typedef struct s_mapInfo
+{
+	t_texture		*north;
+	t_texture		*west;
+	t_texture		*south;
+	t_texture		*east;
+	unsigned long	ceilingColor;
+	unsigned long	floorColor;
+}	t_mapInfo;
 
 typedef struct s_image
 {
@@ -57,8 +68,8 @@ typedef struct s_image
 	int 			verticalLength;
 	int				playerSpeed;
 	int				angleSpeed;
-	t_color			**pixels;
-	char			**newMap;
+	t_mapInfo		mapInfo;
+
 }	t_image;
 
 int		check_draw_pixel_player(t_image *image, int n);
@@ -66,16 +77,16 @@ void	key_hook(mlx_key_data_t keydata, void *para);
 void	find_distance_verticale(t_image * image);
 void	find_distance_horizontal(t_image * image);
 void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
-void	draw_pixel_player(unsigned int color, t_image *image);
+void	draw_pixel_player(t_image *image);
 void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 void	drow_image(void *img);
 
 //	====================================================================
 //	display_3D.c
 //	====================================================================
-void	draw_3D(t_image *image, float ray, unsigned long color, int i, int pixelXPos);
+void	draw_3D(t_image *image, float ray, int i, int pixelXPos, const t_texture* const texture);
 void *getDataFromElements(t_elements *elements, char *data);
-t_color**	getImage();
+t_texture	*getTexture(const char *str);
 
 //	====================================================================
 //	load_image.c

@@ -26,12 +26,20 @@ typedef	union u_value
 	t_color	*color;
 }	t_value;
 
-
 typedef struct s_elements
 {
 	char    *name;
 	t_value	value;
 }   t_elements;
+
+
+typedef struct s_texture
+{
+	t_color	**pixels;
+	int		height;	
+	int		width;	
+}	t_texture;
+
 
 size_t	get_map_size(char *map_name);
 void	free_double_pointer(char **str);
