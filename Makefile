@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/18 12:41:30 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/19 17:22:17 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	cub3D
 
 CC		=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
 SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/parsing_utils.c \
@@ -26,6 +26,7 @@ SRC		=	src/parsing_map/main_parsing.c \
 			src/raycasting/find_distance.c \
 			src/raycasting/dda.c \
 			src/images/draw.c \
+			src/images/drawDynamicMap.c \
 			src/images/drawMiniMap.c \
 			src/displaying/display_3D.c \
 			src/handling/load_image.c \

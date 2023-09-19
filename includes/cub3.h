@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/18 13:53:07 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/19 17:21:53 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_image
 	int				window_with;
 	int				window_height;
 	char			**map;
+	char			**newMap;
 	float			xposition_p;
 	float			yposition_p;
 	float			px;
@@ -72,11 +73,10 @@ typedef struct s_image
 	int				playerSpeed;
 	int				angleSpeed;
 	char			displayMiniMap;
+	char			allowedCursor;
 	t_mapInfo		mapInfo;
 	float			xMap;
 	float			yMap;
-	float			xDDA;
-	float			yDDA;
 }	t_image;
 
 int		check_draw_pixel_player(t_image *image, int n);
@@ -109,6 +109,8 @@ unsigned long	getColor(t_color color);
 //	drawMiniMap.c
 //	====================================================================
 void	drawMiniMap(t_image *img);
+
+void    drawDynamicMap(t_image *image);
 
 //	====================================================================
 //	src/utils/destroy.c

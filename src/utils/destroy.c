@@ -46,5 +46,7 @@ void	destroyProgram(t_image *image)
     freeTexture(image->mapInfo.west);
     freeTexture(image->mapInfo.south);
     freeTexture(image->mapInfo.east);
-	free_double_pointer(image->map);		
+	free_elements(image->elements);	
+	free_double_pointer(image->map);
+	free(image);
 }
