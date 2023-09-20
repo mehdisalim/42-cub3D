@@ -2,34 +2,34 @@
 
 void    drawPlayer(t_image *image, double xPlayer, double yPlayer)
 {
-	int x = -4;
+    int circleRay = 4;
+	int x = -circleRay;
     int y;
     int err;
 
-	while (x <= 4)
+	while (x <= circleRay)
     {
-        y = -4;
-        while (y <= 4)
+        y = -circleRay;
+        while (y <= circleRay)
         {
-            err = x * x + y * y - 4 * 4;
+            err = x * x + y * y - circleRay * circleRay;
             if (err <= 0)
                 mlx_put_pixel(image->mapScreen, xPlayer + x, yPlayer + y , 0xffffff);
             y++;
         }
         x++;
     }
+    // DDA();
+    float destX = xPlayer + (10 * cos(image->angle * (M_PI / 180)));
+    float destY = yPlayer + (10 * sin(image->angle * (M_PI / 180)));
+    DDA(xPlayer, yPlayer, destX,destY , image);
 }
 
 void	drawDynamicMap(t_image *image)
 {
-    // int width = 200;
-    // int height = 200;
-
     float yStartMap = image->yMap - 100;
     float yEndMap = image->yMap + 100;
     float xEndMap = image->xMap + 100;
-    // float xPlayerMap = image->xMap;
-    // float yPlayerMap = image->yMap;
     float xstart = image->xMap - 100;
     float ystart = yStartMap;
     while (yStartMap < yEndMap)
@@ -58,12 +58,7 @@ void	drawDynamicMap(t_image *image)
     }
     drawPlayer(image, 110, 110);
 
-    // mlx_put_string(image->mlx, "N", 110, 0);
-    // mlx_put_string(image->mlx, "S", 0, 110);
-    // mlx_put_string(image->mlx, "E", 220, 110);
-    // mlx_put_string(image->mlx, "W", 110, 220);
-
-    int circleRay = 110;
+    int circleRay = 100;
     int x = -circleRay;
     int y;
     int err;
@@ -77,8 +72,19 @@ void	drawDynamicMap(t_image *image)
             err = x * x + y * y - circleRay * circleRay;
             if (err > 0)
                 mlx_put_pixel(image->mapScreen, circleRay + x, circleRay + y , 0);
+            else if (err > -200 && err <= 0)
+                mlx_put_pixel(image->mapScreen, circleRay + x, circleRay + y , 0xffffff);
+                
             y++;
         }
         x++;
     }
+    int t = 0;
+    while (t < 210)
+    {
+        draw_pixel(0, image, t, 200);
+        draw_pixel(0, image, 200, t);
+        t += 20;
+    }
+
 }

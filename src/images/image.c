@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/20 09:35:30 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/20 15:22:04 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int check(t_image *image, int move, float angle)
 int check_draw_pixel_player(t_image *image, int n)
 {
 
-	if (n == 3 && check(image, 5, image->angle) == 0)
+	if (n == 3 && check(image, image->playerSpeed, image->angle) == 0)
 		return (0);
-	if (n == 4 && check(image, -5, image->angle) == 0)
+	if (n == 4 && check(image, -image->playerSpeed, image->angle) == 0)
 		return (0);
-	if (n == 1 && check(image, 5, image->angle_right) == 0)
+	if (n == 1 && check(image, image->playerSpeed, image->angle_right) == 0)
 		return (0);
-	if (n == 2 && check(image, 5, image->angle_left) == 0)
+	if (n == 2 && check(image, image->playerSpeed, image->angle_left) == 0)
 		return (0);
 	return (1);
 }
@@ -46,7 +46,6 @@ void cursor_hook(double xpos, double ypos, void *param)
 	static double constXPos;
 
 	t_image *image = (t_image *)param;
-	// printf("xpos ==> %.2f | ypos ==> %.2f\n", xpos, ypos);
 	if (image->allowedCursor == DISABLE || ypos > HEIGHT || ypos < 0)
 		return;
 	if (xpos > 0 && xpos < constXPos)
@@ -117,7 +116,7 @@ void create_window(t_elements *elements, char **map)
 		i++;
 	}
 	mlx_image_to_window(image->mlx, image->img, 0, 0);
-	mlx_image_to_window(image->mlx, image->mapScreen, 0, 0);
+	mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220);
 	mlx_key_hook(image->mlx, &key_hook, image);
 	mlx_cursor_hook(image->mlx, &cursor_hook, image);
 	mlx_loop_hook(image->mlx, drow_image, image);

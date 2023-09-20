@@ -6,19 +6,19 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/20 08:13:24 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/20 22:05:54 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3_H
 #define CUB3_H
 
-#define WIDTH 2400
-#define HEIGHT 1200
-#define TILESIZE	60
-#define MINIMAPSIZE	20
-#define ENABLE	1
-#define DISABLE	0
+#define TILESIZE	64
+#define WIDTH		(TILESIZE * 40)
+#define HEIGHT		(WIDTH / 2)
+#define MINIMAPSIZE	(TILESIZE / 3)
+#define ENABLE		1
+#define DISABLE		0
 
 
 
@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
-#include<math.h>
+#include <math.h>
 
 // typedef
 
@@ -49,7 +49,6 @@ typedef struct s_image
 	mlx_image_t*	img;
 	mlx_image_t*	mapScreen;
 	t_elements*		elements;
-	// mlx_image_t*	imgMiniMap;
 	int				window_with;
 	int				window_height;
 	char			**map;
@@ -112,7 +111,10 @@ unsigned long	getColor(t_color color);
 void	drawDynamicMap(t_image *image);
 void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 
+// void draw_3D(t_image *image, float ray, int i, int pixelXPos, const t_texture* const texture, int isReverse);
+
 // void	drawMiniMap(t_image *img, float xStartMap, float yStartMap);
+void    drawPlayer(t_image *image, double xPlayer, double yPlayer);
 
 //	====================================================================
 //	src/utils/destroy.c
