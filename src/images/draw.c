@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/19 17:22:56 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/20 07:44:52 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,11 @@ void angle(t_image *image)
 void drow_image(void *img)
 {
 	t_image *image;
-	int i;
-	int j;
+	static float oldXPlayer;
+	static float oldYPlayer;
+	// static float oldAngle;
 
-	i = 0;
 	image = (t_image *)img;
-
-
 //	================== KEY HOOKS ============================================
 	{
 		angle(image);
@@ -180,25 +178,14 @@ void drow_image(void *img)
 			image->angle += image->angleSpeed;
 	}
 //	========================================================================================================================
-	while (image->map[i])
-	{
-		j = 0;
-		while (image->map[i][j])
-		{
-			if (ft_strchr("ESNW", image->map[i][j]) && image->hasEntered == 0)
-			{
-				image->xposition_p = (j * TILESIZE) + (TILESIZE / 2);
-				image->yposition_p = (i * TILESIZE) + (TILESIZE / 2);
-				image->xMap = (j * MINIMAPSIZE) + (MINIMAPSIZE / 2);
-				image->yMap = (i * MINIMAPSIZE) + (MINIMAPSIZE / 2);
-				image->hasEntered = 1;
-			}
-			j++;
-		}
-		i++;
-	}
+
 	draw_pixel_player(image);
 	// getNewMap(image);
-	if (image->displayMiniMap == ENABLE)
+	if (image->displayMiniMap == ENABLE && (oldXPlayer != image->xMap || oldYPlayer != image->yMap))
+	{
 		drawDynamicMap(image);
+		oldXPlayer = image->xMap;
+		oldYPlayer = image->yMap;
+	}
+	
 }

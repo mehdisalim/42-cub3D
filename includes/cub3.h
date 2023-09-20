@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/19 17:21:53 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/20 08:13:24 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_image
 {
 	mlx_t			*mlx;
 	mlx_image_t*	img;
-	mlx_image_t*	screen_img;
+	mlx_image_t*	mapScreen;
 	t_elements*		elements;
 	// mlx_image_t*	imgMiniMap;
 	int				window_with;
@@ -85,7 +85,7 @@ void	find_distance_verticale(t_image * image);
 void	find_distance_horizontal(t_image * image);
 void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
 void	draw_pixel_player(t_image *image);
-void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
+// void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 void	drow_image(void *img);
 
 //	====================================================================
@@ -108,9 +108,11 @@ unsigned long	getColor(t_color color);
 //	====================================================================
 //	drawMiniMap.c
 //	====================================================================
-void	drawMiniMap(t_image *img);
+// void	drawMiniMap(t_image *img);
+void	drawDynamicMap(t_image *image);
+void	draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 
-void    drawDynamicMap(t_image *image);
+// void	drawMiniMap(t_image *img, float xStartMap, float yStartMap);
 
 //	====================================================================
 //	src/utils/destroy.c

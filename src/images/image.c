@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/19 17:32:47 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/20 09:35:30 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void cursor_hook(double xpos, double ypos, void *param)
 	static double constXPos;
 
 	t_image *image = (t_image *)param;
+	// printf("xpos ==> %.2f | ypos ==> %.2f\n", xpos, ypos);
 	if (image->allowedCursor == DISABLE || ypos > HEIGHT || ypos < 0)
 		return;
 	if (xpos > 0 && xpos < constXPos)
@@ -71,7 +72,7 @@ t_image *initStruct(t_elements *elements, char **map)
 	image->angle_left = 0;
 	image->hasEntered = 0;
 	image->playerSpeed = 5;
-	image->angleSpeed = 5;
+	image->angleSpeed = 3;
 	image->displayMiniMap = ENABLE;
 	image->allowedCursor = ENABLE;
 	image->verticalLength = map_size(map);
@@ -93,7 +94,30 @@ void create_window(t_elements *elements, char **map)
 	image->map = map;
 	image->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", 0);
 	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
+	image->mapScreen = mlx_new_image(image->mlx, 220, 220);
+	int i;
+	int j;
+
+	i = 0;
+	while (image->map[i])
+	{
+		j = 0;
+		while (image->map[i][j])
+		{
+			if (ft_strchr("ESNW", image->map[i][j]) && image->hasEntered == 0)
+			{
+				image->xposition_p = (j * TILESIZE) + (TILESIZE / 2);
+				image->yposition_p = (i * TILESIZE) + (TILESIZE / 2);
+				image->xMap = (j * MINIMAPSIZE) + (MINIMAPSIZE / 2);
+				image->yMap = (i * MINIMAPSIZE) + (MINIMAPSIZE / 2);
+				image->hasEntered = 1;
+			}
+			j++;
+		}
+		i++;
+	}
 	mlx_image_to_window(image->mlx, image->img, 0, 0);
+	mlx_image_to_window(image->mlx, image->mapScreen, 0, 0);
 	mlx_key_hook(image->mlx, &key_hook, image);
 	mlx_cursor_hook(image->mlx, &cursor_hook, image);
 	mlx_loop_hook(image->mlx, drow_image, image);

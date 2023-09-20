@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 18:43:45 by esalim            #+#    #+#              #
-#    Updated: 2023/08/26 13:18:45 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/20 07:03:49 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ OBJS	= $(CFILES:.c=.o)
 BONUSOBJS = $(BONUSFILES:.c=.o)
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror 
+CFLAGS	= -Wall -Wextra -Werror -O3
 NAME	= libft.a
 
 all: 	$(NAME)
