@@ -1,5 +1,23 @@
 #include "../../includes/cub3.h"
 
+void	draw_pixel(unsigned int color, t_image *image, int xx, int yy)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x <= MINIMAPSIZE)
+	{
+		y = 0;
+		while (y <= MINIMAPSIZE)
+		{
+			mlx_put_pixel(image->mapScreen, (x + xx), (y + yy), color);
+			y++;
+		}
+		x++;
+	}
+}
+
 void    drawPlayer(t_image *image, double xPlayer, double yPlayer)
 {
     int circleRay = 4;
@@ -20,8 +38,8 @@ void    drawPlayer(t_image *image, double xPlayer, double yPlayer)
         x++;
     }
     // DDA();
-    float destX = xPlayer + (10 * cos(image->angle * (M_PI / 180)));
-    float destY = yPlayer + (10 * sin(image->angle * (M_PI / 180)));
+    float destX = xPlayer + (15 * cos(image->angle * (M_PI / 180)));
+    float destY = yPlayer + (15 * sin(image->angle * (M_PI / 180)));
     DDA(xPlayer, yPlayer, destX,destY , image);
 }
 

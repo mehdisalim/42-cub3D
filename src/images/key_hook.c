@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:35:28 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/20 20:59:38 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/21 12:22:24 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ void key_hook(mlx_key_data_t keydata, void *para)
 	a++;
 	if (keydata.key == MLX_KEY_M && a % 2)
 	{
-		if (image->displayMiniMap == ENABLE)
-		{
-			mlx_delete_image(image->mlx, image->mapScreen);
-			image->mapScreen = mlx_new_image(image->mlx, 220, 220);
-			mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220);
-		}
-		else
-			drawDynamicMap(image);
+		// if (image->displayMiniMap == ENABLE)
+		// {
+		// 	mlx_delete_image(image->mlx, image->mapScreen);
+		// 	image->mapScreen = mlx_new_image(image->mlx, 220, 220);
+		// 	mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220);
+		// }
+		// else
+		// 	drawDynamicMap(image);
 		image->displayMiniMap = !image->displayMiniMap;
+		image->mapScreen->enabled = !image->mapScreen->enabled;
 	}
 	if (keydata.key == MLX_KEY_C && a % 2)
 		image->allowedCursor = !image->allowedCursor;

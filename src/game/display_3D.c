@@ -35,7 +35,7 @@ void draw_3D(t_image *image, float ray, int i, int pixelXPos, const t_texture* c
         yPos = 0;
     while (y < pj && y < HEIGHT)
     {
-        mlx_put_pixel(image->img, i, y + start, getColor(texture->pixels[(int)yPos][pixelXPos]));
+        mlx_put_pixel(image->img, i, y + start, get_color(texture->pixels[(int)yPos][pixelXPos]));
         yPos += offsetY;
         if (yPos >= texture->height)
             yPos = 0;

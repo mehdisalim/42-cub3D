@@ -1,6 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   destroy.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/21 13:31:12 by esalim            #+#    #+#             */
+/*   Updated: 2023/09/21 13:55:36 by esalim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3.h"
 
-
+/**
+ * @brief De-allocate struct t_elements
+ * 
+ * @param[in] elements the Elements struct to free
+ */
 void	free_elements(t_elements *elements)
 {
 	int	i;
@@ -20,7 +36,6 @@ void	free_elements(t_elements *elements)
 	free(elements);
 }
 
-
 void	free_double_pointer(char **str)
 {
 	int	i;
@@ -33,20 +48,19 @@ void	free_double_pointer(char **str)
 	free(str);
 }
 
-
-void	freeTexture(t_texture *texture)
+void	free_texture(t_texture *texture)
 {
 	free_double_pointer((char **)texture->pixels);
 	free(texture);
 }
 
-void	destroyProgram(t_image *image)
-{	
-    freeTexture(image->mapInfo.north);
-    freeTexture(image->mapInfo.west);
-    freeTexture(image->mapInfo.south);
-    freeTexture(image->mapInfo.east);
-	free_elements(image->elements);	
+void	destroy_program(t_image *image)
+{
+	free_texture(image->mapInfo.north);
+	free_texture(image->mapInfo.west);
+	free_texture(image->mapInfo.south);
+	free_texture(image->mapInfo.east);
+	free_elements(image->elements);
 	free_double_pointer(image->map);
 	free(image);
 }

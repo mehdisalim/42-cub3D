@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/20 22:53:53 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/21 10:36:38 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,23 @@ void draw(t_image *image, int i)
 	vue_x_y(image);
 	find_distance_verticale(image);
 	find_distance_horizontal(image);
+
 	distance_h = sqrt(pow((image->xhorizontal - image->xposition_p), 2) + pow((image->yhorizontal - image->yposition_p), 2));
 	distance_v = sqrt(pow((image->xverticale - image->xposition_p), 2) + pow((image->yverticale - image->yposition_p), 2));
     if (distance_h > distance_v)
 	{
-		// if (image->angle > 180)
-			draw_3D(image, distance_v, i, (int)image->yverticale % image->mapInfo.east->width, image->mapInfo.east);
+		// if ((image->ray_angle > 90 && image->ray_angle < 180) || (image->ray_angle > 270 && image->ray_angle < 360))
+		// 	draw_3D(image, distance_v, i, (int)image->yverticale % image->mapInfo.east->width, image->mapInfo.east);
+		// else
+			draw_3D(image, distance_v, i, (int)image->yverticale % image->mapInfo.north->width, image->mapInfo.north);
 	}
     else
 	{
-		// if (image->angle > 270)
-		// 	draw_3D(image, distance_h, i, image->mapInfo.south->width - ((int)image->xhorizontal % image->mapInfo.south->width) - 1, image->mapInfo.south);
+		// if (image->ray_angle < )
+		// if ((image->ray_angle > 90 && image->ray_angle < 180) || (image->ray_angle > 270 && image->ray_angle < 360))
+		// 	draw_3D(image, distance_h, i, (int)image->xhorizontal % image->mapInfo.west->width, image->mapInfo.west);
 		// else
 			draw_3D(image, distance_h, i, (int)image->xhorizontal % image->mapInfo.south->width, image->mapInfo.south);
-		
 	}
 }
 
@@ -148,10 +151,4 @@ void drow_image(void *img)
 		oldAngle = image->angle;
 		// exit(0);
 	}
-	// else if (oldAngle != image->angle)
-	// {
-	// 	draw_pixel(0, image, 110, 110);
-	// 	drawPlayer(image, 110, 110);
-	// }
-	
 }

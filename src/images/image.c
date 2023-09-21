@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/20 15:22:04 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/21 13:56:17 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,26 @@ t_image *initStruct(t_elements *elements, char **map)
 	image->angle = 0;
 	image->angle_right = 0;
 	image->angle_left = 0;
-	image->hasEntered = 0;
 	image->playerSpeed = 5;
 	image->angleSpeed = 3;
 	image->displayMiniMap = ENABLE;
 	image->allowedCursor = ENABLE;
 	image->verticalLength = map_size(map);
-	image->mapInfo.north = getTexture((char *)getDataFromElements(elements, "NO"));
-	image->mapInfo.south = getTexture((char *)getDataFromElements(elements, "SO"));
-	image->mapInfo.east = getTexture((char *)getDataFromElements(elements, "EA"));
-	image->mapInfo.west = getTexture((char *)getDataFromElements(elements, "WE"));
-	image->mapInfo.ceilingColor = getColor(*(t_color *)getDataFromElements(elements, "C"));
-	image->mapInfo.floorColor = getColor(*(t_color *)getDataFromElements(elements, "F"));
+	image->mapInfo.north = get_texture((char *)getDataFromElements(elements, "NO"));
+	image->mapInfo.south = get_texture((char *)getDataFromElements(elements, "SO"));
+	image->mapInfo.east = get_texture((char *)getDataFromElements(elements, "EA"));
+	image->mapInfo.west = get_texture((char *)getDataFromElements(elements, "WE"));
+	image->mapInfo.ceilingColor = get_color(*(t_color *)getDataFromElements(elements, "C"));
+	image->mapInfo.floorColor = get_color(*(t_color *)getDataFromElements(elements, "F"));
 	return (image);
 }
 
-void create_window(t_elements *elements, char **map)
+void	getPlayerPosition(t_image *image)
 {
-	t_image *image;
-
-	image = initStruct(elements, map);
-	image->elements = elements;
-	image->map = map;
-	image->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", 0);
-	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
-	image->mapScreen = mlx_new_image(image->mlx, 220, 220);
-	int i;
-	int j;
+	char	*player;
+	int		i;
+	int		j;
+	int		hasEntered = 0;
 
 	i = 0;
 	while (image->map[i])
@@ -103,58 +96,55 @@ void create_window(t_elements *elements, char **map)
 		j = 0;
 		while (image->map[i][j])
 		{
-			if (ft_strchr("ESNW", image->map[i][j]) && image->hasEntered == 0)
+			player = ft_strchr("ESNW", image->map[i][j]);
+			if (player && hasEntered == 0)
 			{
 				image->xposition_p = (j * TILESIZE) + (TILESIZE / 2);
 				image->yposition_p = (i * TILESIZE) + (TILESIZE / 2);
 				image->xMap = (j * MINIMAPSIZE) + (MINIMAPSIZE / 2);
 				image->yMap = (i * MINIMAPSIZE) + (MINIMAPSIZE / 2);
-				image->hasEntered = 1;
+				if (*player == 'N')
+					image->angle = 270;
+				else if (*player == 'E')
+					image->angle = 0;
+				else if (*player == 'S')
+					image->angle = 180;
+				else if (*player == 'W')
+					image->angle = 90;	
+				hasEntered = 1;
 			}
 			j++;
 		}
 		i++;
 	}
-	mlx_image_to_window(image->mlx, image->img, 0, 0);
-	mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220);
-	mlx_key_hook(image->mlx, &key_hook, image);
-	mlx_cursor_hook(image->mlx, &cursor_hook, image);
-	mlx_loop_hook(image->mlx, drow_image, image);
-	mlx_loop(image->mlx);
-	mlx_terminate(image->mlx);
-	destroyProgram(image);
 }
 
-int main2(int ac, char **av)
+/**
+ * @brief Create a window object and setuping mlx ghraphical user interface
+ * 
+ * @param elements struct of element that already parsing in main2
+ * @param map 		double pointer that contains map characters
+ * @return none
+ */
+void create_window(t_elements *elements, char **map)
 {
-	char **map_elements;
-	char **map;
-	char checker = 0;
+	t_image *image;
 
-	if (ac < 2)
-		return (ft_putstr_fd("bad args\n", 2), 1);
-	if (ft_strncmp(av[1] + (ft_strlen(av[1]) - 4), ".cub", 4))
-		return (ft_putstr_fd("File Name Error\n", 2), 0);
-
-	if (!check_map(av[1], &map_elements, &map, &checker))
-	{
-		if (checker)
-			return (ft_putstr_fd("File not found !!\n", 2), 1);
-		free_double_pointer(map_elements);
-		free_double_pointer(map);
-		return (1);
-	}
-	t_elements *elements = parsing_elements(map_elements);
-	free_double_pointer(map_elements);
-	if (!elements)
-		return (free_double_pointer(map), 1);
-	create_window(elements, map);
-	return (0);
-}
-
-int main(int argc, char **argv)
-{
-	main2(argc, argv);
-	// system("leaks -q cub3D");
-	return 0;
+	image = initStruct(elements, map); // initialization global struct.
+	image->elements = elements;
+	image->map = map;
+	image->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", 0); // Initializes a new MLX42 Instance.
+	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT); // // Creates and allocates a new image buffer for the Game Screen.
+	image->mapScreen = mlx_new_image(image->mlx, 220, 220); // Creates and allocates a new image buffer for the Mini Map.
+	getPlayerPosition(image); 
+	mlx_image_to_window(image->mlx, image->img, 0, 0); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
+	mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
+	mlx_key_hook(image->mlx, &key_hook, image); // This function sets the key callback, which is called when a key is pressed on the keyboard. Useful for single keypress detection.
+	mlx_cursor_hook(image->mlx, &cursor_hook, image); // This function sets the cursor callback, which is called when the mouse position changes. Position is relative to the window.
+	mlx_loop_hook(image->mlx, drow_image, image); // Generic loop hook for any custom hooks to add to the main loop. Executes a function per frame, so be careful.
+	mlx_loop(image->mlx); // Initializes the rendering of MLX, this function won't return until mlx_close_window is called, meaning it will loop until the user requests that the window should close.
+	mlx_delete_image(image->mlx, image->mapScreen); // 
+	mlx_delete_image(image->mlx, image->img); // 
+	mlx_terminate(image->mlx); // 
+	destroy_program(image); // 
 }
