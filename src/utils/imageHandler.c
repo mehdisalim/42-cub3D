@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_image.c                                       :+:      :+:    :+:   */
+/*   imageHandler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:34:35 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/21 14:49:43 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/21 20:37:13 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ unsigned long	get_color(t_color color)
 	);
 }
 
-t_texture	*get_texture(const char *str)
+t_texture	*get_texture(const char *path)
 {
 	mlx_texture_t	*texture_image;
 	unsigned char	***_3d_array;
@@ -59,7 +59,7 @@ t_texture	*get_texture(const char *str)
 	t_texture		*texture;
 	int				i;
 
-	texture_image = mlx_load_png(str);
+	texture_image = mlx_load_png(path);
 	if (!texture_image)
 	{
 		ft_putendl_fd("mlx_load_png Faild", 2);

@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:22:00 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/21 13:22:04 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/21 22:45:01 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ int main2(int ac, char **av)
 int main(int argc, char **argv)
 {
 	main2(argc, argv);
-	system("leaks -q cub3D");
+	// system("leaks -q cub3D");
 	return 0;
 }

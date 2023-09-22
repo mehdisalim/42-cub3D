@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/21 10:36:38 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/22 17:27:26 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void draw(t_image *image, int i)
 {
 	float distance_h;
 	float distance_v;
+	float	x_position;
 
 	if (image->ray_angle < 0)
 		image->ray_angle += 360;
@@ -43,18 +44,19 @@ void draw(t_image *image, int i)
 	distance_v = sqrt(pow((image->xverticale - image->xposition_p), 2) + pow((image->yverticale - image->yposition_p), 2));
     if (distance_h > distance_v)
 	{
-		// if ((image->ray_angle > 90 && image->ray_angle < 180) || (image->ray_angle > 270 && image->ray_angle < 360))
-		// 	draw_3D(image, distance_v, i, (int)image->yverticale % image->mapInfo.east->width, image->mapInfo.east);
-		// else
-			draw_3D(image, distance_v, i, (int)image->yverticale % image->mapInfo.north->width, image->mapInfo.north);
+		x_position = image->yverticale - (int)((int)((int)image->yverticale / TILESIZE) * TILESIZE);
+		if (image->vx == -1)
+			draw_3D(image, distance_v, i, x_position * (image->mapInfo.north->width / TILESIZE), image->mapInfo.north);
+		else
+			draw_3D(image, distance_v, i, x_position * (image->mapInfo.west->width / TILESIZE), image->mapInfo.west);
 	}
     else
 	{
-		// if (image->ray_angle < )
-		// if ((image->ray_angle > 90 && image->ray_angle < 180) || (image->ray_angle > 270 && image->ray_angle < 360))
-		// 	draw_3D(image, distance_h, i, (int)image->xhorizontal % image->mapInfo.west->width, image->mapInfo.west);
-		// else
-			draw_3D(image, distance_h, i, (int)image->xhorizontal % image->mapInfo.south->width, image->mapInfo.south);
+		x_position = image->xhorizontal - (int)((int)((int)image->xhorizontal / TILESIZE) * TILESIZE);
+		if (image->vy == -1)
+			draw_3D(image, distance_h, i, x_position * (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
+		else
+			draw_3D(image, distance_h, i, x_position * (image->mapInfo.south->width / TILESIZE), image->mapInfo.south);
 	}
 }
 

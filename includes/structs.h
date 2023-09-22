@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:33:14 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/21 13:18:02 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/21 20:19:57 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCTS_H
 
 #include "../mlx/include/MLX42/MLX42.h"
+#include "../libft/libft.h"
 
 /**
  * @brief Struct of 5 elements, one for the size (or len) of the pointer if exists,
@@ -75,6 +76,7 @@ typedef struct s_image
 	mlx_t			*mlx;
 	mlx_image_t*	img;
 	mlx_image_t*	mapScreen;
+	mlx_image_t*	gunScreen;
 	t_elements*		elements;
 	char			**map;
 	float			xposition_p;
@@ -99,6 +101,7 @@ typedef struct s_image
 	t_mapInfo		mapInfo;
 	float			xMap;
 	float			yMap;
+	t_list			*guns;
 }	t_image;
 
 #endif

@@ -37,7 +37,6 @@ void    drawPlayer(t_image *image, double xPlayer, double yPlayer)
         }
         x++;
     }
-    // DDA();
     float destX = xPlayer + (15 * cos(image->angle * (M_PI / 180)));
     float destY = yPlayer + (15 * sin(image->angle * (M_PI / 180)));
     DDA(xPlayer, yPlayer, destX,destY , image);
@@ -80,6 +79,7 @@ void	drawDynamicMap(t_image *image)
     int x = -circleRay;
     int y;
     int err;
+    int t = 0;
 
 
 	while (x < circleRay)
@@ -95,14 +95,13 @@ void	drawDynamicMap(t_image *image)
                 
             y++;
         }
+        if (t < 210)
+        {
+            draw_pixel(0, image, t, 200);
+            draw_pixel(0, image, 200, t);
+            t += 20;
+        }
         x++;
-    }
-    int t = 0;
-    while (t < 210)
-    {
-        draw_pixel(0, image, t, 200);
-        draw_pixel(0, image, 200, t);
-        t += 20;
     }
 
 }
