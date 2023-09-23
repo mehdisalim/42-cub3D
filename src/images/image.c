@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/21 22:53:36 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 11:42:57 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ int check(t_image *image, int move, float angle)
 
 	yy = (image->yMap + move * sin(angle * (M_PI / 180)));
 	xx = (image->xMap + move * cos(angle * (M_PI / 180)));
-	if ((image->map[(yy + 2) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' \
-		|| image->map[(yy - 2) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' \
-		|| image->map[yy / MINIMAPSIZE][(xx + 2) / MINIMAPSIZE] == '1' \
-		|| image->map[yy / MINIMAPSIZE][(xx - 2) / MINIMAPSIZE] == '1'))
+	if ((image->map[(yy + 2) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' || image->map[(yy - 2) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' \
+		|| image->map[yy / MINIMAPSIZE][(xx + 2) / MINIMAPSIZE] == '1' || image->map[yy / MINIMAPSIZE][(xx - 2) / MINIMAPSIZE] == '1'))
 		return (0);
 	return (1);
 }
@@ -69,12 +67,13 @@ t_image *initStruct(t_elements *elements, char **map)
 	image->angle = 0;
 	image->angle_right = 0;
 	image->angle_left = 0;
-	image->playerSpeed = 5;
+	image->playerSpeed = 3;
 	image->angleSpeed = 3;
 	image->displayMiniMap = ENABLE;
 	image->allowedCursor = ENABLE;
 	image->verticalLength = map_size(map);
 
+	image->map_image = get_texture("./assets/Subtract1.png");
 	image->mapInfo.north = get_texture((char *)getDataFromElements(elements, "NO"));
 	image->mapInfo.south = get_texture((char *)getDataFromElements(elements, "SO"));
 	image->mapInfo.east = get_texture((char *)getDataFromElements(elements, "EA"));

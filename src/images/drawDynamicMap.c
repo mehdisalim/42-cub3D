@@ -49,6 +49,20 @@ void	drawDynamicMap(t_image *image)
     float xEndMap = image->xMap + 100;
     float xstart = image->xMap - 100;
     float ystart = yStartMap;
+    unsigned long south_color;
+    unsigned long north_color;
+    if (image->mapInfo.south->height / 2 - 1 < 0 || image->mapInfo.north->height / 2 - 1 < 0)
+    {
+        south_color = 0xff0ff0;
+        north_color = 0xAAABBB;
+    }
+    else
+    {
+        south_color = get_color(image->mapInfo.south->pixels[image->mapInfo.south->height / 2 - 1][image->mapInfo.south->width / 2 - 1]);
+        north_color = get_color(image->mapInfo.north->pixels[image->mapInfo.north->height / 2 - 1][image->mapInfo.north->width / 2 - 1]);
+        if (north_color == south_color)
+            north_color /= 2;
+    }
     while (yStartMap < yEndMap)
     {
         unsigned int i = (yStartMap - (MINIMAPSIZE / 2)) / MINIMAPSIZE;
@@ -61,9 +75,9 @@ void	drawDynamicMap(t_image *image)
             if (i < (unsigned int)image->verticalLength && j < (unsigned int)ft_strlen(image->map[i]))
             {
                 if (image->map[i][j] == '1')
-                    draw_pixel(0xFF0000FF, image, xTmp, yTmp);
+                    draw_pixel(south_color, image, xTmp, yTmp);
                 else if (!ft_strchr("1 ", image->map[i][j]))
-                    draw_pixel(0x696ca5, image, xTmp, yTmp);
+                    draw_pixel(north_color, image, xTmp, yTmp);
                 else
                     draw_pixel(0, image, xTmp, yTmp);
             }
@@ -75,7 +89,8 @@ void	drawDynamicMap(t_image *image)
     }
     drawPlayer(image, 110, 110);
 
-    int circleRay = 100;
+    int circleRay = 90;
+    int border = 110 - circleRay;
     int x = -circleRay;
     int y;
     int err;
@@ -89,16 +104,15 @@ void	drawDynamicMap(t_image *image)
         {
             err = x * x + y * y - circleRay * circleRay;
             if (err > 0)
-                mlx_put_pixel(image->mapScreen, circleRay + x, circleRay + y , 0);
-            else if (err > -200 && err <= 0)
-                mlx_put_pixel(image->mapScreen, circleRay + x, circleRay + y , 0xffffff);
-                
+                mlx_put_pixel(image->mapScreen, circleRay + x + border, circleRay + y + border , 0);
             y++;
         }
         if (t < 210)
         {
-            draw_pixel(0, image, t, 200);
+            draw_pixel(0, image, 0, t);
+            draw_pixel(0, image, t, 0);
             draw_pixel(0, image, 200, t);
+            draw_pixel(0, image, t, 200);
             t += 20;
         }
         x++;

@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:33:14 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/21 20:19:57 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 10:25:34 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_image
 	float			xMap;
 	float			yMap;
 	t_list			*guns;
+	t_texture		*map_image;
 }	t_image;
 
 #endif

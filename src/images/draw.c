@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/22 17:27:26 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 11:09:26 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void draw(t_image *image, int i)
 	}
     else
 	{
-		x_position = image->xhorizontal - (int)((int)((int)image->xhorizontal / TILESIZE) * TILESIZE);
+		x_position = image->xhorizontal - ((int)((int)image->xhorizontal / TILESIZE) * TILESIZE);
 		if (image->vy == -1)
 			draw_3D(image, distance_h, i, x_position * (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
 		else
