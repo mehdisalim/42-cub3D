@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/22 17:14:46 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 15:32:03 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ void    drawPlayer(t_image *image, double xPlayer, double yPlayer);
 //	====================================================================
 
 void	destroy_program(t_image *image);
+
+void    display_gun(t_image *image, t_list *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/23 11:42:57 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 15:59:40 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,28 @@ int check(t_image *image, int move, float angle)
 
 	yy = (image->yMap + move * sin(angle * (M_PI / 180)));
 	xx = (image->xMap + move * cos(angle * (M_PI / 180)));
-	if ((image->map[(yy + 2) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' || image->map[(yy - 2) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' \
-		|| image->map[yy / MINIMAPSIZE][(xx + 2) / MINIMAPSIZE] == '1' || image->map[yy / MINIMAPSIZE][(xx - 2) / MINIMAPSIZE] == '1'))
+	if ((image->map[(yy + 4) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' || image->map[(yy - 4) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1') \
+		&& (image->map[yy / MINIMAPSIZE][(xx + 4) / MINIMAPSIZE] == '1' || image->map[yy / MINIMAPSIZE][(xx - 4) / MINIMAPSIZE] == '1'))
 		return (0);
+	if ((image->map[(yy + 4) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' || image->map[(yy - 4) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1') \
+		&& (image->map[yy / MINIMAPSIZE][(xx + 4) / MINIMAPSIZE] != '1' || image->map[yy / MINIMAPSIZE][(xx - 4) / MINIMAPSIZE] != '1'))
+		return (4);
+	if ((image->map[(yy + 4) / MINIMAPSIZE][xx / MINIMAPSIZE] != '1' || image->map[(yy - 4) / MINIMAPSIZE][xx / MINIMAPSIZE] != '1') \
+		&& (image->map[yy / MINIMAPSIZE][(xx + 4) / MINIMAPSIZE] == '1' || image->map[yy / MINIMAPSIZE][(xx - 4) / MINIMAPSIZE] == '1'))
+		return (5);
 	return (1);
 }
 
 int check_draw_pixel_player(t_image *image, int n)
 {
-
-	if (n == 3 && check(image, image->playerSpeed, image->angle) == 0)
-		return (0);
-	if (n == 4 && check(image, -image->playerSpeed, image->angle) == 0)
-		return (0);
-	if (n == 1 && check(image, image->playerSpeed, image->angle_right) == 0)
-		return (0);
-	if (n == 2 && check(image, image->playerSpeed, image->angle_left) == 0)
-		return (0);
+	if (n == 3)
+		return (check(image, image->playerSpeed, image->angle));
+	if (n == 4)
+		return (check(image, -image->playerSpeed, image->angle));
+	if (n == 1)
+		return (check(image, image->playerSpeed, image->angle_right));
+	if (n == 2)
+		return (check(image, image->playerSpeed, image->angle_left));
 	return (1);
 }
 
@@ -67,7 +72,7 @@ t_image *initStruct(t_elements *elements, char **map)
 	image->angle = 0;
 	image->angle_right = 0;
 	image->angle_left = 0;
-	image->playerSpeed = 3;
+	image->playerSpeed = 5;
 	image->angleSpeed = 3;
 	image->displayMiniMap = ENABLE;
 	image->allowedCursor = ENABLE;
@@ -126,11 +131,11 @@ t_list*	get_guns_textures( void )
 	t_texture *texture;
 	char *tmp;
 	char *path;
-	int i = 1;
-	while (i <= 26)
+	int i = 0;
+	while (i <= 20)
 	{
 		char *number = ft_itoa(i);
-		path = ft_strdup("assets/g8/");
+		path = ft_strdup("assets/valorant/");
 		tmp = ft_strjoin(path, number);
 		free(number);
 		free(path);
@@ -159,15 +164,15 @@ void create_window(t_elements *elements, char **map)
 	image = initStruct(elements, map); // initialization global struct.
 	image->elements = elements;
 	image->map = map;
-	// image->guns = get_guns_textures();
+	image->guns = get_guns_textures();
 	image->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", 0); // Initializes a new MLX42 Instance.
 	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT); // // Creates and allocates a new image buffer for the Game Screen.
 	image->mapScreen = mlx_new_image(image->mlx, 220, 220); // Creates and allocates a new image buffer for the Mini Map.
 	image->gunScreen = mlx_new_image(image->mlx, WIDTH, HEIGHT); // Creates and allocates a new image buffer for the Mini Map.
 	getPlayerPosition(image); 
 	mlx_image_to_window(image->mlx, image->img, 0, 0); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
-	mlx_image_to_window(image->mlx, image->gunScreen, 0, 0); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
 	mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
+	mlx_image_to_window(image->mlx, image->gunScreen, 0, 0); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
 	mlx_key_hook(image->mlx, &key_hook, image); // This function sets the key callback, which is called when a key is pressed on the keyboard. Useful for single keypress detection.
 	mlx_cursor_hook(image->mlx, &cursor_hook, image); // This function sets the cursor callback, which is called when the mouse position changes. Position is relative to the window.
 	mlx_loop_hook(image->mlx, drow_image, image); // Generic loop hook for any custom hooks to add to the main loop. Executes a function per frame, so be careful.

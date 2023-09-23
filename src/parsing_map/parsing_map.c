@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:04:29 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/14 13:49:27 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 13:36:45 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_elements	*parsing_elements(char **elements)
 		split_value = ft_split(elements[i], ' ');
 		if (!split_value)
 			return (free(dest), ft_putendl_fd("Error: ft_split err", 2), NULL);
+		
 		if (map_size(split_value) != 2)
 		{
 			free_double_pointer(split_value);
@@ -67,11 +68,26 @@ t_elements	*parsing_elements(char **elements)
 	return (dest);
 }
 
+unsigned int	get_char_len(char *str, char c)
+{
+	unsigned int len = 0;
+	int i = -1;
+
+	if (!str)
+		return (0);
+	while (str[++i])
+		if (str[i] == c)
+			len++;
+	return (len);
+}
+
 t_color	*parsing_colors(char *str_color)
 {
 	char	**split_value;
 	t_color	*col;
 
+	if (get_char_len(str_color, ',') > 3)
+		return (ft_putendl_fd("Error: color invalid", 2), NULL);
 	col = ft_calloc(2, sizeof(t_color));
 	if (!col)
 		return (NULL);
