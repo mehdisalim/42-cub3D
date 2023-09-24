@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:04:29 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/23 21:03:46 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 14:02:15 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_color	*parsing_colors(char *str_color)
 	char	**split_value;
 	t_color	*col;
 
-	if (get_char_len(str_color, ',') > 3)
+	if (get_char_len(str_color, ',') > 2)
 		return (ft_putendl_fd("Error: color invalid", 2), NULL);
 	col = ft_calloc(2, sizeof(t_color));
 	if (!col)

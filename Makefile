@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
+#    By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/23 20:23:00 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/24 16:45:58 by esekouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,12 @@ SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/read_map.c \
 			src/parsing_map/parsing_map.c \
 			src/images/image.c \
+			src/images/press_key.c \
 			src/images/key_hook.c \
 			src/raycasting/find_distance.c \
 			src/raycasting/dda.c \
 			src/images/draw.c \
 			src/images/drawDynamicMap.c \
-			src/images/drawMiniMap.c \
 			src/game/display_3D.c \
 			src/game/display_gun.c \
 			src/utils/imageHandler.c \

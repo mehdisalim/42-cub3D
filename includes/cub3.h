@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/23 18:44:56 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 17:04:24 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	find_distance_verticale(t_image * image);
 void	find_distance_horizontal(t_image * image);
 void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image);
 void	draw_pixel_player(t_image *image);
-void	drow_image(void *img);
+void	draw_image(void *img);
 
 //	====================================================================
 //	display_3D.c
@@ -78,4 +78,13 @@ void	destroy_program(t_image *image);
 
 void    display_gun(t_image *image, t_list *lst);
 
+// =======================================
+void	press_w_key(t_image *image);
+void	press_s_key(t_image *image);
+void	press_a_key(t_image *image);
+void	press_d_key(t_image *image);
+void	vue_x_y(t_image *image);
+void	angle(t_image *image);
+
+// =======================================
 #endif

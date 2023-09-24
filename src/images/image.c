@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 13:18:46 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:02:21 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void create_window(t_elements *elements, char **map)
 	mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
 	mlx_key_hook(image->mlx, &key_hook, image); // This function sets the key callback, which is called when a key is pressed on the keyboard. Useful for single keypress detection.
 	mlx_cursor_hook(image->mlx, &cursor_hook, image); // This function sets the cursor callback, which is called when the mouse position changes. Position is relative to the window.
-	mlx_loop_hook(image->mlx, drow_image, image); // Generic loop hook for any custom hooks to add to the main loop. Executes a function per frame, so be careful.
+	mlx_loop_hook(image->mlx, draw_image, image); // Generic loop hook for any custom hooks to add to the main loop. Executes a function per frame, so be careful.
 	mlx_loop(image->mlx); // Initializes the rendering of MLX, this function won't return until mlx_close_window is called, meaning it will loop until the user requests that the window should close.
 	mlx_delete_image(image->mlx, image->mapScreen); // 
 	mlx_delete_image(image->mlx, image->img); // 

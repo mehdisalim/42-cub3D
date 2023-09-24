@@ -6,11 +6,25 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:35:28 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 13:17:11 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:04:13 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3.h"
+
+void	angle(t_image *image)
+{
+	image->angle_left = image->angle + 90;
+	if (image->angle_left > 360)
+		image->angle_left -= 360;
+	if (image->angle_left < 0)
+		image->angle_left += 360;
+	image->angle_right = image->angle - 90;
+	if (image->angle_right > 360)
+		image->angle_right -= 360;
+	if (image->angle_right < 0)
+		image->angle_right += 360;
+}
 
 void key_hook(mlx_key_data_t keydata, void *para)
 {

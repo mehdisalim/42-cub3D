@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:33:14 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/23 10:25:34 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 16:56:47 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_image
 	int				angleSpeed;
 	char			displayMiniMap;
 	char			allowedCursor;
+	float			position;
 	t_mapInfo		mapInfo;
 	float			xMap;
 	float			yMap;
