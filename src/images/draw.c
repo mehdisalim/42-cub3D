@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/23 11:09:26 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 13:05:27 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ void draw(t_image *image, int i)
 	{
 		x_position = image->yverticale - (int)((int)((int)image->yverticale / TILESIZE) * TILESIZE);
 		if (image->vx == -1)
-			draw_3D(image, distance_v, i, x_position * (image->mapInfo.north->width / TILESIZE), image->mapInfo.north);
+			draw_3D(image, distance_v, i, image->mapInfo.west->width - (x_position * (image->mapInfo.west->width / TILESIZE)) -1, image->mapInfo.west);
 		else
-			draw_3D(image, distance_v, i, x_position * (image->mapInfo.west->width / TILESIZE), image->mapInfo.west);
+			draw_3D(image, distance_v, i, x_position * (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
 	}
     else
 	{
 		x_position = image->xhorizontal - ((int)((int)image->xhorizontal / TILESIZE) * TILESIZE);
 		if (image->vy == -1)
-			draw_3D(image, distance_h, i, x_position * (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
+			draw_3D(image, distance_h, i, x_position * (image->mapInfo.north->width / TILESIZE), image->mapInfo.north);
 		else
-			draw_3D(image, distance_h, i, x_position * (image->mapInfo.south->width / TILESIZE), image->mapInfo.south);
+			draw_3D(image, distance_h, i, image->mapInfo.south->width - (x_position * (image->mapInfo.south->width / TILESIZE)) - 1, image->mapInfo.south);
 	}
 }
 
@@ -94,6 +94,106 @@ void angle(t_image *image)
 		image->angle_right += 360;
 }
 
+void	press_W_key(t_image *image)
+{
+	if (check_draw_pixel_player(image, 3) == 1)
+	{
+		image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
+		image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle * (M_PI / 180));
+	}
+	else if (check_draw_pixel_player(image, 3) == 4)
+	{
+		image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
+		// image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle * (M_PI / 180));
+		// image->yMap += image->playerSpeed * sin(image->angle * (M_PI / 180));
+	}
+	else if (check_draw_pixel_player(image, 3) == 5)
+	{
+		// image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
+		image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
+		// image->xMap += image->playerSpeed * cos(image->angle * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle * (M_PI / 180));
+	}
+}
+
+void	press_S_key(t_image *image)
+{
+	if (check_draw_pixel_player(image, 4) == 1)
+	{
+		image->xposition_p -= ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
+		image->yposition_p -= ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
+		image->xMap -= image->playerSpeed * cos(image->angle * (M_PI / 180));
+		image->yMap -= image->playerSpeed * sin(image->angle * (M_PI / 180));
+	}
+	else if (check_draw_pixel_player(image, 4) == 4)
+	{
+		image->xposition_p -= ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
+		// image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
+		image->xMap -= image->playerSpeed * cos(image->angle * (M_PI / 180));
+		// image->yMap += image->playerSpeed * sin(image->angle * (M_PI / 180));
+	}
+	else if (check_draw_pixel_player(image, 4) == 5)
+	{
+		// image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
+		image->yposition_p -= ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
+		// image->xMap += image->playerSpeed * cos(image->angle * (M_PI / 180));
+		image->yMap -= image->playerSpeed * sin(image->angle * (M_PI / 180));
+	}
+}
+
+void	press_A_key(t_image *image)
+{
+	if (check_draw_pixel_player(image, 2) == 1)
+	{
+		image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle_left * (M_PI / 180));
+		image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle_left * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle_left * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle_left * (M_PI / 180));
+	}
+	else if (check_draw_pixel_player(image, 2) == 4)
+	{
+		image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle_left * (M_PI / 180));
+		// image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle_left * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle_left * (M_PI / 180));
+		// image->yMap += image->playerSpeed * sin(image->angle_left * (M_PI / 180));
+	}
+	else if (check_draw_pixel_player(image, 2) == 5)
+	{
+		// image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle_left * (M_PI / 180));
+		image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle_left * (M_PI / 180));
+		// image->xMap += image->playerSpeed * cos(image->angle_left * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle_left * (M_PI / 180));
+	}
+}
+
+void	press_D_key(t_image *image)
+{
+	if (check_draw_pixel_player(image, 1) == 1)
+	{
+		image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle_right * (M_PI / 180));
+		image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle_right * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle_right * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle_right * (M_PI / 180));
+	}
+	else if (check_draw_pixel_player(image, 1) == 4)
+	{
+		image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle_right * (M_PI / 180));
+		// image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle_right * (M_PI / 180));
+		image->xMap += image->playerSpeed * cos(image->angle_right * (M_PI / 180));
+		// image->yMap += image->playerSpeed * sin(image->angle_right * (M_PI / 180));
+	}
+	else if (check_draw_pixel_player(image, 1) == 5)
+	{
+		// image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle_right * (M_PI / 180));
+		image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle_right * (M_PI / 180));
+		// image->xMap += image->playerSpeed * cos(image->angle_right * (M_PI / 180));
+		image->yMap += image->playerSpeed * sin(image->angle_right * (M_PI / 180));
+	}
+}
+
 void drow_image(void *img)
 {
 	t_image *image;
@@ -102,47 +202,21 @@ void drow_image(void *img)
 	static float oldAngle;
 
 	image = (t_image *)img;
-//	================== KEY HOOKS ============================================
-	{
-		angle(image);
-		if (mlx_is_key_down(image->mlx, MLX_KEY_W) && check_draw_pixel_player(image, 3) != 0)
-		{
-			image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
-			image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
-			image->xMap += image->playerSpeed * cos(image->angle * (M_PI / 180));
-			image->yMap += image->playerSpeed * sin(image->angle * (M_PI / 180));
-		}
-		if (mlx_is_key_down(image->mlx, MLX_KEY_S) && check_draw_pixel_player(image, 4) != 0)
-		{
-			image->xposition_p -= ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
-			image->yposition_p -= ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
-			image->xMap -= image->playerSpeed * cos(image->angle * (M_PI / 180));
-			image->yMap -= image->playerSpeed * sin(image->angle * (M_PI / 180));
-		}
-	
-		if (mlx_is_key_down(image->mlx, MLX_KEY_D) && check_draw_pixel_player(image, 2) != 0)
-		{
-			image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle_left * (M_PI / 180));
-			image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle_left * (M_PI / 180));
-			image->xMap += image->playerSpeed * cos(image->angle_left * (M_PI / 180));
-			image->yMap += image->playerSpeed * sin(image->angle_left * (M_PI / 180));
-		}
-		if (mlx_is_key_down(image->mlx, MLX_KEY_A) && check_draw_pixel_player(image, 1) != 0)
-		{
-			image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle_right * (M_PI / 180));
-			image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle_right * (M_PI / 180));
-			image->xMap += image->playerSpeed * cos(image->angle_right * (M_PI / 180));
-			image->yMap += image->playerSpeed * sin(image->angle_right * (M_PI / 180));
-		}
-		if (mlx_is_key_down(image->mlx, MLX_KEY_ESCAPE))
-			mlx_close_window(image->mlx);
-		if (mlx_is_key_down(image->mlx, MLX_KEY_LEFT))
-			image->angle -= image->angleSpeed;
-		if (mlx_is_key_down(image->mlx, MLX_KEY_RIGHT))
-			image->angle += image->angleSpeed;
-	}
-//	========================================================================================================================
-
+	angle(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_W))
+		press_W_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_S))
+		press_S_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_D))
+		press_A_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_A))
+		press_D_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(image->mlx);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_LEFT))
+		image->angle -= image->angleSpeed;
+	if (mlx_is_key_down(image->mlx, MLX_KEY_RIGHT))
+		image->angle += image->angleSpeed;
 	if (oldXPlayer != image->xMap || oldYPlayer != image->yMap || oldAngle != image->angle)
 	{
 		draw_pixel_player(image);
@@ -151,6 +225,5 @@ void drow_image(void *img)
 		oldXPlayer = image->xMap;
 		oldYPlayer = image->yMap;
 		oldAngle = image->angle;
-		// exit(0);
 	}
 }

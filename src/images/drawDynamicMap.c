@@ -50,18 +50,18 @@ void	drawDynamicMap(t_image *image)
     float xstart = image->xMap - 100;
     float ystart = yStartMap;
     unsigned long south_color;
-    unsigned long north_color;
+    unsigned long west_color;
     if (image->mapInfo.south->height / 2 - 1 < 0 || image->mapInfo.north->height / 2 - 1 < 0)
     {
         south_color = 0xff0ff0;
-        north_color = 0xAAABBB;
+        west_color = 0xAAABBB;
     }
     else
     {
         south_color = get_color(image->mapInfo.south->pixels[image->mapInfo.south->height / 2 - 1][image->mapInfo.south->width / 2 - 1]);
-        north_color = get_color(image->mapInfo.north->pixels[image->mapInfo.north->height / 2 - 1][image->mapInfo.north->width / 2 - 1]);
-        if (north_color == south_color)
-            north_color /= 2;
+        west_color = get_color(image->mapInfo.west->pixels[image->mapInfo.north->height / 2 - 1][image->mapInfo.west->width / 2 - 1]);
+        if (west_color == south_color)
+            west_color += 1000;
     }
     while (yStartMap < yEndMap)
     {
@@ -75,9 +75,9 @@ void	drawDynamicMap(t_image *image)
             if (i < (unsigned int)image->verticalLength && j < (unsigned int)ft_strlen(image->map[i]))
             {
                 if (image->map[i][j] == '1')
-                    draw_pixel(south_color, image, xTmp, yTmp);
+                    draw_pixel(west_color, image, xTmp, yTmp);
                 else if (!ft_strchr("1 ", image->map[i][j]))
-                    draw_pixel(north_color, image, xTmp, yTmp);
+                    draw_pixel(south_color, image, xTmp, yTmp);
                 else
                     draw_pixel(0, image, xTmp, yTmp);
             }
@@ -105,6 +105,8 @@ void	drawDynamicMap(t_image *image)
             err = x * x + y * y - circleRay * circleRay;
             if (err > 0)
                 mlx_put_pixel(image->mapScreen, circleRay + x + border, circleRay + y + border , 0);
+            else if (err > -200 && err <= 0)
+                mlx_put_pixel(image->mapScreen, circleRay + x + border, circleRay + y + border, 0xffffff);
             y++;
         }
         if (t < 210)

@@ -6,12 +6,18 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:21:59 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/14 10:45:34 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 20:51:23 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
+/**
+ * @brief Get the newline position in string.
+ * 
+ * @param str string that maybe contains a new line.
+ * @return int 	Return is an index in str if succes else return -1 for the error.
+ */
 int	get_newline_pos(char *str)
 {
 	int	i;
@@ -25,6 +31,11 @@ int	get_newline_pos(char *str)
 	return (-1);
 }
 
+/**
+ * @brief Remove new lines from map content.
+ * 
+ * @param map_content Map content.
+ */
 void	remove_newlines(char **map_content)
 {
 	int	i;
@@ -41,6 +52,14 @@ void	remove_newlines(char **map_content)
 	}
 }
 
+
+/**
+ * @brief Separate file_map centent into 2 parts, elements part and map part.
+ * 
+ * @param map				File_map content.
+ * @param elements_part 	Elements part contains all elements like (NO, SO, WE, EA, C, F).
+ * @param map_part 			Map part contains all map characters.
+ */
 void	separate_map(char **map, char ***elements_part, char ***map_part)
 {
 	int		i_elem;
@@ -92,6 +111,12 @@ void	separate_map(char **map, char ***elements_part, char ***map_part)
 	free_double_pointer(map);
 }
 
+/**
+ * @brief trim spaces from all elements.
+ * 
+ * @param elements	elements to trim.
+ * @return char** 	array of elements that's trimed.
+ */
 char	**trim_elements(char **elements)
 {
 	char	*tmp;
@@ -107,6 +132,15 @@ char	**trim_elements(char **elements)
 	return (elements);
 }
 
+/**
+ * @brief this function is the start of parsing.
+ * 
+ * @param map_name 	File Name or Path of the file contains map information.
+ * @param elements 	variable for the elements (NO SO WE EA).
+ * @param map 		variable for map.
+ * @param checker 	variable for checking file existing.
+ * @return char 	if map is valid return is 1 else will return 0.
+ */
 char	check_map(char *map_name, char ***elements, char ***map, char *checker)
 {
 	char	**map_content;

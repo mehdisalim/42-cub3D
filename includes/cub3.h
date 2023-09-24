@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/22 17:14:46 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 18:44:56 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #define CUB3_H
 
 #define TILESIZE	60
-#define WIDTH		2400
-#define HEIGHT		1200
+#define WIDTH		1920
+#define HEIGHT		1080
 #define MINIMAPSIZE	20
 #define ENABLE		1
 #define DISABLE		0
@@ -75,5 +75,7 @@ void    drawPlayer(t_image *image, double xPlayer, double yPlayer);
 //	====================================================================
 
 void	destroy_program(t_image *image);
+
+void    display_gun(t_image *image, t_list *lst);
 
 #endif
