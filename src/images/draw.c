@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/23 15:48:43 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 13:05:27 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void draw(t_image *image, int i)
 	{
 		x_position = image->yverticale - (int)((int)((int)image->yverticale / TILESIZE) * TILESIZE);
 		if (image->vx == -1)
-			draw_3D(image, distance_v, i, x_position * (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
-		else
 			draw_3D(image, distance_v, i, image->mapInfo.west->width - (x_position * (image->mapInfo.west->width / TILESIZE)) -1, image->mapInfo.west);
+		else
+			draw_3D(image, distance_v, i, x_position * (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
 	}
     else
 	{
@@ -202,32 +202,21 @@ void drow_image(void *img)
 	static float oldAngle;
 
 	image = (t_image *)img;
-//	================== KEY HOOKS ============================================
-	{
-		angle(image);
-		if (mlx_is_key_down(image->mlx, MLX_KEY_W))
-			press_W_key(image);
-		if (mlx_is_key_down(image->mlx, MLX_KEY_S))
-			press_S_key(image);
-		if (mlx_is_key_down(image->mlx, MLX_KEY_D))
-			press_A_key(image);
-		if (mlx_is_key_down(image->mlx, MLX_KEY_A))
-			press_D_key(image);
-		if (mlx_is_key_down(image->mlx, MLX_KEY_ESCAPE))
-			mlx_close_window(image->mlx);
-		if (mlx_is_key_down(image->mlx, MLX_KEY_LEFT))
-			image->angle -= image->angleSpeed;
-		if (mlx_is_key_down(image->mlx, MLX_KEY_RIGHT))
-			image->angle += image->angleSpeed;
-		// if (mlx_is_key_down(image->mlx, MLX_KEY_G))
-		// {
-		// 	display_gun(image, image->guns);
-		// 	// pause();
-		// }
-	}
-
-//	========================================================================================================================
-
+	angle(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_W))
+		press_W_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_S))
+		press_S_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_D))
+		press_A_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_A))
+		press_D_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(image->mlx);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_LEFT))
+		image->angle -= image->angleSpeed;
+	if (mlx_is_key_down(image->mlx, MLX_KEY_RIGHT))
+		image->angle += image->angleSpeed;
 	if (oldXPlayer != image->xMap || oldYPlayer != image->yMap || oldAngle != image->angle)
 	{
 		draw_pixel_player(image);

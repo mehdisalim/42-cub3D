@@ -6,12 +6,18 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:04:29 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/23 13:36:45 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 21:03:46 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
+/**
+ * @brief Parsing char ** into struct of elements.
+ * 
+ * @param elements 	2d array of elements
+ * @return t_elements* if success the return is a pointer pointing to the first element, else will be return NULL.
+ */
 t_elements	*parsing_elements(char **elements)
 {
 	t_elements	*dest;
@@ -68,6 +74,13 @@ t_elements	*parsing_elements(char **elements)
 	return (dest);
 }
 
+/**
+ * @brief	Counting number of time c char repeat in the string str.
+ * 
+ * @param str 	String to search in.
+ * @param c		Char looking for.
+ * @return unsigned int Number of repeating.
+ */
 unsigned int	get_char_len(char *str, char c)
 {
 	unsigned int len = 0;
@@ -81,6 +94,12 @@ unsigned int	get_char_len(char *str, char c)
 	return (len);
 }
 
+/**
+ * @brief parsing colors into t_color* that will be store all informations about colors.
+ * 
+ * @param str_color	The string will be parsing.
+ * @return t_color* Pointer to The first color that parsing in this function.
+ */
 t_color	*parsing_colors(char *str_color)
 {
 	char	**split_value;

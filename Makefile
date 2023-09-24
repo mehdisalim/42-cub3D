@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/23 15:17:11 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/23 20:23:00 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	cub3D
 
 CC		=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror -O3 -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -Ofast -g -fsanitize=address
 
 SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/parsing_utils.c \
