@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:13:42 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 16:32:05 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 16:48:12 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ char		check_map(char *map_name, char ***elements, char ***map, \
 										char *checker);
 t_elements	*parsing_elements(char **elements);
 t_color		*parsing_colors(char	*str_color);
+void		get_elements_and_map_len(char **map, int *i_elem, int *i_map);
 
 #endif

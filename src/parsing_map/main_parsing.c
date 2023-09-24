@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:21:59 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/23 20:51:23 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 16:48:21 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ void	remove_newlines(char **map_content)
 	}
 }
 
-
 /**
  * @brief Separate file_map centent into 2 parts, elements part and map part.
  * 
- * @param map				File_map content.
- * @param elements_part 	Elements part contains all elements like (NO, SO, WE, EA, C, F).
- * @param map_part 			Map part contains all map characters.
+ * @param map			File_map content.
+ * @param elements_part Elements part contains all elements like N,S,W,E ...
+ * @param map_part 		Map part contains all map characters.
  */
 void	separate_map(char **map, char ***elements_part, char ***map_part)
 {
@@ -67,42 +66,18 @@ void	separate_map(char **map, char ***elements_part, char ***map_part)
 	int		i;
 	char	*tmp;
 
-	i = -1;
-	i_elem = 0;
-	i_map = 0;
-	while (map[++i])
-	{
-		tmp = ft_strtrim(map[i], "  ");
-		if (tmp && (!ft_strncmp(tmp, "NO ", 3) \
-			|| !ft_strncmp(tmp, "SO ", 3) \
-			|| !ft_strncmp(tmp, "WE ", 3) \
-			|| !ft_strncmp(tmp, "EA ", 3) \
-			|| !ft_strncmp(tmp, "F ", 2) \
-			|| !ft_strncmp(tmp, "C ", 2)))
-			i_elem++;
-		else
-			i_map++;
-		free(tmp);
-	}
+	get_elements_and_map_len(map, &i_elem, &i_map);
 	*elements_part = ft_calloc(i_elem + 1, sizeof(char *));
 	*map_part = ft_calloc(i_map + 1, sizeof(char *));
-	if (!*elements_part || !*map_part)
-	{
-		ft_putstr_fd("calloc failed in separate_map() function\n", 2);
-		return ;
-	}
 	i = -1;
 	i_elem = 0;
 	i_map = 0;
 	while (map[++i])
 	{
 		tmp = ft_strtrim(map[i], "  ");
-		if (tmp && (!ft_strncmp(tmp, "NO ", 3) \
-			|| !ft_strncmp(tmp, "SO ", 3) \
-			|| !ft_strncmp(tmp, "WE ", 3) \
-			|| !ft_strncmp(tmp, "EA ", 3) \
-			|| !ft_strncmp(tmp, "F ", 2) \
-			|| !ft_strncmp(tmp, "C ", 2)))
+		if (tmp && (!ft_strncmp(tmp, "NO ", 3) || !ft_strncmp(tmp, "SO ", 3) \
+			|| !ft_strncmp(tmp, "WE ", 3) || !ft_strncmp(tmp, "EA ", 3) \
+			|| !ft_strncmp(tmp, "F ", 2) || !ft_strncmp(tmp, "C ", 2)))
 			elements_part[0][i_elem++] = ft_strdup(map[i]);
 		else
 			map_part[0][i_map++] = ft_strdup(map[i]);

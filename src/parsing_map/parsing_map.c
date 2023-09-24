@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:04:29 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/23 21:03:46 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 16:58:36 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
  * @brief Parsing char ** into struct of elements.
  * 
  * @param elements 	2d array of elements
- * @return t_elements* if success the return is a pointer pointing to the first element, else will be return NULL.
+ * @return t_elements* if success the return is a pointer 
+ * 				pointing to the first element, else will be return NULL.
  */
 t_elements	*parsing_elements(char **elements)
 {
@@ -29,8 +30,6 @@ t_elements	*parsing_elements(char **elements)
 	if (!elements)
 		return (NULL);
 	dest = ft_calloc(map_size(elements) + 1, sizeof(t_elements));
-	if (!dest)
-		return (NULL);
 	i = -1;
 	len = 0;
 	while (elements[++i])
@@ -38,7 +37,6 @@ t_elements	*parsing_elements(char **elements)
 		split_value = ft_split(elements[i], ' ');
 		if (!split_value)
 			return (free(dest), ft_putendl_fd("Error: ft_split err", 2), NULL);
-		
 		if (map_size(split_value) != 2)
 		{
 			free_double_pointer(split_value);
@@ -70,8 +68,7 @@ t_elements	*parsing_elements(char **elements)
 		}
 		free_double_pointer(split_value);
 	}
-	ft_bzero(&dest[len], sizeof(*dest));
-	return (dest);
+	return (ft_bzero(&dest[len], sizeof(*dest)), dest);
 }
 
 /**
@@ -83,11 +80,13 @@ t_elements	*parsing_elements(char **elements)
  */
 unsigned int	get_char_len(char *str, char c)
 {
-	unsigned int len = 0;
-	int i = -1;
+	unsigned int	len;
+	int				i;
 
 	if (!str)
 		return (0);
+	i = -1;
+	len = 0;
 	while (str[++i])
 		if (str[i] == c)
 			len++;
@@ -95,7 +94,8 @@ unsigned int	get_char_len(char *str, char c)
 }
 
 /**
- * @brief parsing colors into t_color* that will be store all informations about colors.
+ * @brief parsing colors into t_color* that will be store 
+ * 			all informations about colors.
  * 
  * @param str_color	The string will be parsing.
  * @return t_color* Pointer to The first color that parsing in this function.
@@ -105,11 +105,9 @@ t_color	*parsing_colors(char *str_color)
 	char	**split_value;
 	t_color	*col;
 
-	if (get_char_len(str_color, ',') > 3)
+	if (get_char_len(str_color, ',') > 2)
 		return (ft_putendl_fd("Error: color invalid", 2), NULL);
 	col = ft_calloc(2, sizeof(t_color));
-	if (!col)
-		return (NULL);
 	split_value = ft_split(str_color, ',');
 	if (map_size(split_value) != 3)
 		return (ft_putendl_fd("Error: color invalid", 2), \
@@ -126,7 +124,7 @@ t_color	*parsing_colors(char *str_color)
 	if (!is_number(split_value[2]) || (col[0].blue > 255 || col[0].blue < 0))
 		return (ft_putendl_fd("Error: color invalid", 2), \
 			free_double_pointer(split_value), free(col), NULL);
-	col[0].alpha	= 255;
+	col[0].alpha = 255;
 	ft_bzero(&col[1], sizeof(t_color));
 	return (free_double_pointer(split_value), col);
 }
