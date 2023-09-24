@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 16:02:23 by esalim            #+#    #+#             */
-/*   Updated: 2023/08/27 11:56:48 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/18 15:12:54 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	*ft_calloc(size_t count, size_t size)
 
 	dest = (char *)malloc(count * size);
 	if (!dest)
-		return (0);
+	{
+		ft_putendl_fd("Error : Malloc Faild !!", 2);
+		exit(1);
+	}
 	// printf("%d   ==> [%p]\n", i++, dest);
 	ft_bzero(dest, count * size);
 	return (dest);

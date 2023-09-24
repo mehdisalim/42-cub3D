@@ -6,67 +6,58 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:35:28 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/09 13:17:55 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/23 15:49:23 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../../includes/cub3.h"
+#include "../../includes/cub3.h"
 
-void	angle(t_image *image)
-{
-	image->angle_left = image->angle + 90;
-	if (image->angle_left > 360)
-		image->angle_left -= 360;
-	else if (image->angle_left < 0)
-		image->angle_left += 360;
-	image->angle_right = image->angle - 90;
-	if (image->angle_right > 360)
-		image->angle_right -= 360;
-	else if (image->angle_right< 0)
-		image->angle_right += 360;
-}
-
-void	key_hook2(mlx_key_data_t keydata, t_image *image)
-{
-	angle(image);
-	if (keydata.key == 68 && check_draw_pixel_player(image, 2) != 0)
-	{
-		image->xposition_p += 5 * cos(image->angle_left * (M_PI/180));
-		image->yposition_p += 5 * sin(image->angle_left * (M_PI/180));
-	}
-	else if (keydata.key == 65 && check_draw_pixel_player(image, 1) != 0)
-	{
-		image->xposition_p += 5 * cos(image->angle_right * (M_PI/180));
-		image->yposition_p += 5 * sin(image->angle_right * (M_PI/180));
-	}
-	else if (keydata.key == 263)
-		image->angle -= 2;
-	else if (keydata.key == 262)
-		image->angle += 2;
-	mlx_delete_image(image->mlx, image->img);
-	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(image->mlx, image->img, 0, 0);
-}
-
-void	key_hook(mlx_key_data_t keydata, void *para)
+void key_hook(mlx_key_data_t keydata, void *para)
 {
 	t_image *image;
+	static unsigned int a;
 
 	image = (t_image *)para;
-	if (keydata.key == 256)
+	a++;
+	if (keydata.key == MLX_KEY_M && a % 2)
 	{
-		mlx_delete_image(image->mlx, image->img);
-		exit(0);
+		if (image->displayMiniMap == ENABLE)
+		{
+			mlx_delete_image(image->mlx, image->mapScreen);
+			image->mapScreen = mlx_new_image(image->mlx, 220, 220);
+			mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220);
+		}
+		else
+			drawDynamicMap(image);
+		image->displayMiniMap = !image->displayMiniMap;
 	}
-	if (keydata.key == 83 && check_draw_pixel_player(image, 4) != 0)
-	{
-		image->xposition_p -= 5 * cos(image->angle * (M_PI/180));
-		image->yposition_p -= 5 * sin(image->angle * (M_PI/180));
-	}
-	if (keydata.key == 87 && check_draw_pixel_player(image, 3) != 0)
-	{
-		image->xposition_p += 5 * cos(image->angle * (M_PI/180));
-		image->yposition_p += 5 * sin(image->angle * (M_PI/180));
-	}
-	key_hook2(keydata, image);	
+	if (keydata.key == MLX_KEY_C && a % 2)
+		image->allowedCursor = !image->allowedCursor;
+	if (keydata.key == 61 && a % 2 && image->playerSpeed < 10)
+		++image->playerSpeed;
+	if (keydata.key == 45 && a % 2 && image->playerSpeed > 3)
+		--image->playerSpeed;
+	if (keydata.key == MLX_KEY_G && a % 2)
+		display_gun(image, image->guns);
+	// if (keydata.key == MLX_KEY_G && a % 2)
+	// {
+	// 	t_list *guns = image->guns;
+	// 	while (guns)
+	// 	{
+	// 		int y = 0;
+	// 		int x = 0;
+	// 		t_texture *tex = (t_texture *)guns->content;
+	// 		while (y < tex->height)
+	// 		{
+	// 			x = 0;
+	// 			while (x < tex->width)
+	// 			{
+	// 				mlx_put_pixel(image->gunScreen, y, x, get_color(tex->pixels[y][x]));
+	// 				x++;
+	// 			}
+	// 			y++;
+	// 		}
+	// 		guns = guns->next;
+	// 	}
+	// }
 }

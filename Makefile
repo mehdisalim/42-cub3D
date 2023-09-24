@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+         #
+#    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/07 13:00:50 by esekouni         ###   ########.fr        #
+#    Updated: 2023/09/23 20:23:00 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	cub3D
 
 CC		=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -Ofast -g -fsanitize=address
 
 SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/parsing_utils.c \
@@ -23,10 +23,17 @@ SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/parsing_map.c \
 			src/images/image.c \
 			src/images/key_hook.c \
-			src/images/find_distance.c \
+			src/raycasting/find_distance.c \
+			src/raycasting/dda.c \
 			src/images/draw.c \
-			src/images/dda.c \
-			# src/main.c 
+			src/images/drawDynamicMap.c \
+			src/images/drawMiniMap.c \
+			src/game/display_3D.c \
+			src/game/display_gun.c \
+			src/utils/imageHandler.c \
+			src/utils/convertor.c \
+			src/utils/destroy.c \
+			src/main.c 
 
 OBJS	=	$(SRC:.c=.o)
 
@@ -35,8 +42,6 @@ MLX42 = mlx/build/libmlx42.a
 GLFW = $(shell brew --prefix glfw)
 
 framework = -framework Cocoa -framework OpenGL -framework IOKit -lglfw -L"$(GLFW)/lib" $(MLX42)
-# framework = -framework Cocoa -framework OpenGL -framework IOKit
-
 
 all		:	$(NAME)
 
@@ -45,7 +50,7 @@ $(NAME)	:	$(OBJS)
 	$(CC) $(CFLAGS)  libft/libft.a $^ -o $@ $(framework)
 	
 %.o		:	%.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(CFLAGS) -c $^ -o $@
 
 clean	:
 	make -C libft clean 
@@ -57,6 +62,5 @@ fclean	:	clean
 
 re		:	fclean	all	
 
-
-run		:
+run		: re
 	./$(NAME) maps/map1.cub

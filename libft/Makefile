@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 18:43:45 by esalim            #+#    #+#              #
-#    Updated: 2023/08/26 13:18:45 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/21 20:19:26 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,24 +46,21 @@ CFILES	= ft_isalnum.c \
 		ft_putnbr_fd.c	\
 		get_next_line_utils.c \
 		get_next_line.c \
-		ft_free.c
-
-BONUSFILES = ft_lstnew.c \
-			 ft_lstadd_front.c \
-			 ft_lstsize.c \
-			 ft_lstlast.c \
-			 ft_lstadd_back.c \
-			 ft_lstdelone.c \
-			 ft_lstclear.c \
-			 ft_lstiter.c \
-			 ft_lstmap.c
+		ft_free.c \
+		ft_lstnew.c \
+		ft_lstadd_front.c \
+		ft_lstsize.c \
+		ft_lstlast.c \
+		ft_lstadd_back.c \
+		ft_lstdelone.c \
+		ft_lstclear.c \
+		ft_lstiter.c \
+		ft_lstmap.c
 
 OBJS	= $(CFILES:.c=.o)
 
-BONUSOBJS = $(BONUSFILES:.c=.o)
-
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror 
+CFLAGS	= -Wall -Wextra -Werror -O3
 NAME	= libft.a
 
 all: 	$(NAME)
@@ -71,14 +68,11 @@ all: 	$(NAME)
 $(NAME): $(OBJS)
 	@ar -rcs $@ $^
 
-bonus:	$(BONUSOBJS)
-	@ar -rcs $(NAME) $^
-
 %.o:%.c
 	@$(CC) -c $(CFLAGS) $^
 
 clean:
-	@rm -f $(OBJS) $(BONUSOBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
 	@rm -f $(NAME)
