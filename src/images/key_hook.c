@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:35:28 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 17:20:40 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 19:06:54 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	angle(t_image *image)
 		image->angle_right += 360;
 }
 
-void key_hook(mlx_key_data_t keydata, void *para)
+void	key_hook(mlx_key_data_t keydata, void *para)
 {
-	t_image *image;
-	static unsigned int a;
+	t_image				*image;
+	static unsigned int	a;
 
 	image = (t_image *)para;
 	a++;
@@ -42,7 +42,7 @@ void key_hook(mlx_key_data_t keydata, void *para)
 			mlx_image_to_window(image->mlx, image->map_screen, 0, HEIGHT - 220);
 		}
 		else
-			drawDynamicMap(image);
+			draw_dynamic_map(image);
 		image->display_mini_map = !image->display_mini_map;
 	}
 	if (keydata.key == MLX_KEY_C && a % 2)
@@ -51,6 +51,7 @@ void key_hook(mlx_key_data_t keydata, void *para)
 		++image->player_speed;
 	if (keydata.key == 45 && a % 2 && image->player_speed > 3)
 		--image->player_speed;
+}
+
 	// if (keydata.key == MLX_KEY_G && a % 2)
 	// 	display_gun(image, image->guns);
-}

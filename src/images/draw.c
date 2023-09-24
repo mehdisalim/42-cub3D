@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 17:28:24 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 18:20:47 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	draw_image(void *img)
 	{
 		draw_pixel_player(image);
 		if (image->display_mini_map == ENABLE)
-			drawDynamicMap(image);
+			draw_dynamic_map(image);
 		oldxplayer = image->x_map;
 		oldyplayer = image->y_map;
 		oldangle = image->angle;

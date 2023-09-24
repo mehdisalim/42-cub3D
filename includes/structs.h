@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:33:14 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 17:21:15 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 20:21:28 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,42 @@ typedef struct s_texture
 	int		height;	
 	int		width;	
 }	t_texture;
+
+typedef struct s_minimap
+{
+	float			ystartmap;
+	float			yendmap;
+	float			xendmap;
+	float			xstart;
+	float			ystart;
+	unsigned int	i;
+	unsigned int	j;
+	float			xstartmap;
+	float			xtmp;
+	float			ytmp;
+}	t_minimap;
+
+typedef struct s_dda
+{
+	int		dx;
+	int		dy;
+	int		steps;
+	float	xinc;
+	float	yinc;
+	float	x;
+	float	y;
+	int		i;
+}	t_dda;
+
+typedef struct s_cerclemap
+{
+	int	circleray;
+	int	border;
+	int	x;
+	int	y;
+	int	err;
+	int	t;
+}	t_cerclemap;
 
 typedef struct s_map_info
 {

@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 17:34:46 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 20:42:37 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				check_draw_pixel_player(t_image *image, int n);
 void			key_hook(mlx_key_data_t keydata, void *para);
 void			find_distance_verticale(t_image	*image);
 void			find_distance_horizontal(t_image *image);
-void			DDA(int X0, int Y0, int X1, int Y1, t_image *image);
+void			dda(int x0, int y0, int arr[2], t_image *image);
 void			draw_pixel_player(t_image *image);
 void			draw_image(void *img);
 
@@ -56,10 +56,10 @@ unsigned long	get_color(t_color color);
 //	drawMiniMap.c
 //	====================================================================
 // void	drawMiniMap(t_image *img);
-void			drawDynamicMap(t_image *image);
+void			draw_dynamic_map(t_image *image);
 void			draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 
-void			drawPlayer(t_image *image, double xPlayer, double yPlayer);
+void			draw_player(t_image *image, double xPlayer, double yPlayer);
 
 //	====================================================================
 //	src/utils/destroy.c
@@ -76,6 +76,7 @@ void			press_a_key(t_image *image);
 void			press_d_key(t_image *image);
 void			vue_x_y(t_image *image);
 void			angle(t_image *image);
-
+int				check(t_image *image, int move, float angle);
+t_image			*init_struct(t_elements *elements, char **map);
 // =======================================
 #endif
