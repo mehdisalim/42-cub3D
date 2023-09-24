@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 13:05:27 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 13:19:26 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,11 @@ void	press_W_key(t_image *image)
 	else if (check_draw_pixel_player(image, 3) == 4)
 	{
 		image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
-		// image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
 		image->xMap += image->playerSpeed * cos(image->angle * (M_PI / 180));
-		// image->yMap += image->playerSpeed * sin(image->angle * (M_PI / 180));
 	}
 	else if (check_draw_pixel_player(image, 3) == 5)
 	{
-		// image->xposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * cos(image->angle * (M_PI / 180));
 		image->yposition_p += ((float)image->playerSpeed * (float)(TILESIZE / MINIMAPSIZE)) * sin(image->angle * (M_PI / 180));
-		// image->xMap += image->playerSpeed * cos(image->angle * (M_PI / 180));
 		image->yMap += image->playerSpeed * sin(image->angle * (M_PI / 180));
 	}
 }

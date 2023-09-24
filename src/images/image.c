@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 12:19:23 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 13:18:46 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,31 +158,6 @@ void	getPlayerPosition(t_image *image)
 	}
 }
 
-t_list*	get_guns_textures( void )
-{
-	t_list *head = NULL;
-	t_texture *texture;
-	char *tmp;
-	char *path;
-	int i = 2;
-	while (i <= 20)
-	{
-		char *number = ft_itoa(i);
-		path = ft_strdup("assets/valorant2/");
-		tmp = ft_strjoin(path, number);
-		free(number);
-		free(path);
-		path = ft_strjoin(tmp, ".png");
-		free(tmp);
-		printf("|%s|\n", path);
-		texture = get_texture(path);
-		free(path);
-		ft_lstadd_front(&head, ft_lstnew(texture));
-		i++;
-	}
-	return (head);
-}
-
 /**
  * @brief Create a window object and setuping mlx ghraphical user interface
  * 
@@ -197,14 +172,12 @@ void create_window(t_elements *elements, char **map)
 	image = initStruct(elements, map); // initialization global struct.
 	image->elements = elements;
 	image->map = map;
-	// image->guns = get_guns_textures();
 	image->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", 0); // Initializes a new MLX42 Instance.
 	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT); //Creates and allocates a new image buffer for the Game Screen.
 	image->mapScreen = mlx_new_image(image->mlx, 220, 220); // Creates and allocates a new image buffer for the Mini Map.
 	getPlayerPosition(image); 
 	mlx_image_to_window(image->mlx, image->img, 0, 0); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
 	mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
-	// mlx_image_to_window(image->mlx, image->gunScreen, 0, 0); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
 	mlx_key_hook(image->mlx, &key_hook, image); // This function sets the key callback, which is called when a key is pressed on the keyboard. Useful for single keypress detection.
 	mlx_cursor_hook(image->mlx, &cursor_hook, image); // This function sets the cursor callback, which is called when the mouse position changes. Position is relative to the window.
 	mlx_loop_hook(image->mlx, drow_image, image); // Generic loop hook for any custom hooks to add to the main loop. Executes a function per frame, so be careful.
