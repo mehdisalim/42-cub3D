@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:17:10 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/11 18:53:52 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 20:47:55 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_strlen(const char *str)
 {
 	int	length;
-	
+
 	if (!str)
 		return (0);
 	length = 0;
