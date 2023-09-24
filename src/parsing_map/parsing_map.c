@@ -3,14 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:04:29 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 17:13:50 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:02:38 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+/**
+ * @brief Set values to the dest elements .
+ * 
+ * @param dest destination.
+ * @param split_value 
+ * @param len 
+ * @return int 1 if success or 0 if failed.
+ */
+int	set_dest(t_elements **dest, char **split_value, int *len)
+{
+	int			split_len;
+
+	split_len = ft_strlen(split_value[0]);
+	if (split_value[0] && (!ft_strncmp(split_value[0], "NO", split_len) \
+		|| !ft_strncmp(split_value[0], "SO", split_len) \
+		|| !ft_strncmp(split_value[0], "WE", split_len) \
+		|| !ft_strncmp(split_value[0], "EA", split_len)))
+	{
+		(*dest)[*len].name = ft_strdup(split_value[0]);
+		(*dest)[*len].value.path = ft_strdup(split_value[1]);
+		(*len)++;
+	}
+	else if (split_value[0] && (!ft_strncmp(split_value[0], "F", split_len)
+			|| !ft_strncmp(split_value[0], "C", split_len)))
+	{
+		(*dest)[*len].name = ft_strdup(split_value[0]);
+		(*dest)[*len].value.color = parsing_colors(split_value[1]);
+		if (!(*dest)[*len].value.color)
+			return (free_double_pointer(split_value), free_elements(*dest), 0);
+		(*len)++;
+	}
+	return (1);
+}
 
 /**
  * @brief Parsing char ** into struct of elements.
@@ -24,7 +58,6 @@ t_elements	*parsing_elements(char **elements)
 	t_elements	*dest;
 	int			i;
 	int			len;
-	int			split_len;
 	char		**split_value;
 
 	if (!elements)
@@ -35,37 +68,14 @@ t_elements	*parsing_elements(char **elements)
 	while (elements[++i])
 	{
 		split_value = ft_split(elements[i], ' ');
-		if (!split_value)
-			return (free(dest), ft_putendl_fd("Error: ft_split err", 2), NULL);
 		if (map_size(split_value) != 2)
 		{
 			free_double_pointer(split_value);
 			free_elements(dest);
-			return (ft_putendl_fd("Error: extra args for element", 2), NULL);
+			return (ft_putendl_fd("Error: extra args in Elements.", 2), NULL);
 		}
-		split_len = ft_strlen(split_value[0]);
-		if (split_value[0] && (!ft_strncmp(split_value[0], "NO", split_len) \
-			|| !ft_strncmp(split_value[0], "SO", split_len) \
-			|| !ft_strncmp(split_value[0], "WE", split_len) \
-			|| !ft_strncmp(split_value[0], "EA", split_len)))
-		{
-			dest[len].name = ft_strdup(split_value[0]);
-			dest[len].value.path = ft_strdup(split_value[1]);
-			len++;
-		}
-		else if (split_value[0] && (!ft_strncmp(split_value[0], "F", split_len)
-				|| !ft_strncmp(split_value[0], "C", split_len)))
-		{
-			dest[len].name = ft_strdup(split_value[0]);
-			dest[len].value.color = parsing_colors(split_value[1]);
-			if (!dest[len].value.color)
-			{
-				free_double_pointer(split_value);
-				free_elements(dest);
-				return (NULL);
-			}
-			len++;
-		}
+		if (!set_dest(&dest, split_value, &len))
+			return (NULL);
 		free_double_pointer(split_value);
 	}
 	return (ft_bzero(&dest[len], sizeof(*dest)), dest);

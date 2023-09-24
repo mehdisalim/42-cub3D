@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:19:33 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 19:56:22 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:16:13 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	init_struct_2(t_image *image, t_elements *elements)
  * @param map 		2d array of map characters
  * @return t_image* new image 
  */
-
 t_image	*init_struct(t_elements *elements, char **map)
 {
 	t_image	*image;
@@ -75,7 +74,6 @@ t_image	*init_struct(t_elements *elements, char **map)
 	image->display_mini_map = ENABLE;
 	image->allowed_cursor = ENABLE;
 	image->vertical_length = map_size(map);
-	image->map_image = get_texture("./assets/Subtract1.png");
 	init_struct_2(image, elements);
 	return (image);
 }

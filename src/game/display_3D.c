@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   display_3D.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 13:27:31 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 17:23:13 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 21:01:47 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3.h"
-
-// void	draw_floor_and_ceiling(t_image *image)
-// {
-// 	int y;
-// 	int x;
-
-// 	y = 0;
-// 	x = 0;
-// 	while (y < HEIGHT / 2)
-// 	{
-// 		x = 0;
-// 		while (x < WIDTH / 2)
-// 		{
-// 			mlx_put_pixel(image->img, x, y, image->map_info.ceiling_color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
 
 void	*get_data_from_elements(t_elements *elements, char *data)
 {
@@ -43,7 +23,7 @@ void	*get_data_from_elements(t_elements *elements, char *data)
 	return (NULL);
 }
 
-void	draw_texture(t_image* image, const t_texture *const texture, int i, float pj, int pixelXPos)
+void	draw_texture(t_image *image, t_texture *texture, int arr[2], float pj)
 {
 	float	offset_y;
 	float	start;
@@ -60,8 +40,8 @@ void	draw_texture(t_image* image, const t_texture *const texture, int i, float p
 		y_pos = 0;
 	while (y < pj && y < HEIGHT)
 	{
-		mlx_put_pixel(image->img, i, y + start, \
-							get_color(texture->pixels[(int)y_pos][pixelXPos]));
+		mlx_put_pixel(image->img, arr[0], y + start, \
+							get_color(texture->pixels[(int)y_pos][arr[1]]));
 		y_pos += offset_y;
 		if (y_pos >= texture->height)
 			y_pos = 0;
@@ -69,8 +49,7 @@ void	draw_texture(t_image* image, const t_texture *const texture, int i, float p
 	}
 }
 
-void	draw_3d(t_image *image, float ray, int i, int pixelXPos, \
-					const t_texture *const texture)
+void	draw_3d(t_image *image, float ray, int arr[2], t_texture *texture)
 {
 	float	start;
 	float	pj;
@@ -83,9 +62,9 @@ void	draw_3d(t_image *image, float ray, int i, int pixelXPos, \
 		start = 0;
 	y = 0;
 	while (y < start)
-		mlx_put_pixel(image->img, i, y++, image->map_info.ceiling_color);
+		mlx_put_pixel(image->img, arr[0], y++, image->map_info.ceiling_color);
 	y = pj + start;
 	while (y < HEIGHT)
-		mlx_put_pixel(image->img, i, y++, image->map_info.floor_color);
-	draw_texture(image, texture, i, pj, pixelXPos);
+		mlx_put_pixel(image->img, arr[0], y++, image->map_info.floor_color);
+	draw_texture(image, texture, arr, pj);
 }

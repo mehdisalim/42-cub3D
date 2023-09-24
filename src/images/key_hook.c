@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:35:28 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 19:06:54 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:12:19 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,20 @@ void	key_hook(mlx_key_data_t keydata, void *para)
 		--image->player_speed;
 }
 
-	// if (keydata.key == MLX_KEY_G && a % 2)
-	// 	display_gun(image, image->guns);
+void	check_key(t_image *image)
+{
+	if (mlx_is_key_down(image->mlx, MLX_KEY_W))
+		press_w_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_S))
+		press_s_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_D))
+		press_a_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_A))
+		press_d_key(image);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(image->mlx);
+	if (mlx_is_key_down(image->mlx, MLX_KEY_LEFT))
+		image->angle -= image->angle_speed;
+	if (mlx_is_key_down(image->mlx, MLX_KEY_RIGHT))
+		image->angle += image->angle_speed;
+}

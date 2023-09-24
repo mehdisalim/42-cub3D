@@ -3,42 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 18:20:47 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 21:45:48 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3.h"
 
-void	check_distance(t_image *image, int i, float distance_h,
-		float distance_v)
+void	draw_vertical(t_image *image, float distance_v, int i)
 {
-	if (distance_h > distance_v)
+	int	arr[2];
+
+	arr[0] = i;
+	image->position = image->yverticale
+		- (int)((int)((int)image->yverticale / TILESIZE) *TILESIZE);
+	if (image->vx == -1)
 	{
-		image->position = image->yverticale
-			- (int)((int)((int)image->yverticale / TILESIZE) *TILESIZE);
-		if (image->vx == -1)
-			draw_3d(image, distance_v, i, image->map_info.west->width
-				- (image->position * (image->map_info.west->width / TILESIZE))
-				- 1, image->map_info.west);
-		else
-			draw_3d(image, distance_v, i, image->position * (\
-				image->map_info.east->width / TILESIZE), image->map_info.east);
+		arr[1] = image->map_info.west->width - (image->position \
+						* (image->map_info.west->width / TILESIZE)) - 1;
+		draw_3d(image, distance_v, arr, image->map_info.west);
 	}
 	else
 	{
-		image->position = image->xhorizontal
-			- ((int)((int)image->xhorizontal / TILESIZE) *TILESIZE);
-		if (image->vy == -1)
-			draw_3d(image, distance_h, i, image->position
-				* (image->map_info.north->width / TILESIZE),
-				image->map_info.north);
-		else
-			draw_3d(image, distance_h, i, image->map_info.south->width
-				- (image->position * (image->map_info.south->width / TILESIZE))
-				- 1, image->map_info.south);
+		arr[1] = image->position * (image->map_info.east->width / TILESIZE);
+		draw_3d(image, distance_v, arr, image->map_info.east);
+	}
+}
+
+void	draw_horizontal(t_image *image, float distance_h, int i)
+{
+	int	arr[2];
+
+	arr[0] = i;
+	image->position = image->xhorizontal
+		- ((int)((int)image->xhorizontal / TILESIZE) *TILESIZE);
+	if (image->vy == -1)
+	{
+		arr[1] = image->position * (image->map_info.north->width / TILESIZE);
+		draw_3d(image, distance_h, arr, image->map_info.north);
+	}
+	else
+	{
+		arr[1] = image->map_info.south->width - (image->position \
+						* (image->map_info.south->width / TILESIZE)) - 1;
+		draw_3d(image, distance_h, arr, image->map_info.south);
 	}
 }
 
@@ -58,7 +68,10 @@ void	draw(t_image *image, int i)
 			+ pow((image->yhorizontal - image->yposition_p), 2));
 	distance_v = sqrt(pow((image->xverticale - image->xposition_p), 2)
 			+ pow((image->yverticale - image->yposition_p), 2));
-	check_distance(image, i, distance_h, distance_v);
+	if (distance_h > distance_v)
+		draw_vertical(image, distance_v, i);
+	else
+		draw_horizontal(image, distance_h, i);
 }
 
 void	draw_pixel_player(t_image *image)
@@ -79,24 +92,6 @@ void	draw_pixel_player(t_image *image)
 		image->ray_angle += angle;
 		d++;
 	}
-}
-
-void	check_key(t_image *image)
-{
-	if (mlx_is_key_down(image->mlx, MLX_KEY_W))
-		press_w_key(image);
-	if (mlx_is_key_down(image->mlx, MLX_KEY_S))
-		press_s_key(image);
-	if (mlx_is_key_down(image->mlx, MLX_KEY_D))
-		press_a_key(image);
-	if (mlx_is_key_down(image->mlx, MLX_KEY_A))
-		press_d_key(image);
-	if (mlx_is_key_down(image->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(image->mlx);
-	if (mlx_is_key_down(image->mlx, MLX_KEY_LEFT))
-		image->angle -= image->angle_speed;
-	if (mlx_is_key_down(image->mlx, MLX_KEY_RIGHT))
-		image->angle += image->angle_speed;
 }
 
 void	draw_image(void *img)

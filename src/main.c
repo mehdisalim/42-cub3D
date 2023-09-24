@@ -6,31 +6,33 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:22:00 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/23 21:04:12 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:06:48 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/cub3.h"
 
 /**
- * @brief Secound Main function for testing leaks memory allocation, checking and parsing map also in this function
+ * @brief Secound Main function for testing leaks memory allocation, 
+ * 				checking and parsing map also in this function
  * 
  * @param ac number of args
  * @param av args value
  * @return int 
  */
 
-int main2(int ac, char **av)
+int	main2(int ac, char **av)
 {
-	char **map_elements;
-	char **map;
-	t_elements *elements;
-	char checker = 0;
+	char		**map_elements;
+	char		**map;
+	t_elements	*elements;
+	char		checker;
 
+	checker = 0;
 	if (ac < 2)
 		return (ft_putstr_fd("bad args\n", 2), 1);
-	if (ft_strlen(av[1]) < 4 || ft_strncmp(av[1] + (ft_strlen(av[1]) - 4), ".cub", 4))
+	if (ft_strlen(av[1]) < 4 \
+			|| ft_strncmp(av[1] + (ft_strlen(av[1]) - 4), ".cub", 4))
 		return (ft_putstr_fd("File Name Error\n", 2), 0);
 	if (!check_map(av[1], &map_elements, &map, &checker))
 	{
@@ -55,9 +57,14 @@ int main2(int ac, char **av)
  * @param argv args values
  * @return int (exit status)
  */
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
+	if (WIDTH < 700 || HEIGHT < 700)
+	{
+		ft_putendl_fd("Error: Resolution of Windows is small.", 2);
+		return (1);
+	}
 	main2(argc, argv);
-	// system("leaks -q cub3D");
-	return 0;
+	system("leaks -q cub3D");
+	return (0);
 }

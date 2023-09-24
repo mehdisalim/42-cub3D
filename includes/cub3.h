@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 20:42:37 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:17:37 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void			draw_image(void *img);
 //	====================================================================
 //	display_3D.c
 //	====================================================================
-void			draw_3d(t_image *image, float ray, int i, int pixelXPos, \
-											const t_texture *const texture);
+
+void			draw_3d(t_image *image, float ray, \
+							int arr[2], t_texture *texture);
 void			*get_data_from_elements(t_elements *elements, char *data);
 
 //	====================================================================
@@ -60,14 +61,13 @@ void			draw_dynamic_map(t_image *image);
 void			draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 
 void			draw_player(t_image *image, double xPlayer, double yPlayer);
+void			check_key(t_image *image);
 
 //	====================================================================
 //	src/utils/destroy.c
 //	====================================================================
 
 void			destroy_program(t_image *image);
-
-// void			display_gun(t_image *image, t_list *lst);
 
 // =======================================
 void			press_w_key(t_image *image);

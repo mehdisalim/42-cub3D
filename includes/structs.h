@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:33:14 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 20:21:28 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:15:26 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ typedef struct s_image
 	float			x_map;
 	float			y_map;
 	float			position;
-	t_texture		*map_image;
 }	t_image;
 
 #endif
