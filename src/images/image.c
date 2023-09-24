@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 22:12:45 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:55:25 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,11 @@ void	create_window(t_elements *elements, char **map)
 	image = init_struct(elements, map);
 	image->elements = elements;
 	image->map = map;
+	if (!check_textures(image))
+	{
+		destroy_program(image);
+		return ;
+	}
 	image->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", 0);
 	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT);
 	image->map_screen = mlx_new_image(image->mlx, 220, 220);

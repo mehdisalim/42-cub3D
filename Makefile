@@ -6,7 +6,7 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/24 22:08:18 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/24 22:56:57 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	cub3D
 
 CC		=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror -O3 -g #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -O3 -g #-fsanitize=address #-Wshadow -Wpedantic 
 
 SRC		=	src/parsing_map/main_parsing.c \
 			src/parsing_map/parsing_utils.c \
@@ -34,6 +34,7 @@ SRC		=	src/parsing_map/main_parsing.c \
 			src/utils/imageHandler.c \
 			src/utils/convertor.c \
 			src/utils/destroy.c \
+			src/utils/imageChecker.c \
 			src/main.c 
 
 OBJS	=	$(SRC:.c=.o)

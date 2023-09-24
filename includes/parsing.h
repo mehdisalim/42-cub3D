@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:13:42 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 16:48:12 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:30:48 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			get_newline_pos(char *str);
 void		remove_newlines(char **map_content);
 void		separate_map(char **map_content, char ***elements_part, \
 										char ***map_part);
-int			map_size(char **map);
+size_t		map_size(char **map);
 char		**get_new_map(char **old_map);
 char		check_wall(char **map);
 char		check_invalid_char(char	**map);
@@ -41,6 +41,6 @@ char		check_map(char *map_name, char ***elements, char ***map, \
 										char *checker);
 t_elements	*parsing_elements(char **elements);
 t_color		*parsing_colors(char	*str_color);
-void		get_elements_and_map_len(char **map, int *i_elem, int *i_map);
+void		get_elements_and_map_len(char **map, size_t *i_elem, size_t *i_map);
 
 #endif

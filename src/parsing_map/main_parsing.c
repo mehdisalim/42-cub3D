@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:21:59 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 16:48:21 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:29:15 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	remove_newlines(char **map_content)
  */
 void	separate_map(char **map, char ***elements_part, char ***map_part)
 {
-	int		i_elem;
-	int		i_map;
+	size_t	i_elem;
+	size_t	i_map;
 	int		i;
 	char	*tmp;
 

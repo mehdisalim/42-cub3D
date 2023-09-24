@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:49:21 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 17:04:15 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:31:55 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**get_new_map(char **old_map)
 	while (old_map[++i])
 		if (ft_strlen(old_map[i]) > 1 && old_map[i][0] != '\n')
 			break ;
-	new_map = ft_calloc(map_size(old_map) - i + 1, sizeof(*new_map));
+	new_map = ft_calloc((size_t)(map_size(old_map) - i + 1), sizeof(*new_map));
 	len = 0;
 	while (old_map[i])
 		new_map[len++] = ft_strdup(old_map[i++]);

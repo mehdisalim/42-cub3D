@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:31:12 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 17:18:57 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:52:14 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	free_double_pointer(char **str)
 
 void	free_texture(t_texture *texture)
 {
-	free_double_pointer((char **)texture->pixels);
+	if (texture)
+		free_double_pointer((char **)texture->pixels);
 	free(texture);
 }
 

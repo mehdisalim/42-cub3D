@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:44:35 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 22:17:37 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:57:31 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ unsigned long	get_color(t_color color);
 //	====================================================================
 //	drawMiniMap.c
 //	====================================================================
-// void	drawMiniMap(t_image *img);
 void			draw_dynamic_map(t_image *image);
 void			draw_pixel(unsigned int color, t_image *image, int xx, int yy);
 
@@ -79,4 +78,7 @@ void			angle(t_image *image);
 int				check(t_image *image, int move, float angle);
 t_image			*init_struct(t_elements *elements, char **map);
 // =======================================
+
+int				check_textures(t_image *image);
+
 #endif

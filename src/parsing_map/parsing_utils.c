@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:36:00 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 16:48:48 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:30:36 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param i_elem index of elements.
  * @param i_map  index of map.
  */
-void	get_elements_and_map_len(char **map, int *i_elem, int *i_map)
+void	get_elements_and_map_len(char **map, size_t *i_elem, size_t *i_map)
 {
 	char	*tmp;
 	int		i;
@@ -76,9 +76,9 @@ char	is_number(char *str)
 	return (1);
 }
 
-int	map_size(char **map)
+size_t	map_size(char **map)
 {
-	int	i;
+	size_t	i;
 
 	if (!map)
 		return (0);

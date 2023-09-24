@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:39:27 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/14 14:42:19 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:31:02 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	check_wall(char **map)
 {
-	int	x;
-	int	q;
+	int		x;
+	size_t	q;
 
 	if (!map || !*map)
 		return (ft_putendl_fd("Error: Empty map", 2), 0);

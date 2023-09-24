@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:34:35 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/21 20:37:13 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:38:25 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ t_texture	*get_texture(const char *path)
 
 	texture_image = mlx_load_png(path);
 	if (!texture_image)
-	{
-		ft_putendl_fd("mlx_load_png Faild", 2);
-		exit(1);
-	}
+		return (NULL);
 	texture = ft_calloc(sizeof(t_texture), 1);
 	_2d_array = convert_texture_to_2d_array(texture_image->pixels, \
 				texture_image->height, texture_image->width * 4);

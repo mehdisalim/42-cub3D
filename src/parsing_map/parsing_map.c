@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:04:29 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 22:02:38 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:30:13 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  */
 int	set_dest(t_elements **dest, char **split_value, int *len)
 {
-	int			split_len;
+	size_t	split_len;
 
 	split_len = ft_strlen(split_value[0]);
 	if (split_value[0] && (!ft_strncmp(split_value[0], "NO", split_len) \

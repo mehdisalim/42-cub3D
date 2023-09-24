@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:33:14 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/24 22:15:26 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:35:19 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
  */
 typedef struct s_color
 {
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
-	unsigned char	alpha;
+	unsigned int	red;
+	unsigned int	green;
+	unsigned int	blue;
+	unsigned int	alpha;
 	int				size;
 }	t_color;
 
