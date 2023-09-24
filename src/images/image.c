@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 13:18:46 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 16:19:46 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ t_image *initStruct(t_elements *elements, char **map)
 	image->allowedCursor = ENABLE;
 	image->verticalLength = map_size(map);
 	image->map_image = get_texture("./assets/Subtract1.png");
-	image->mapInfo.north = get_texture((char *)getDataFromElements(elements, "NO"));
-	image->mapInfo.south = get_texture((char *)getDataFromElements(elements, "SO"));
-	image->mapInfo.east = get_texture((char *)getDataFromElements(elements, "EA"));
-	image->mapInfo.west = get_texture((char *)getDataFromElements(elements, "WE"));
-	image->mapInfo.ceilingColor = get_color(*(t_color *)getDataFromElements(elements, "C"));
-	image->mapInfo.floorColor = get_color(*(t_color *)getDataFromElements(elements, "F"));
+	image->mapInfo.north = get_texture((char *)get_data_from_elements(elements, "NO"));
+	image->mapInfo.south = get_texture((char *)get_data_from_elements(elements, "SO"));
+	image->mapInfo.east = get_texture((char *)get_data_from_elements(elements, "EA"));
+	image->mapInfo.west = get_texture((char *)get_data_from_elements(elements, "WE"));
+	image->mapInfo.ceiling_color = get_color(*(t_color *)get_data_from_elements(elements, "C"));
+	image->mapInfo.ceiling_color = get_color(*(t_color *)get_data_from_elements(elements, "F"));
 	return (image);
 }
 

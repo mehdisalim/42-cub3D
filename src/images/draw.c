@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 13:19:26 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 13:29:58 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ void draw(t_image *image, int i)
 	{
 		x_position = image->yverticale - (int)((int)((int)image->yverticale / TILESIZE) * TILESIZE);
 		if (image->vx == -1)
-			draw_3D(image, distance_v, i, image->mapInfo.west->width - (x_position * (image->mapInfo.west->width / TILESIZE)) -1, image->mapInfo.west);
+			draw_3d(image, distance_v, i, image->mapInfo.west->width - (x_position * (image->mapInfo.west->width / TILESIZE)) -1, image->mapInfo.west);
 		else
-			draw_3D(image, distance_v, i, x_position * (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
+			draw_3d(image, distance_v, i, x_position * (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
 	}
     else
 	{
 		x_position = image->xhorizontal - ((int)((int)image->xhorizontal / TILESIZE) * TILESIZE);
 		if (image->vy == -1)
-			draw_3D(image, distance_h, i, x_position * (image->mapInfo.north->width / TILESIZE), image->mapInfo.north);
+			draw_3d(image, distance_h, i, x_position * (image->mapInfo.north->width / TILESIZE), image->mapInfo.north);
 		else
-			draw_3D(image, distance_h, i, image->mapInfo.south->width - (x_position * (image->mapInfo.south->width / TILESIZE)) - 1, image->mapInfo.south);
+			draw_3d(image, distance_h, i, image->mapInfo.south->width - (x_position * (image->mapInfo.south->width / TILESIZE)) - 1, image->mapInfo.south);
 	}
 }
 
