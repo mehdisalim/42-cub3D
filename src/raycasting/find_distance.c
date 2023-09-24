@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_distance.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:56:54 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/18 12:37:56 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 17:17:39 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	find_distance_verticale(t_image *image)
 	{
 		yPos = image->yverticale / TILESIZE;
 		xPos = image->xverticale / TILESIZE;
-		if (image->yverticale < 1 || yPos >= (unsigned int)image->verticalLength)
+		if (image->yverticale < 1 || yPos >= (unsigned int)image->vertical_length)
 			break ;
 		if ((image->xverticale < 1 || xPos >= (unsigned int)ft_strlen(image->map[yPos])))
 			break ;
@@ -54,7 +54,7 @@ void	find_distance_horizontal(t_image *image)
 	{
 		yPos = image->yhorizontal / TILESIZE;
 		xPos = image->xhorizontal / TILESIZE;
-		if ((image->yhorizontal < 1 || yPos >= (unsigned int)image->verticalLength))
+		if ((image->yhorizontal < 1 || yPos >= (unsigned int)image->vertical_length))
 			break ;
 		if ((image->xhorizontal < 1 || xPos >= (unsigned int)ft_strlen(image->map[yPos])))
 			break ;

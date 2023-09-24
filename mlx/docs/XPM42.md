@@ -6,7 +6,7 @@ See copyright and license notice in the root project for more information.
 # XPM42
 
 XPM42 is a custom file format made for MLX42 to provide an easy to use and understand image file format to learn how 
-images can be stored. The format is based on the actual [XPM3](https://en.wikipedia.org/wiki/X_PixMap) format.
+images can be stored. The format is based on the actual [XPM3](https://en.wikipedia.org/wiki/X_Pix_map) format.
 
 An XPM file basically stores a look-up table inside of it to fetch which character corresponds to which color. Additionally in the
 header there is a character per pixel count, this is due to the limitation of the amount of characters. Each 'Pixel' in the XPM data can 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:31:12 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/21 13:55:36 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 17:18:57 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	free_texture(t_texture *texture)
 
 void	destroy_program(t_image *image)
 {
-	free_texture(image->mapInfo.north);
-	free_texture(image->mapInfo.west);
-	free_texture(image->mapInfo.south);
-	free_texture(image->mapInfo.east);
+	free_texture(image->map_info.north);
+	free_texture(image->map_info.west);
+	free_texture(image->map_info.south);
+	free_texture(image->map_info.east);
 	free_elements(image->elements);
 	free_double_pointer(image->map);
 	free(image);

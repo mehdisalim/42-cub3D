@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 17:02:21 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:23:57 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int check(t_image *image, int move, float angle)
 	int xx;
 	int yy;
 
-	yy = (image->yMap + move * sin(angle * (M_PI / 180)));
-	xx = (image->xMap + move * cos(angle * (M_PI / 180)));
+	yy = (image->y_map + move * sin(angle * (M_PI / 180)));
+	xx = (image->x_map + move * cos(angle * (M_PI / 180)));
 	if ((image->map[(yy + 4) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1' || image->map[(yy - 4) / MINIMAPSIZE][xx / MINIMAPSIZE] == '1') \
 		&& (image->map[yy / MINIMAPSIZE][(xx + 4) / MINIMAPSIZE] == '1' || image->map[yy / MINIMAPSIZE][(xx - 4) / MINIMAPSIZE] == '1'))
 		return (0);
@@ -49,13 +49,13 @@ int check(t_image *image, int move, float angle)
 int check_draw_pixel_player(t_image *image, int n)
 {
 	if (n == 3)
-		return (check(image, image->playerSpeed, image->angle));
+		return (check(image, image->player_speed, image->angle));
 	if (n == 4)
-		return (check(image, -image->playerSpeed, image->angle));
+		return (check(image, -image->player_speed, image->angle));
 	if (n == 1)
-		return (check(image, image->playerSpeed, image->angle_right));
+		return (check(image, image->player_speed, image->angle_right));
 	if (n == 2)
-		return (check(image, image->playerSpeed, image->angle_left));
+		return (check(image, image->player_speed, image->angle_left));
 	return (1);
 }
 
@@ -71,12 +71,12 @@ void cursor_hook(double xpos, double ypos, void *param)
 	static double constXPos;
 
 	t_image *image = (t_image *)param;
-	if (image->allowedCursor == DISABLE || ypos > HEIGHT || ypos < 0)
+	if (image->allowed_cursor == DISABLE || ypos > HEIGHT || ypos < 0)
 		return;
 	if (xpos > 0 && xpos < constXPos)
-		image->angle -= image->angleSpeed;
+		image->angle -= image->angle_speed;
 	else if (xpos > constXPos && xpos < WIDTH)
-		image->angle += image->angleSpeed;
+		image->angle += image->angle_speed;
 	constXPos = xpos;
 }
 
@@ -101,18 +101,18 @@ t_image *initStruct(t_elements *elements, char **map)
 	image->angle = 0;
 	image->angle_right = 0;
 	image->angle_left = 0;
-	image->playerSpeed = 5;
-	image->angleSpeed = 3;
-	image->displayMiniMap = ENABLE;
-	image->allowedCursor = ENABLE;
-	image->verticalLength = map_size(map);
+	image->player_speed = 5;
+	image->angle_speed = 3;
+	image->display_mini_map = ENABLE;
+	image->allowed_cursor = ENABLE;
+	image->vertical_length = map_size(map);
 	image->map_image = get_texture("./assets/Subtract1.png");
-	image->mapInfo.north = get_texture((char *)getDataFromElements(elements, "NO"));
-	image->mapInfo.south = get_texture((char *)getDataFromElements(elements, "SO"));
-	image->mapInfo.east = get_texture((char *)getDataFromElements(elements, "EA"));
-	image->mapInfo.west = get_texture((char *)getDataFromElements(elements, "WE"));
-	image->mapInfo.ceilingColor = get_color(*(t_color *)getDataFromElements(elements, "C"));
-	image->mapInfo.floorColor = get_color(*(t_color *)getDataFromElements(elements, "F"));
+	image->map_info.north = get_texture((char *)get_data_from_elements(elements, "NO"));
+	image->map_info.south = get_texture((char *)get_data_from_elements(elements, "SO"));
+	image->map_info.east = get_texture((char *)get_data_from_elements(elements, "EA"));
+	image->map_info.west = get_texture((char *)get_data_from_elements(elements, "WE"));
+	image->map_info.ceiling_color = get_color(*(t_color *)get_data_from_elements(elements, "C"));
+	image->map_info.floor_color = get_color(*(t_color *)get_data_from_elements(elements, "F"));
 	return (image);
 }
 
@@ -140,8 +140,8 @@ void	getPlayerPosition(t_image *image)
 			{
 				image->xposition_p = (j * TILESIZE) + (TILESIZE / 2);
 				image->yposition_p = (i * TILESIZE) + (TILESIZE / 2);
-				image->xMap = (j * MINIMAPSIZE) + (MINIMAPSIZE / 2);
-				image->yMap = (i * MINIMAPSIZE) + (MINIMAPSIZE / 2);
+				image->x_map = (j * MINIMAPSIZE) + (MINIMAPSIZE / 2);
+				image->y_map = (i * MINIMAPSIZE) + (MINIMAPSIZE / 2);
 				if (*player == 'N')
 					image->angle = 270;
 				else if (*player == 'E')
@@ -174,15 +174,15 @@ void create_window(t_elements *elements, char **map)
 	image->map = map;
 	image->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", 0); // Initializes a new MLX42 Instance.
 	image->img = mlx_new_image(image->mlx, WIDTH, HEIGHT); //Creates and allocates a new image buffer for the Game Screen.
-	image->mapScreen = mlx_new_image(image->mlx, 220, 220); // Creates and allocates a new image buffer for the Mini Map.
+	image->map_screen = mlx_new_image(image->mlx, 220, 220); // Creates and allocates a new image buffer for the Mini Map.
 	getPlayerPosition(image); 
 	mlx_image_to_window(image->mlx, image->img, 0, 0); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
-	mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
+	mlx_image_to_window(image->mlx, image->map_screen, 0, HEIGHT - 220); // Draws a new instance of an image, it will then share the same pixel buffer as the image.
 	mlx_key_hook(image->mlx, &key_hook, image); // This function sets the key callback, which is called when a key is pressed on the keyboard. Useful for single keypress detection.
 	mlx_cursor_hook(image->mlx, &cursor_hook, image); // This function sets the cursor callback, which is called when the mouse position changes. Position is relative to the window.
 	mlx_loop_hook(image->mlx, draw_image, image); // Generic loop hook for any custom hooks to add to the main loop. Executes a function per frame, so be careful.
 	mlx_loop(image->mlx); // Initializes the rendering of MLX, this function won't return until mlx_close_window is called, meaning it will loop until the user requests that the window should close.
-	mlx_delete_image(image->mlx, image->mapScreen); // 
+	mlx_delete_image(image->mlx, image->map_screen); // 
 	mlx_delete_image(image->mlx, image->img); // 
 	mlx_terminate(image->mlx); // 
 	destroy_program(image); // 

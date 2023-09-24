@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:35:28 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 17:04:13 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:20:40 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@ void key_hook(mlx_key_data_t keydata, void *para)
 	a++;
 	if (keydata.key == MLX_KEY_M && a % 2)
 	{
-		if (image->displayMiniMap == ENABLE)
+		if (image->display_mini_map == ENABLE)
 		{
-			mlx_delete_image(image->mlx, image->mapScreen);
-			image->mapScreen = mlx_new_image(image->mlx, 220, 220);
-			mlx_image_to_window(image->mlx, image->mapScreen, 0, HEIGHT - 220);
+			mlx_delete_image(image->mlx, image->map_screen);
+			image->map_screen = mlx_new_image(image->mlx, 220, 220);
+			mlx_image_to_window(image->mlx, image->map_screen, 0, HEIGHT - 220);
 		}
 		else
 			drawDynamicMap(image);
-		image->displayMiniMap = !image->displayMiniMap;
+		image->display_mini_map = !image->display_mini_map;
 	}
 	if (keydata.key == MLX_KEY_C && a % 2)
-		image->allowedCursor = !image->allowedCursor;
-	if (keydata.key == 61 && a % 2 && image->playerSpeed < 10)
-		++image->playerSpeed;
-	if (keydata.key == 45 && a % 2 && image->playerSpeed > 3)
-		--image->playerSpeed;
-	if (keydata.key == MLX_KEY_G && a % 2)
-		display_gun(image, image->guns);
+		image->allowed_cursor = !image->allowed_cursor;
+	if (keydata.key == 61 && a % 2 && image->player_speed < 10)
+		++image->player_speed;
+	if (keydata.key == 45 && a % 2 && image->player_speed > 3)
+		--image->player_speed;
+	// if (keydata.key == MLX_KEY_G && a % 2)
+	// 	display_gun(image, image->guns);
 }

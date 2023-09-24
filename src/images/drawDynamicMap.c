@@ -11,7 +11,7 @@ void	draw_pixel(unsigned int color, t_image *image, int xx, int yy)
 		y = 0;
 		while (y <= MINIMAPSIZE)
 		{
-			mlx_put_pixel(image->mapScreen, (x + xx), (y + yy), color);
+			mlx_put_pixel(image->map_screen, (x + xx), (y + yy), color);
 			y++;
 		}
 		x++;
@@ -32,7 +32,7 @@ void    drawPlayer(t_image *image, double xPlayer, double yPlayer)
         {
             err = x * x + y * y - circleRay * circleRay;
             if (err <= 0)
-                mlx_put_pixel(image->mapScreen, xPlayer + x, yPlayer + y , 0xffffff);
+                mlx_put_pixel(image->map_screen, xPlayer + x, yPlayer + y , 0xffffff);
             y++;
         }
         x++;
@@ -44,22 +44,22 @@ void    drawPlayer(t_image *image, double xPlayer, double yPlayer)
 
 void	drawDynamicMap(t_image *image)
 {
-    float yStartMap = image->yMap - 100;
-    float yEndMap = image->yMap + 100;
-    float xEndMap = image->xMap + 100;
-    float xstart = image->xMap - 100;
+    float yStartMap = image->y_map - 100;
+    float yEndMap = image->y_map + 100;
+    float xEndMap = image->x_map + 100;
+    float xstart = image->x_map - 100;
     float ystart = yStartMap;
     unsigned long south_color;
     unsigned long west_color;
-    if (image->mapInfo.south->height / 2 - 1 < 0 || image->mapInfo.north->height / 2 - 1 < 0)
+    if (image->map_info.south->height / 2 - 1 < 0 || image->map_info.north->height / 2 - 1 < 0)
     {
         south_color = 0xff0ff0;
         west_color = 0xAAABBB;
     }
     else
     {
-        south_color = get_color(image->mapInfo.south->pixels[image->mapInfo.south->height / 2 - 1][image->mapInfo.south->width / 2 - 1]);
-        west_color = get_color(image->mapInfo.west->pixels[image->mapInfo.north->height / 2 - 1][image->mapInfo.west->width / 2 - 1]);
+        south_color = get_color(image->map_info.south->pixels[image->map_info.south->height / 2 - 1][image->map_info.south->width / 2 - 1]);
+        west_color = get_color(image->map_info.west->pixels[image->map_info.north->height / 2 - 1][image->map_info.west->width / 2 - 1]);
         if (west_color == south_color)
             west_color += 1000;
     }
@@ -72,7 +72,7 @@ void	drawDynamicMap(t_image *image)
             float xTmp = xStartMap - xstart;
             float yTmp = yStartMap - ystart;
             unsigned int j = (xStartMap - (MINIMAPSIZE / 2)) / MINIMAPSIZE;
-            if (i < (unsigned int)image->verticalLength && j < (unsigned int)ft_strlen(image->map[i]))
+            if (i < (unsigned int)image->vertical_length && j < (unsigned int)ft_strlen(image->map[i]))
             {
                 if (image->map[i][j] == '1')
                     draw_pixel(west_color, image, xTmp, yTmp);
@@ -104,9 +104,9 @@ void	drawDynamicMap(t_image *image)
         {
             err = x * x + y * y - circleRay * circleRay;
             if (err > 0)
-                mlx_put_pixel(image->mapScreen, circleRay + x + border, circleRay + y + border , 0);
+                mlx_put_pixel(image->map_screen, circleRay + x + border, circleRay + y + border , 0);
             else if (err > -200 && err <= 0)
-                mlx_put_pixel(image->mapScreen, circleRay + x + border, circleRay + y + border, 0xffffff);
+                mlx_put_pixel(image->map_screen, circleRay + x + border, circleRay + y + border, 0xffffff);
             y++;
         }
         if (t < 210)

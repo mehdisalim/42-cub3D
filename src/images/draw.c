@@ -6,7 +6,7 @@
 /*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:26:24 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/24 17:05:19 by esekouni         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:28:24 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,25 @@ void	check_distance(t_image *image, int i, float distance_h,
 		image->position = image->yverticale
 			- (int)((int)((int)image->yverticale / TILESIZE) *TILESIZE);
 		if (image->vx == -1)
-			draw_3D(image, distance_v, i, image->mapInfo.west->width
-				- (image->position * (image->mapInfo.west->width / TILESIZE))
-				- 1, image->mapInfo.west);
+			draw_3d(image, distance_v, i, image->map_info.west->width
+				- (image->position * (image->map_info.west->width / TILESIZE))
+				- 1, image->map_info.west);
 		else
-			draw_3D(image, distance_v, i, image->position
-				* (image->mapInfo.east->width / TILESIZE), image->mapInfo.east);
+			draw_3d(image, distance_v, i, image->position * (\
+				image->map_info.east->width / TILESIZE), image->map_info.east);
 	}
 	else
 	{
 		image->position = image->xhorizontal
 			- ((int)((int)image->xhorizontal / TILESIZE) *TILESIZE);
 		if (image->vy == -1)
-			draw_3D(image, distance_h, i, image->position
-				* (image->mapInfo.north->width / TILESIZE),
-				image->mapInfo.north);
+			draw_3d(image, distance_h, i, image->position
+				* (image->map_info.north->width / TILESIZE),
+				image->map_info.north);
 		else
-			draw_3D(image, distance_h, i, image->mapInfo.south->width
-				- (image->position * (image->mapInfo.south->width / TILESIZE))
-				- 1, image->mapInfo.south);
+			draw_3d(image, distance_h, i, image->map_info.south->width
+				- (image->position * (image->map_info.south->width / TILESIZE))
+				- 1, image->map_info.south);
 	}
 }
 
@@ -94,9 +94,9 @@ void	check_key(t_image *image)
 	if (mlx_is_key_down(image->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(image->mlx);
 	if (mlx_is_key_down(image->mlx, MLX_KEY_LEFT))
-		image->angle -= image->angleSpeed;
+		image->angle -= image->angle_speed;
 	if (mlx_is_key_down(image->mlx, MLX_KEY_RIGHT))
-		image->angle += image->angleSpeed;
+		image->angle += image->angle_speed;
 }
 
 void	draw_image(void *img)
@@ -109,14 +109,14 @@ void	draw_image(void *img)
 	image = (t_image *)img;
 	angle(image);
 	check_key(image);
-	if (oldxplayer != image->xMap || oldyplayer != image->yMap
+	if (oldxplayer != image->x_map || oldyplayer != image->y_map
 		|| oldangle != image->angle)
 	{
 		draw_pixel_player(image);
-		if (image->displayMiniMap == ENABLE)
+		if (image->display_mini_map == ENABLE)
 			drawDynamicMap(image);
-		oldxplayer = image->xMap;
-		oldyplayer = image->yMap;
+		oldxplayer = image->x_map;
+		oldyplayer = image->y_map;
 		oldangle = image->angle;
 	}
 }

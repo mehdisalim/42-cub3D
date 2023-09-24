@@ -6,11 +6,39 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:36:00 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/18 11:38:08 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 16:48:48 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+/**
+ * @brief Get the elements and map length.
+ * 
+ * @param map map contains.
+ * @param i_elem index of elements.
+ * @param i_map  index of map.
+ */
+void	get_elements_and_map_len(char **map, int *i_elem, int *i_map)
+{
+	char	*tmp;
+	int		i;
+
+	*i_elem = 0;
+	*i_map = 0;
+	i = -1;
+	while (map[++i])
+	{
+		tmp = ft_strtrim(map[i], "  ");
+		if (tmp && (!ft_strncmp(tmp, "NO ", 3) || !ft_strncmp(tmp, "SO ", 3) \
+			|| !ft_strncmp(tmp, "WE ", 3) || !ft_strncmp(tmp, "EA ", 3) \
+			|| !ft_strncmp(tmp, "F ", 2) || !ft_strncmp(tmp, "C ", 2)))
+			(*i_elem)++;
+		else
+			(*i_map)++;
+		free(tmp);
+	}
+}
 
 size_t	get_map_size(char *map_name)
 {
@@ -59,4 +87,3 @@ int	map_size(char **map)
 		i++;
 	return (i);
 }
-

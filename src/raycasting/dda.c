@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: esekouni <esekouni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 12:57:12 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/20 13:10:25 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/24 17:32:33 by esekouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,23 @@ int abs(int n)
 	return (n);
 }
  
-void	DDA(int X0, int Y0, int X1, int Y1, t_image  *image)
+void	DDA(int x0, int y0, int x1, int y1, t_image  *image)
 {
-    int dx = X1 - X0;
-    int dy = Y1 - Y0;
-    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
-    float Xinc = dx / (float)steps;
-    float Yinc = dy / (float)steps;
-    float X = X0;
-    float Y = Y0;
+	int dx = x1 - x0;
+	int dy = y1 - y0;
+	int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+	float Xinc = dx / (float)steps;
+	float Yinc = dy / (float)steps;
+	float x = x0;
+	float y = y0;
 	int i = 0;
 	while (i <= steps)
 	{
-		if (X < 0 || X >= WIDTH || Y < 0 || Y >= HEIGHT)
+		if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			break;
-		mlx_put_pixel(image->mapScreen, X, Y, 0xFF0000FF);
-        X += Xinc;
-        Y += Yinc;
+		mlx_put_pixel(image->map_screen, x, y, 0xFF0000FF);
+		x += Xinc;
+		y += Yinc;
 		i++; 
 	}
 }
