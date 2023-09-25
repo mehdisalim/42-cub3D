@@ -1,10 +1,10 @@
 F  65,56,49
     NO ./assets/1.png
-    SO ./assets/1.png
+    SO ./assets/2.png
 
 
-WE ./assets/2.png 
-EA ./assets/2.png
+WE ./assets/3.png 
+EA ./assets/4.png
 C  100,91,90
 
 
