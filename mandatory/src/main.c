@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:22:00 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/25 10:28:16 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/25 11:13:26 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @return int 
  */
 
-int	main2(int ac, char **av)
+int	main2(char **av)
 {
 	char		**map_elements;
 	char		**map;
@@ -29,8 +29,6 @@ int	main2(int ac, char **av)
 	char		checker;
 
 	checker = 0;
-	if (ac < 2)
-		return (ft_putstr_fd("bad args\n", 2), 1);
 	if (ft_strlen(av[1]) < 4 \
 			|| ft_strncmp(av[1] + (ft_strlen(av[1]) - 4), ".cub", 4))
 		return (ft_putstr_fd("File Name Error\n", 2), 0);
@@ -59,12 +57,13 @@ int	main2(int ac, char **av)
  */
 int	main(int argc, char **argv)
 {
+	if (argc < 2)
+		return (ft_putstr_fd("bad args\n", 2), 1);
 	if (WIDTH < 700 || HEIGHT < 700)
 	{
 		ft_putendl_fd("Error: Resolution of Windows is small.", 2);
 		return (1);
 	}
-	main2(argc, argv);
-	system("leaks -q cub3D");
+	main2(argv);
 	return (0);
 }
