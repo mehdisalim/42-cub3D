@@ -6,11 +6,13 @@
 #    By: esalim <esalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 11:42:51 by esalim            #+#    #+#              #
-#    Updated: 2023/09/25 10:47:17 by esalim           ###   ########.fr        #
+#    Updated: 2023/09/26 20:54:22 by esalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub3D
+
+NAMEB	=	cub3D_bonus
 
 CC		=	cc
 
@@ -67,9 +69,11 @@ framework = -framework Cocoa -framework OpenGL -framework IOKit -lglfw -L"$(GLFW
 
 all		:	$(NAME)
 
-bonus	:	$(OBJS_BONUS)
+bonus	:	$(NAMEB)
+
+$(NAMEB)	:	$(OBJS_BONUS)
 	make -C libft
-	$(CC) $(CFLAGS) libft/libft.a $^ -o $(NAME) $(framework)
+	$(CC) $(CFLAGS) libft/libft.a $^ -o $(NAMEB) $(framework)
 
 $(NAME)	:	$(OBJS)
 	make -C libft
@@ -84,6 +88,6 @@ clean	:
 
 fclean	:	clean
 	make -C libft fclean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(NAMEB)
 
 re		:	fclean	all	
