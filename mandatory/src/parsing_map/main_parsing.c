@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:21:59 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/25 10:36:15 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/26 20:45:32 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ void	separate_map(char **map, char ***elements_part, char ***map_part)
 		if (tmp && (!ft_strncmp(tmp, "NO ", 3) || !ft_strncmp(tmp, "SO ", 3) \
 			|| !ft_strncmp(tmp, "WE ", 3) || !ft_strncmp(tmp, "EA ", 3) \
 			|| !ft_strncmp(tmp, "F ", 2) || !ft_strncmp(tmp, "C ", 2)))
-			elements_part[0][i_elem++] = ft_strdup(map[i]);
-		else
-			map_part[0][i_map++] = ft_strdup(map[i]);
+			elements_part[0][i_elem++] = ft_strdup(tmp);
+		if (tmp && tmp[0] == '1')
+			break ;
 		free(tmp);
 	}
+	while (map[i])
+		map_part[0][i_map++] = ft_strdup(map[i++]);
 	free_double_pointer(map);
 }
 
