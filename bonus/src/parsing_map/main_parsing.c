@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 12:21:59 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/26 20:45:42 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/27 22:30:39 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ void	separate_map(char **map, char ***elements_part, char ***map_part)
 	int		i;
 	char	*tmp;
 
-	get_elements_and_map_len(map, &i_elem, &i_map);
-	*elements_part = ft_calloc(i_elem + 1, sizeof(char *));
-	*map_part = ft_calloc(i_map + 1, sizeof(char *));
 	i = -1;
 	i_elem = 0;
 	i_map = 0;
@@ -80,7 +77,10 @@ void	separate_map(char **map, char ***elements_part, char ***map_part)
 			|| !ft_strncmp(tmp, "F ", 2) || !ft_strncmp(tmp, "C ", 2)))
 			elements_part[0][i_elem++] = ft_strdup(tmp);
 		if (tmp && tmp[0] == '1')
+		{
+			free(tmp);
 			break ;
+		}
 		free(tmp);
 	}
 	while (map[i])
@@ -121,12 +121,17 @@ char	**trim_elements(char **elements)
 char	check_map(char *map_name, char ***elements, char ***map, char *checker)
 {
 	char	**map_content;
+	size_t	i_elem;
+	size_t	i_map;
 
 	if (!map_name)
 		return (0);
 	map_content = get_map_content(map_name, checker);
 	if (!map_content || *checker)
 		return (0);
+	get_elements_and_map_len(map_content, &i_elem, &i_map);
+	*elements = ft_calloc(i_elem + 1, sizeof(char *));
+	*map = ft_calloc(i_map + 1, sizeof(char *));
 	separate_map(map_content, elements, map);
 	remove_newlines(*elements);
 	*elements = trim_elements(*elements);
