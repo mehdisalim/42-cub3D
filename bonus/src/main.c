@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:22:00 by esalim            #+#    #+#             */
-/*   Updated: 2023/09/27 22:22:33 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:47:50 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,5 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	main2(argv);
-	system("leaks -q cub3D_bonus");
 	return (0);
 }

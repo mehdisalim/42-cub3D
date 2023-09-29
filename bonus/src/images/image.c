@@ -6,7 +6,7 @@
 /*   By: esalim <esalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 12:31:51 by esekouni          #+#    #+#             */
-/*   Updated: 2023/09/25 10:13:07 by esalim           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:48:00 by esalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	get_player_position_2(t_image *image)
 			else if (*player == 'E')
 				image->angle = 0;
 			else if (*player == 'S')
-				image->angle = 180;
-			else if (*player == 'W')
 				image->angle = 90;
+			else if (*player == 'W')
+				image->angle = 180;
 			hasentered = 1;
 		}
 	}
